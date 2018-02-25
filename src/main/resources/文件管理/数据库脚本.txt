@@ -1,0 +1,112 @@
+GO
+
+/****** Object:  Table [dbo].[tb_new_info]    Script Date: 2018/2/8 17:44:37 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[tb_new_info](
+	[new_id] [bigint] IDENTITY(1,1) NOT NULL,
+	[new_name] [varchar](300) NOT NULL,
+	[new_content] [varchar](max) NOT NULL,
+	[new_content_bak] [varchar](max) NOT NULL,
+	[create_time] [date] NOT NULL,
+	[update_time] [date] NOT NULL,
+	[last_time] [datetime] NOT NULL,
+ CONSTRAINT [PK_tb_new_info] PRIMARY KEY CLUSTERED 
+(
+	[new_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+
+
+
+
+
+GO
+
+/****** Object:  Table [dbo].[tb_user_login]    Script Date: 2018/2/8 17:46:04 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[tb_user_login](
+	[user_id] [bigint] IDENTITY(1,1) NOT NULL,
+	[user_name] [varchar](100) NOT NULL,
+	[user_password] [varchar](100) NOT NULL,
+	[user_real_name] [varchar](100) NOT NULL,
+	[user_phone] [varchar](50) NOT NULL,
+	[login_status] [tinyint] NOT NULL,
+	[is_valid] [varchar](10) NOT NULL,
+	[create_time] [date] NOT NULL,
+	[last_time] [datetime] NULL,
+ CONSTRAINT [PK_tb_user_login] PRIMARY KEY CLUSTERED 
+(
+	[user_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
+
+ALTER TABLE [dbo].[tb_user_login] ADD  CONSTRAINT [DF_tb_user_login_login_status]  DEFAULT ((1)) FOR [login_status]
+GO
+
+ALTER TABLE [dbo].[tb_user_login] ADD  CONSTRAINT [DF_tb_user_login_is_valid]  DEFAULT ('Y') FOR [is_valid]
+GO
+
+
+
+
+
+
+
+
+
+GO
+
+/****** Object:  Table [dbo].[tb_user_login_his]    Script Date: 2018/2/8 17:46:15 ******/
+SET ANSI_NULLS ON
+GO
+
+SET QUOTED_IDENTIFIER ON
+GO
+
+SET ANSI_PADDING ON
+GO
+
+CREATE TABLE [dbo].[tb_user_login_his](
+	[his_id] [bigint] IDENTITY(1,1) NOT NULL,
+	[user_id] [bigint] NOT NULL,
+	[login_time] [date] NOT NULL,
+	[login_remark] [varchar](200) NULL,
+	[out_login_time] [date] NOT NULL,
+	[last_time] [datetime] NOT NULL,
+ CONSTRAINT [PK_tb_user_login_his] PRIMARY KEY CLUSTERED 
+(
+	[his_id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+SET ANSI_PADDING OFF
+GO
