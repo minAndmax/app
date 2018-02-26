@@ -3,3 +3,16 @@
 ===2018-02-26 11:16:34.526 [http-nio-8080-exec-3] INFO  com.army.service.user.impl.UserLoginServiceImpl Line:39 -执行了 userLogin: {"failTip":"登录失败，用户名或密码错误","loginStatus":0}
 ===2018-02-26 11:16:54.078 [http-nio-8080-exec-7] INFO  com.army.service.user.impl.UserLoginServiceImpl Line:39 -执行了 userLogin: {"failTip":"登录成功","userName":"admin","loginStatus":1}
 ===2018-02-26 11:22:40.759 [http-nio-8080-exec-8] INFO  com.army.service.user.impl.UserLoginServiceImpl Line:39 -执行了 userLogin: {"loginTip":"登录成功","userName":"admin","loginStatus":1}
+===2018-02-26 14:48:11.101 [http-nio-8080-exec-3] INFO  com.army.service.user.impl.UserLoginServiceImpl Line:39 -执行了 userLogin: {"loginTip":"登录成功","userName":"admin","loginStatus":1}
+===2018-02-26 14:48:16.291 [http-nio-8080-exec-1] INFO  com.army.service.user.impl.UserLoginServiceImpl Line:39 -执行了 userLogin: {"loginTip":"登录成功","userName":"admin","loginStatus":1}
+===2018-02-26 15:14:49.941 [http-nio-8080-exec-4] INFO  com.army.service.user.impl.UserLoginServiceImpl Line:39 -执行了 userLogin: {"loginTip":"登录成功","userName":"admin","loginStatus":1}
+===2018-02-26 15:15:46.246 [http-nio-8080-exec-6] INFO  com.army.service.user.impl.UserLoginServiceImpl Line:39 -执行了 userLogin: {"loginTip":"登录成功","userName":"admin","loginStatus":1}
+===2018-02-26 15:16:44.159 [http-nio-8080-exec-7] INFO  com.army.service.user.impl.UserLoginServiceImpl Line:39 -执行了 userLogin: {"loginTip":"登录成功","userName":"admin","loginStatus":1}
+===2018-02-26 15:19:37.466 [http-nio-8080-exec-2] INFO  com.army.service.user.impl.UserLoginServiceImpl Line:39 -执行了 userLogin: {"loginTip":"登录成功","userName":"admin","loginStatus":1}
+===2018-02-26 15:21:05.169 [http-nio-8080-exec-2] INFO  com.army.service.user.impl.UserLoginServiceImpl Line:39 -执行了 userLogin: {"loginTip":"登录成功","userName":"admin","loginStatus":1}
+===2018-02-26 15:21:49.069 [http-nio-8080-exec-3] INFO  com.army.service.user.impl.UserLoginServiceImpl Line:39 -执行了 userLogin: {"loginTip":"登录成功","userName":"admin","loginStatus":1}
+===2018-02-26 15:24:42.542 [http-nio-8080-exec-7] INFO  com.army.service.user.impl.UserLoginServiceImpl Line:39 -执行了 userLogin: {"loginTip":"登录成功","userName":"admin","loginStatus":1}
+===2018-02-26 15:25:51.940 [http-nio-8080-exec-5] INFO  com.army.service.user.impl.UserLoginServiceImpl Line:39 -执行了 userLogin: {"loginTip":"登录成功","userName":"admin","loginStatus":1}
+===2018-02-26 15:27:55.130 [http-nio-8080-exec-8] INFO  com.army.service.user.impl.UserLoginServiceImpl Line:39 -执行了 userLogin: {"loginTip":"登录成功","userName":"admin","loginStatus":1}
+===2018-02-26 15:33:53.558 [http-nio-8080-exec-7] INFO  com.army.service.user.impl.UserLoginServiceImpl Line:39 -执行了 userLogin: {"loginTip":"登录成功","userName":"admin","loginStatus":1}
+===2018-02-26 15:37:14.407 [http-nio-8080-exec-2] INFO  com.army.service.user.impl.UserLoginServiceImpl Line:39 -执行了 userLogin: {"loginTip":"登录成功","userName":"admin","loginStatus":1}

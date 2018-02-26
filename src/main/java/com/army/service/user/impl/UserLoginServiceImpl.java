@@ -33,7 +33,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 			obj.put("loginStatus", StatusEnum.FAIL.getNum()); // 0表示登录失败
 		} else {
 			obj.put("userName", user.getUserName());
-			obj.put("loginTip", "登录成功");
+			obj.put("loginTip", "登录成功"); 
 			obj.put("loginStatus", StatusEnum.SSUCCESS.getNum());
 		}
 		log.info("执行了 userLogin: " + obj);

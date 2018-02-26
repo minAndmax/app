@@ -1,14 +1,14 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<script type="text/javascript" src="../source/js/jquery-2.1.1.js"></script>
-<title>用户登录</title>
 
+<!DOCTYPE html>
+<html class="no-js">
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>用户注册</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Template by FreeHTML5.co" />
 	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
-	
+
 	<meta property="og:title" content=""/>
 	<meta property="og:image" content=""/>
 	<meta property="og:url" content=""/>
@@ -27,7 +27,6 @@
 	<link rel="stylesheet" href="../source/css/animate.css">
 	<link rel="stylesheet" href="../source/css/style-1.css">
 
-
 	<script src="../source/js/modernizr-2.6.2.min.js"></script>
 
 	</head>
@@ -36,25 +35,37 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-4">
-					
+
 					<form action="#" class="fh5co-form animate-box" data-animate-effect="fadeInLeft">
-						<h2>登录</h2>
+						<h2>注册</h2>
 						<div class="form-group">
-							<label for="username" class="sr-only">用户名</label>
-							<input type="text" class="form-control" id="username" placeholder="Username" autocomplete="off">
+							<div class="alert alert-success" role="alert">信息填写</div>
+						</div>
+						<div class="form-group">
+							<label for="name" class="sr-only">姓名</label>
+							<input type="text" class="form-control" id="name" placeholder="姓名" autocomplete="off">
+						</div>
+						<div class="form-group">
+							<label for="name" class="sr-only">电话</label>
+							<input type="text" class="form-control" id="phone" placeholder="电话" autocomplete="off">
+						</div>
+						<div class="form-group">
+							<label for="email" class="sr-only">邮箱</label>
+							<input type="email" class="form-control" id="email" placeholder="邮箱" autocomplete="off">
 						</div>
 						<div class="form-group">
 							<label for="password" class="sr-only">密码</label>
-							<input type="password" class="form-control" id="password" placeholder="Password" autocomplete="off">
+							<input type="password" class="form-control" id="password" placeholder="密码" autocomplete="off">
 						</div>
 						<div class="form-group">
-							<label for="remember"><input type="checkbox" id="remember">记住我</label>
+							<label for="re-password" class="sr-only">确认密码</label>
+							<input type="password" class="form-control" id="re-password" placeholder="确认密码" autocomplete="off">
 						</div>
 						<div class="form-group">
-							<p>尚未注册? <a href="sign-up.html">注册</a> | <a href="forgotpassword.html">忘记密码?</a></p>
+							<p>已经注册? <a href="login.html">登录</a></p>
 						</div>
 						<div class="form-group">
-							<input type="button" id="button" value="登录" class="btn btn-primary">
+							<input type="submit" value="注册" class="btn btn-primary">
 						</div>
 					</form>
 
@@ -65,32 +76,12 @@
 			</div>
 		</div>
 	
+	<script src="../source/js/jquery.min.js"></script>
 	<script src="../source/js/bootstrap.min.js"></script>
 	<script src="../source/js/jquery.placeholder.min.js"></script>
 	<script src="../source/js/jquery.waypoints.min.js"></script>
 	<script src="../source/js/main.js"></script>
+
 	</body>
-	
-	<script type="text/javascript">
-	
-	       $("#button").click(function(){
-	    	   var unm = $("#username").val();
-	    	   var pwd = $("#password").val();
-	    	   
-	    	   $.post("user/login",
-	    			  {"userName" : unm,
-	    		   	   "userPassword" : pwd},
-	    			  function(data){
-	    		   		if(data.loginStatus == 1){
-	    		   			window.location.href = "index.html";
-	    		   		} else{
-	    		   			alert(data.loginTip);
-	    		   		}
-	    	   });
-	       });
-	
-	</script>
-	
-	
 </html>
 
