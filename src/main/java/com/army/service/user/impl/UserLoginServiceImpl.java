@@ -29,14 +29,14 @@ public class UserLoginServiceImpl implements UserLoginService {
 		UserLogin user = userLoginMapper.userLogin(userLogin);
 
 		if (user == null) {
-			obj.put("failTip", "登录失败，用户名或密码错误");
+			obj.put("loginTip", "登录失败，用户名或密码错误");
 			obj.put("loginStatus", StatusEnum.FAIL.getNum()); // 0表示登录失败
 		} else {
 			obj.put("userName", user.getUserName());
+			obj.put("loginTip", "登录成功");
 			obj.put("loginStatus", StatusEnum.SSUCCESS.getNum());
 		}
 		log.info("执行了 userLogin: " + obj);
-
 		return obj;
 	}
 
@@ -51,6 +51,8 @@ public class UserLoginServiceImpl implements UserLoginService {
 			obj.put("userRegist", StatusEnum.FAIL.getNum());
 			obj.put("registTip", "用户名已存在，请重新输入");
 
+			log.info("执行了 userRegist,用户注册:注册失败，用户名已存在");
+
 		} else {
 
 			userLogin.setUserPassword(MD5Util.getMD5(userLogin.getUserPassword()));
@@ -60,10 +62,9 @@ public class UserLoginServiceImpl implements UserLoginService {
 			obj.put("userRegist", StatusEnum.SSUCCESS.getNum());
 			obj.put("registTip", "用户注册成功");
 
+			log.info("执行了 userRegist,用户注册:注册成功");
 		}
 
-		log.info("执行了 userRegist,用户注册:" + obj);
-		
 		return obj;
 	}
 
