@@ -23,7 +23,7 @@ public class IPAdressInterceptor implements HandlerInterceptor {
         String ip = request.getRemoteHost();
 		System.out.println(ip);
         
-		return false;
+		return true;
 	}
 	
 	
