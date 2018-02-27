@@ -11,7 +11,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <link href='https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900' rel='stylesheet' type='text/css'>
 <script src="../source/js/jquery.min.js"></script>
-<link rel="shortcut icon" href="../source/images/favicon.ico" type="image/x-icon"> 
+<link rel="shortcut icon" href="../source/images/favicon.ico" type="image/x-icon">
+
+
+<style type="text/css">
+#goTop{position:absolute;display:none;width:50px;height:48px;background:#fff url(http://files.jb51.net/file_images/article/201601/gotop.png) no-repeat 16px 15px;border:solid 1px #f9f9f8;border-radius:6px;box-shadow:0 1px 1px rgba(0, 0, 0, 0.2);cursor:pointer}
+#goTop:hover{height:50px;background-position:16px 16px;box-shadow:0 1px 1px rgba(0, 0, 0, 0.3)}
+</style> 
 </head>
 <body>
 <!-- header -->
@@ -92,7 +98,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- feature -->
 <div class="feature">
 	<div class="col-md-8 feature-left">
-	    <a href="Blog.html"><h3 id="politicalNews">政事要闻</h3></a>
+	    <a href="blog.html"><h3 id="politicalNews">政事要闻</h3></a>
 		<iframe src="https://player.vimeo.com/video/70957165?color=6c6e95&title=0&byline=0" width="100%" height="366" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 		<h2>潘多拉音乐盒</h2>
 		<p>潘多拉音乐盒潘多拉音乐盒潘多拉音乐盒潘多拉音乐盒潘多拉音乐盒潘多拉音乐盒潘多拉音乐盒潘多拉音乐盒</p>
@@ -112,12 +118,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="clearfix"> </div>
 </div>	
 <!-- feature -->
+	
 <!-- popular -->
 <div class="popular">
 	<div class="col-md-8 popular-left">
 		<div class="twe-top">
 			<div class="twe">
-                <a href="Blog.html"><h3 id="militaryDemeanor">军人风采</h3></a>
+                <a href="blog.html"><h3 id="militaryDemeanor">军人风采</h3></a>
 			</div>
 			<div class="twe-le">
 			<ul>
@@ -271,7 +278,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- downlod -->
 </div>
 <!-- popular -->	
-
 	<!-- footer -->
 		<div class="footer">
 			<div class="container">
@@ -312,7 +318,26 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="clearfix"> </div>
 			</div>
 		</div>
+		
 	</div>
+    <div id="goTop" class="goTop"></div>
 	<!-- footer -->
 </html>
+<script type="text/javascript">
+    $(window).scroll(function(){
+        var sc=$(window).scrollTop();
+        var rwidth=$(window).width()+$(document).scrollLeft();
+        var rheight=$(window).height()+$(document).scrollTop();
+        if(sc>0){
+            $("#goTop").css("display","block");
+            $("#goTop").css("left",(rwidth-80)+"px");
+            $("#goTop").css("top",(rheight-120)+"px");
+        }else{
+            $("#goTop").css("display","none");
+        }
+    });
+    $("#goTop").click(function(){
+        $('body,html').animate({scrollTop:0},300);
+    });
+</script>
 </body>
