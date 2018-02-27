@@ -41,11 +41,11 @@
 						<h2>登录</h2>
 						<div class="form-group">
 							<label for="username" class="sr-only">用户名</label>
-							<input type="text" class="form-control" id="username" placeholder="Username" autocomplete="off">
+							<input type="text" class="form-control" id="username" placeholder="用户名" autocomplete="off">
 						</div>
 						<div class="form-group">
 							<label for="password" class="sr-only">密码</label>
-							<input type="password" class="form-control" id="password" placeholder="Password" autocomplete="off">
+							<input type="password" class="form-control" id="password" placeholder="密码" autocomplete="off">
 						</div>
 						<div class="form-group">
 							<label for="remember"><input type="checkbox" id="remember">记住我</label>
@@ -77,7 +77,7 @@
 	    	   var unm = $("#username").val();
 	    	   var pwd = $("#password").val();
 	    	   
-	    	   $.post("user/login",
+	    	   $.post("data/login",
 	    			  {"userName" : unm,
 	    		   	   "userPassword" : pwd},
 	    			  function(data){
