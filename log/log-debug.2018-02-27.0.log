@@ -1,0 +1,24 @@
+===2018-02-27 11:36:00.293 [http-nio-8080-exec-1] DEBUG com.army.dao.UserLoginMapper.userLogin Line:159-==>  Preparing: SELECT user_name AS userName, login_status AS loginStatus FROM tb_user_login WHERE user_name=? AND user_password=? 
+===2018-02-27 11:36:00.331 [http-nio-8080-exec-1] DEBUG com.army.dao.UserLoginMapper.userLogin Line:159-==> Parameters: admin(String), 81DC9BDB52D04DC20036DBD8313ED055(String)
+===2018-02-27 11:36:00.509 [http-nio-8080-exec-1] DEBUG com.army.dao.UserLoginMapper.userLogin Line:159-<==      Total: 1
+===2018-02-27 11:36:58.206 [http-nio-8080-exec-1] DEBUG com.army.dao.UserLoginMapper.userLogin Line:159-==>  Preparing: SELECT user_name AS userName, login_status AS loginStatus FROM tb_user_login WHERE user_name=? AND user_password=? 
+===2018-02-27 11:36:58.207 [http-nio-8080-exec-1] DEBUG com.army.dao.UserLoginMapper.userLogin Line:159-==> Parameters: admin(String), 81DC9BDB52D04DC20036DBD8313ED055(String)
+===2018-02-27 11:36:58.212 [http-nio-8080-exec-1] DEBUG com.army.dao.UserLoginMapper.userLogin Line:159-<==      Total: 1
+===2018-02-27 11:39:04.104 [http-nio-8080-exec-4] DEBUG com.army.dao.UserLoginMapper.userLogin Line:159-==>  Preparing: SELECT user_name AS userName, login_status AS loginStatus FROM tb_user_login WHERE user_name=? AND user_password=? 
+===2018-02-27 11:39:04.142 [http-nio-8080-exec-4] DEBUG com.army.dao.UserLoginMapper.userLogin Line:159-==> Parameters: admin(String), 81DC9BDB52D04DC20036DBD8313ED055(String)
+===2018-02-27 11:39:04.220 [http-nio-8080-exec-4] DEBUG com.army.dao.UserLoginMapper.userLogin Line:159-<==      Total: 1
+===2018-02-27 11:40:30.664 [http-nio-8080-exec-4] DEBUG com.army.dao.UserLoginMapper.userLogin Line:159-==>  Preparing: SELECT user_name AS userName, login_status AS loginStatus FROM tb_user_login WHERE user_name=? AND user_password=? 
+===2018-02-27 11:40:30.668 [http-nio-8080-exec-4] DEBUG com.army.dao.UserLoginMapper.userLogin Line:159-==> Parameters: admin(String), F190CE9AC8445D249747CAB7BE43F7D5(String)
+===2018-02-27 11:40:30.677 [http-nio-8080-exec-4] DEBUG com.army.dao.UserLoginMapper.userLogin Line:159-<==      Total: 0
+===2018-02-27 11:45:36.344 [http-nio-8080-exec-1] DEBUG com.army.dao.UserLoginMapper.findUserLoginByUserName Line:159-==>  Preparing: SELECT user_name AS userName, user_id AS userId FROM tb_user_login WHERE user_name=? 
+===2018-02-27 11:45:36.381 [http-nio-8080-exec-1] DEBUG com.army.dao.UserLoginMapper.findUserLoginByUserName Line:159-==> Parameters: null
+===2018-02-27 11:45:36.487 [http-nio-8080-exec-1] DEBUG com.army.dao.UserLoginMapper.findUserLoginByUserName Line:159-<==      Total: 0
+===2018-02-27 12:00:15.128 [http-nio-8080-exec-2] DEBUG com.army.dao.UserLoginMapper.userLogin Line:159-==>  Preparing: SELECT user_name AS userName, login_status AS loginStatus FROM tb_user_login WHERE user_name=? AND user_password=? 
+===2018-02-27 12:00:15.173 [http-nio-8080-exec-2] DEBUG com.army.dao.UserLoginMapper.userLogin Line:159-==> Parameters: admin(String), 81DC9BDB52D04DC20036DBD8313ED055(String)
+===2018-02-27 12:00:15.239 [http-nio-8080-exec-2] DEBUG com.army.dao.UserLoginMapper.userLogin Line:159-<==      Total: 1
+===2018-02-27 13:39:43.640 [http-nio-8080-exec-3] DEBUG com.army.dao.UserLoginMapper.userLogin Line:159-==>  Preparing: SELECT user_name AS userName, login_status AS loginStatus FROM tb_user_login WHERE user_name=? AND user_password=? 
+===2018-02-27 13:39:43.677 [http-nio-8080-exec-3] DEBUG com.army.dao.UserLoginMapper.userLogin Line:159-==> Parameters: admin(String), 81DC9BDB52D04DC20036DBD8313ED055(String)
+===2018-02-27 13:39:43.735 [http-nio-8080-exec-3] DEBUG com.army.dao.UserLoginMapper.userLogin Line:159-<==      Total: 1
+===2018-02-27 16:13:06.044 [http-nio-8080-exec-3] DEBUG com.army.dao.UserLoginMapper.userLogin Line:159-==>  Preparing: SELECT user_name AS userName, login_status AS loginStatus FROM tb_user_login WHERE user_name=? AND user_password=? 
+===2018-02-27 16:13:06.085 [http-nio-8080-exec-3] DEBUG com.army.dao.UserLoginMapper.userLogin Line:159-==> Parameters: admin(String), 81DC9BDB52D04DC20036DBD8313ED055(String)
+===2018-02-27 16:13:06.199 [http-nio-8080-exec-3] DEBUG com.army.dao.UserLoginMapper.userLogin Line:159-<==      Total: 1
