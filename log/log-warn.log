@@ -1,2 +1,0 @@
-===2018-02-27 11:44:09.901 [http-nio-8080-exec-7] WARN  org.springframework.web.servlet.PageNotFound Line:210-Request method 'GET' not supported
-===2018-02-27 11:44:47.549 [http-nio-8080-exec-5] WARN  org.springframework.web.servlet.PageNotFound Line:210-Request method 'GET' not supported
