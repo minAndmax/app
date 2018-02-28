@@ -8,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.alibaba.fastjson.JSONArray;
@@ -93,7 +92,7 @@ public class NewsServiceImpl implements NewsService {
 
 			opt.setOptUserId(sessionObj.getLong("userId"));
 			opt.setOptName("修改新闻");
-			opt.setOptRemark(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + "修改新闻，修改:"
+			opt.setOptRemark(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + "修改新闻:"
 					+ news.getNewName() == null
 							? ""
 							: "新闻标题 " + news.getNewAuthor() == null ? ""

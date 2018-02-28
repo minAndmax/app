@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.army.service.news.NewsService;
 import com.army.service.user.UserLoginService;
@@ -49,6 +50,15 @@ public class WebJumpController {
 		JSONObject obj = newsService.updateNew(request,news);
 		
 		return obj;
+		
+	}
+	
+	@RequestMapping(value = "/findAllNews", method = RequestMethod.POST)
+	public JSONArray findAllNews()throws Exception{
+		
+		JSONArray arr = newsService.findAllNews();
+		
+		return arr;
 		
 	}
 	
