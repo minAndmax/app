@@ -1,6 +1,6 @@
 package com.army.vo;
 
-public class UserLogin {
+public class UserInfo extends BaseInfo{
 	
 	private Long userId;
 	
@@ -12,26 +12,14 @@ public class UserLogin {
 	
 	private String userPhone;
 	
-	private String valid;
+	private String roleName;
 	
-	private Integer loginStatus;    //状态默认1   当查询出来的是1  表示登录成功
-	
-	private String createTime;
-	
-	public String getValid() {
-		return valid;
+	public String getRoleName() {
+		return roleName;
 	}
 
-	public void setValid(String valid) {
-		this.valid = valid;
-	}
-
-	public Integer getLoginStatus() {
-		return loginStatus;
-	}
-
-	public void setLoginStatus(Integer loginStatus) {
-		this.loginStatus = loginStatus;
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
 	}
 
 	public Long getUserId() {
@@ -73,17 +61,5 @@ public class UserLogin {
 	public void setUserPhone(String userPhone) {
 		this.userPhone = userPhone;
 	}
-
-	public String getCreateTime() {
-		return createTime;
-	}
-
-	public void setCreateTime(String createTime) {
-		this.createTime = createTime;
-	}
-
-	
-	
-	
 
 }

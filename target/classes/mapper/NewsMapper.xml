@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.army.dao.NewsMapper">
+    <select id="findAllNews" resultType="com.army.vo.NewsInfo">
+    
+		SELECT
+	    	new_id AS newId,
+	    	new_name AS newName,
+	    	new_content AS newContent,
+	    	new_type AS newType,
+	    	new_author AS newAuthor,
+			create_time AS createTime,
+			new_imgs AS newImags,
+			is_valid AS valid
+		FROM tb_new_info WHERE is_valid='Y' ORDER BY new_id
+    
+    </select>
+    
+    <update id="updateNews" parameterType="com.army.vo.NewsInfo">
+    
+    	UPDATE tb_new_info SET
+    		<if test="newName != null and newName != ''">
+    			new_name = #{newName},
+    		</if>
+    		<if test="newAuthor != null and newAuthor != ''">
+    			new_author = #{newAuthor},
+    		</if>
+    		<if test="newContent != null and newContent != ''">
+    			new_content = #{newContent},
+    		</if>
+    		<if test="newImags != null and newImags != ''">
+    			new_imgs = #{newImags},
+    		</if>
+    		<if test="valid != null and valid != ''">
+    			is_valid = #{valid},
+    		</if>
+    	        update_time = GETDATE()
+		 WHERE new_id = #{newId}
+    	
+    </update>
+    
+    <insert id="insertNews" parameterType="com.army.vo.NewsInfo">
+    
+    	<selectKey keyProperty='newId' resultType='long' order='AFTER'  >
+    		select ident_current('tb_new_info')
+    	</selectKey>
+    
+	    	INSERT INTO tb_new_info
+	           (new_name
+	           ,new_content
+	           ,new_type
+	           ,new_author
+	           ,new_remark
+	           ,create_name
+	           ,new_imgs
+	           ,is_valid
+	           ,create_time
+	           ,update_time)
+	     	VALUES
+	           (#{newName},
+	            #{newContent},
+	            #{newType},
+	            #{newAuthor},
+	            #{newRemark},
+	            #{createName},
+	            #{newImags},
+	            #{valid},
+	            GETDATE(),
+	            GETDATE())
+    
+    </insert>
+    
+    
+    
+</mapper>
