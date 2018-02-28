@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.army.dao.OperateMapper">
+
+	<insert id="inserObject" parameterType="com.army.vo.OperateInfo">
+		INSERT INTO tb_operate_record
+           (opt_name
+           ,opt_remark
+           ,opt_user_id
+           ,type_id
+           ,create_time)
+    	 VALUES
+           (#{optName}
+           ,#{optRemark}
+           ,#{optUserId}
+           ,#{typeId}
+           ,GETDATE())
+	</insert>
+
+</mapper>

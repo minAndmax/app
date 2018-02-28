@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="../source/js/jquery-2.1.1.js"></script>
+</head>
+<body>
+     <table>
+     
+        <tbody>
+           <tr><td>标题</td><td><input type="text" id="tip"></td></tr>
+           <tr><td>作者</td><td><input type="text" id="author"></td></tr>
+           <tr><td>内容</td><td><textarea rows="10" cols="20" type="text" id="content"></textarea> </td></tr>
+           <tr><td>图片</td><td><input type="file" type="text" id="imags"></td></tr>
+           <tr><td></td><td><input type="button" value="提交" id="bt"></td></tr>
+        </tbody>
+     
+     </table>
+</body>
+     
+     <script type="text/javascript">
+          
+     		$("#bt").click(function(){
+     			
+     			var tip = $("#tip").val();
+     			var author = $("#author").val();
+     			var content = $("#content").val();
+     			var imags = $("#imags").val();
+     			
+     			var requests = {
+     					newName : tip,
+     					newAuthor : author,
+     					newContent : content,
+     					newImags : imags
+     			}
+     			
+     			$.post("data/insertNew",requests,function(date){
+     				alert(date.tipStatus+","+date.tipStatusContent);
+     			})
+     			
+     		});
+     
+     </script>
+ 
+</html>

@@ -2,16 +2,17 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.army.dao.UserLoginMapper">
       
-	<select id="userLogin" parameterType="com.army.vo.UserLogin" resultType="com.army.vo.UserLogin">
+	<select id="userLogin" parameterType="com.army.vo.UserInfo" resultType="com.army.vo.UserInfo">
 	
 		SELECT 
+			user_id AS userId,
 			user_name AS userName,
-			login_status AS loginStatus
+			role_name AS roleName
 		FROM tb_user_login WHERE user_name=#{userName} AND user_password=#{userPassword}
 		
 	</select>
 	
-	<insert id="userRegist" parameterType="com.army.vo.UserLogin">
+	<insert id="userRegist" parameterType="com.army.vo.UserInfo">
 	    INSERT INTO tb_user_login
 	    (
 	       user_name,
@@ -30,7 +31,7 @@
 	    )
 	</insert>
 	
-	<select id="findUserLoginByUserName" parameterType="java.lang.String" resultType="com.army.vo.UserLogin">
+	<select id="findUserLoginByUserName" parameterType="java.lang.String" resultType="com.army.vo.UserInfo">
 		
 		SELECT
 			user_name AS userName,
