@@ -127,7 +127,7 @@ a {
   background-image: url(../images/musicimages/play.png);
 }
 #player .ctrl .control .playback.playing {
-  background-image: url(../images/musicimages/pause.png);
+  background-image: url(../images/musicimages/pause.jpg);
 }
 #player .ctrl .control .fastforward {
   background-image: url(../images/musicimages/fastforward.png);

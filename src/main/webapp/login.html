@@ -1,96 +1,79 @@
-<!DOCTYPE html>
-<html>
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <head>
-<meta charset="UTF-8">
-<script type="text/javascript" src="../source/js/jquery-2.1.1.js"></script>
-<title>用户登录</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>欢迎登录后台管理系统</title>
+<link href="css/style.css" rel="stylesheet" type="text/css" />
+<script language="JavaScript" src="js/jquery.js"></script>
+<script src="js/cloud.js" type="text/javascript"></script>
 
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="description" content="Free HTML5 Template by FreeHTML5.co" />
-	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
-	
-	<meta property="og:title" content=""/>
-	<meta property="og:image" content=""/>
-	<meta property="og:url" content=""/>
-	<meta property="og:site_name" content=""/>
-	<meta property="og:description" content=""/>
-	<meta name="twitter:title" content="" />
-	<meta name="twitter:image" content="" />
-	<meta name="twitter:url" content="" />
-	<meta name="twitter:card" content="" />
+<script language="javascript">
+	$(function(){
+    $('.loginbox').css({'position':'absolute','left':($(window).width()-692)/2});
+	$(window).resize(function(){  
+    $('.loginbox').css({'position':'absolute','left':($(window).width()-692)/2});
+    })  
+});  
+</script> 
 
-	<link rel="shortcut icon" href="../source/images/favicon.ico" type="image/x-icon"> 
+</head>
 
-	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
-	
-	<link rel="stylesheet" href="../source/css/bootstrap.min.css">
-	<link rel="stylesheet" href="../source/css/animate.css">
-	<link rel="stylesheet" href="../source/css/style-1.css">
+<body style="background-color:#1c77ac; background-image:url(images/light.png); background-repeat:no-repeat; background-position:center top; overflow:hidden;">
 
 
-	<script src="../source/js/modernizr-2.6.2.min.js"></script>
 
-	</head>
-	<body class="style-2">
+    <div id="mainBody">
+      <div id="cloud1" class="cloud"></div>
+      <div id="cloud2" class="cloud"></div>
+    </div>  
 
-		<div class="container">
-			<div class="row">
-				<div class="col-md-4">
-					
-					<form action="#" class="fh5co-form animate-box" data-animate-effect="fadeInLeft">
-						<h2>登录</h2>
-						<div class="form-group">
-							<label for="username" class="sr-only">用户名</label>
-							<input type="text" class="form-control" id="username" placeholder="用户名" autocomplete="off">
-						</div>
-						<div class="form-group">
-							<label for="password" class="sr-only">密码</label>
-							<input type="password" class="form-control" id="password" placeholder="密码" autocomplete="off">
-						</div>
-						<div class="form-group">
-							<label for="remember"><input type="checkbox" id="remember">记住我</label>
-						</div>
-						<div class="form-group">
-							<p>尚未注册? <a href="sign-up.html">注册</a> | <a href="forgotpassword.html">忘记密码?</a></p>
-						</div>
-						<div class="form-group">
-							<input type="button" id="button" value="登录" class="btn btn-primary">
-						</div>
-					</form>
 
-				</div>
-			</div>
-			<div class="row" style="padding-top: 60px; clear: both;">
-				<div class="col-md-12 text-center"><p><small>&copy;</small></p></div>
-			</div>
-		</div>
-	
-	<script src="../source/js/bootstrap.min.js"></script>
-	<script src="../source/js/jquery.placeholder.min.js"></script>
-	<script src="../source/js/jquery.waypoints.min.js"></script>
-	<script src="../source/js/main.js"></script>
-	</body>
-	
-	<script type="text/javascript">
-	
-	       $("#button").click(function(){
+<div class="logintop">    
+    <span>欢迎登录后台管理界面平台</span>    
+    <ul>
+    <li><a href="#">回首页</a></li>
+    <li><a href="#">帮助</a></li>
+    <li><a href="#">关于</a></li>
+    </ul>    
+    </div>
+    
+    <div class="loginbody">
+    
+    <span class="systemlogo"></span> 
+       
+    <div class="loginbox">
+    
+    <ul>
+    <li><input type="text" id="username" class="loginuser" onclick="JavaScript:this.value=''"/></li>
+    <li><input type="password" id="password" class="loginpwd" onclick="JavaScript:this.value=''"/></li>
+    <li><input type="button" class="loginbtn" value="登录" id="button"/><label><input name="" type="checkbox" value="" checked="checked" />记住密码</label><label><a href="#">忘记密码？</a></label></li>
+    </ul>
+    
+    
+    </div>
+    
+    </div>
+    
+    
+    
+    <div class="loginbm"></div>
+</body>
+<script>
+ $("#button").click(function(){
 	    	   var unm = $("#username").val();
 	    	   var pwd = $("#password").val();
+	 alert(unm+pwd)
 	    	   
-	    	   $.post("data/login",
+	    	   $.post("/data/login",
 	    			  {"userName" : unm,
 	    		   	   "userPassword" : pwd},
 	    			  function(data){
 	    		   		if(data.tipStatus == 1){
-	    		   			window.location.href = "index.html";
+	    		   			alert(data.loginTip);
+	    		   			window.location.href = "main.html";
 	    		   		} else{
 	    		   			alert(data.loginTip);
 	    		   		}
 	    	   });
 	       });
-	
-	</script>
-	
-	
+</script>
 </html>
-
