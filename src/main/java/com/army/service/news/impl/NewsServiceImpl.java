@@ -32,7 +32,8 @@ public class NewsServiceImpl implements NewsService {
 
 	@Autowired
 	private OperateMapper operateMapper;
-
+	
+	@Transactional
 	@Override
 	public JSONObject insertNew(HttpServletRequest request, NewsInfo news) throws Exception {
 
@@ -75,6 +76,7 @@ public class NewsServiceImpl implements NewsService {
 
 	}
 	
+	@Transactional
 	@Override
 	public JSONObject updateNew(HttpServletRequest request, NewsInfo news) throws Exception {
 

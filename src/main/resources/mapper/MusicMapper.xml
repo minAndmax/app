@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.army.dao.MusicMapper">
+	<!--select all music-->
+    <select id="findAllMusic" resultType="com.army.vo.MusicInfo">
+		SELECT
+			music_id AS musicId,
+	    	music_name AS musicName,
+	    	music_arrangement AS musicArrangement,
+	    	music_author AS musicAuthor,
+	    	music_singer AS musicSinger,
+	    	music_src AS musicSrc,
+	    	create_name AS createName,
+	    	is_valid AS valid,
+	    	create_time AS createTime,
+	    	update_time AS updateTime
+		FROM TB_MUSIC_PLAYER
+	    WHERE is_valid='Y' 
+	    ORDER BY music_id
+    </select>
+    <!--select one music-->
+    <select id="findOneMusicByName" resultType="com.army.vo.MusicInfo">
+		SELECT
+			music_id AS musicId,
+	    	music_name AS musicName,
+	    	music_arrangement AS musicArrangement,
+	    	music_author AS musicAuthor,
+	    	music_singer AS musicSinger,
+	    	music_src AS musicSrc,
+	    	create_name AS createName,
+	    	is_valid AS valid,
+	    	create_time AS createTime,
+	    	update_time AS updateTime
+		FROM TB_MUSIC_PLAYER
+	    WHERE is_valid='Y' AND musicName LIKE '%#{music_name}%' OR musicSinger LIKE '%#{musicSinger}%'
+    </select>
+    <!-- add music -->
+    <insert id="insertmusics" parameterType="com.army.vo.MusicInfo">
+    	<selectKey keyProperty='musicId' resultType='long' order='AFTER'  >
+    		select ident_current('tb_music_player')
+    	</selectKey>
+	    	INSERT INTO TB_MUSIC_PLAYER
+				(music_name,
+	             music_arrangement,
+	             music_author,
+	             music_singer,
+	             create_name,
+	             is_valid,
+	             music_src,
+	             create_time,
+	             update_time)
+	     	VALUES
+	           (#{musicName},
+	            #{musicArrangement},
+	            #{musicAuthor},
+	            #{musicSinger},
+	            #{createName},
+	            #{valid},
+	            #{musicSrc},
+	            GETDATE(),
+	            GETDATE())
+    </insert>
+    <!--  modify music information-->
+    <update id="updateMusic" parameterType="com.army.vo.MusicInfo">
+    	UPDATE TB_MUSIC_PLAYER SET
+    		<if test="valid != null and valid != ''">
+    			is_valid = #{valid},
+    		</if>
+    		<if test="caeatName != null and createName != ''">
+    			create_name = #{createName},
+    		</if>
+    	        update_time = GETDATE()   
+		 WHERE music_id = #{musicId}
+    </update>
+</mapper>
