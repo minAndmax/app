@@ -109,31 +109,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="col-md-4 twets">
 		<div class="twe-top">
 			<div class="twe">
-				<h3>今日公告</h3>
+				<h3>公告</h3>
 			</div>
 			<div class="twe-le">
-				<h6>通知人 : <a href="#">admin</a></h6>
+				<h6></h6>
 			</div>
 			<div class="clearfix"> </div>
 		</div>
-		<div class="twets-top">
-			<p>午夜12点集合特训(时间)</p>
-			<p>午夜12点集合特训</p>
-			<p>午夜12点集合特训</p>
-			<p>午夜12点集合特训</p>
-			<p>午夜12点集合特训</p>
-			<p>午夜12点集合特训</p>
-			<p>午夜12点集合特训</p>
-			<p>午夜12点集合特训</p>
-			<p>午夜12点集合特训</p>		
-<!-- 			<p>Your approach to consistency & collaboration: <a href="#"> http://bit.ly/M4CBIW  </a>Sept 21  </p> -->
-<!-- 			<p>Upgrade to Creative Cloud today and save with this special offer: <a href="#">http://adobe.ly/HXRaMg</a> Sept 21</p> -->
-<!-- 			<p>We’re pleased to announce our latest App of the Week - The  <a href="#">@NewYorker</a> for iPhone! <a href="#"> http://adobe.ly/S3XphI </a> Sept 21</p> -->
-<!-- 			<p>Your approach to consistency & collaboration: <a href="#"> http://bit.ly/M4CBIW  </a>Sept 21  </p> -->
+		<div id="notice" class="twets-top" style="overflow-y:scroll;height: 300px;">
 		</div>
 	</div>
 	<div class="clearfix"> </div>
 </div>	
+<<<<<<< HEAD
 
 
 <!-- banner (lunbo)-->	
@@ -200,10 +188,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 
 <!-- downlod -->
+=======
+		<!-- downlod -->
+>>>>>>> a30696432349bedcf21dfcd406bf4f441bb26793
 	<div class="downlod">
 		<div class="dow-top">
 			<div class="dow">
-                <a href="products.html"><h3 id="downLoad">影音下载专区</h3></a>
+                <a href="products.html"><h3 id="downLoad">影音专区</h3></a>
 			</div>
 <!-- 			<div class="dow-le"> -->
 <!-- 				<h6>分类: <a href="movieArea.html">电影专区</a>, <a href="musicSingle.html">音乐专区</a>, <a href="softwareArea.html"> 软件下载专区 </a> </h6> -->
@@ -217,10 +208,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<a href="movieArea.html"><img src="../source/images/img5.jpg" class="img-responsive" alt="" /></a>
 										</div>
 										<div class="tm-right">
+<<<<<<< HEAD
 											<a href="movieArea.html"><h5>影视专区</h5></a>
 											<p>战狼2、红海行动... <a href="#">更多</a></p>
 											<p>标签: 战争、爱国</p>
 											<p>分类 <a href="movieArea.html">影视专区</a></p>
+=======
+											<h5>电影专区</h5>
+											<p>电影<a href="#">更多</a></p>
+											<p>标签: 军事</p>
+											<p>分类 <a href="#">军事</a></p>
+>>>>>>> a30696432349bedcf21dfcd406bf4f441bb26793
 										</div>
 										<div class="clearfix"> </div>
 									</div>
@@ -231,10 +229,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<a href="movieArea.html"><img src="../source/images/img6.jpg" class="img-responsive" alt="" /></a>
 										</div>
 										<div class="tm-right">
+<<<<<<< HEAD
 											<a href="movieArea.html"><h5>音乐专区</h5></a>
 											<p>爱我中华、中华人民共和国国歌... <a href="#">更多</a></p>
 											<p>标签: 国歌、红色歌曲</p>
 											<p>分类 <a href="musicSingle.html">音乐专区</a></p>
+=======
+											<h5>音乐专区</h5>
+											<p>音乐<a href="#">更多</a></p>
+											<p>标签:音乐</p>
+											<p>分类 <a href="#">音乐</a></p>
+>>>>>>> a30696432349bedcf21dfcd406bf4f441bb26793
 										</div>
 										<div class="clearfix"> </div>
 									</div>
@@ -245,10 +250,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 											<a href="movieArea.html"><img src="../source/images/img5.jpg" class="img-responsive" alt="" /></a>
 										</div>
 										<div class="tm-right">
+<<<<<<< HEAD
 											<a href="movieArea.html"><h5>软件专区</h5></a>
 											<p>Excel、word... <a href="#">更多</a></p>
 											<p>标签: 办公</p>
 											<p>分类 <a href="softwareArea.html">软件专区</a></p>
+=======
+											<h5>软件下载专区</h5>
+											<p>软件下<a href="#">更多</a></p>
+											<p>标签: 办公</p>
+											<p>分类 <a href="#">软件</a></p>
+>>>>>>> a30696432349bedcf21dfcd406bf4f441bb26793
 										</div>
 										<div class="clearfix"> </div>
 									</div>
@@ -333,6 +345,23 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- footer -->
 </html>
 <script type="text/javascript">
+
+
+    $(document).ready(function(){
+    	loadNotice();
+    })
+    
+   function loadNotice(){
+    	$.post("data/findAllNotice",{},function(date){
+    		var len = date.length;
+    		var html = "";
+    		for(var i = 0 ; i < len ; i++){
+    			html += "<p>"+date[i].noticeUser+":"+date[i].noticeContent+"</p>";
+    		}
+    		$("#notice").html(html);
+    	});
+    }
+
     $(window).scroll(function(){
         var sc=$(window).scrollTop();
         var rwidth=$(window).width()+$(document).scrollLeft();

@@ -16,10 +16,17 @@ import com.army.service.Moive.MoiveService;
 import com.army.service.app.AppService;
 import com.army.service.music.MusicService;
 import com.army.service.news.NewsService;
+import com.army.service.notice.NoticeService;
 import com.army.service.user.UserLoginService;
+<<<<<<< HEAD
 import com.army.vo.AppInfo;
 import com.army.vo.MusicInfo;
+=======
+import com.army.util.KeyWord;
+import com.army.util.StatusEnum;
+>>>>>>> a30696432349bedcf21dfcd406bf4f441bb26793
 import com.army.vo.NewsInfo;
+import com.army.vo.NoticeInfo;
 import com.army.vo.UserInfo;
 import com.army.vo.VedioInfo;
 
@@ -34,6 +41,7 @@ public class WebJumpController {
 	private NewsService newsService;
 	
 	@Autowired
+<<<<<<< HEAD
 	private MusicService musicService;
 	
 	@Autowired
@@ -41,6 +49,9 @@ public class WebJumpController {
 	
 	@Autowired
 	private AppService appService;
+=======
+	private NoticeService noticeService;
+>>>>>>> a30696432349bedcf21dfcd406bf4f441bb26793
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public JSONObject userLogin(HttpServletRequest request,UserInfo userLogin)throws Exception{
@@ -50,8 +61,8 @@ public class WebJumpController {
 		return obj;
 		
 	}
-	
-	@RequestMapping(value = "/insertNew", method = RequestMethod.POST)
+	//新闻开始
+	@RequestMapping(value = "/manager/insertNew", method = RequestMethod.POST)
 	public JSONObject insertNew(HttpServletRequest request, NewsInfo news)throws Exception{
 		
 		JSONObject obj = newsService.insertNew(request,news);
@@ -60,19 +71,137 @@ public class WebJumpController {
 		
 	}
 	
-	@RequestMapping(value = "/updateNew", method = RequestMethod.POST)
-	public JSONObject updateNew(HttpServletRequest request, NewsInfo news)throws Exception{
+	/**
+	 * 线上新闻
+	 * @return
+	 * @throws Exception
+	 */
+	
+	@RequestMapping(value = "/findAllNews", method = RequestMethod.POST)
+	public JSONArray findAllNews()throws Exception{
 		
-		JSONObject obj = newsService.updateNew(request,news);
+		JSONArray arr = newsService.findAllNews();
+		
+		return arr;
+		
+	}
+	
+	@RequestMapping(value = "/manager/findNewById", method = RequestMethod.POST)
+	public JSONObject findNewById(NewsInfo news)throws Exception{
+		
+		JSONObject obj = newsService.findNewById(news);
+		
+		return obj;
+		
+	}
+
+	@RequestMapping(value = "/manager/findAllNewManager", method = RequestMethod.POST)
+	public JSONArray findAllNewManager(NewsInfo news)throws Exception{
+		
+		JSONArray arr = newsService.findAllNewManager(news);
+		
+		return arr;
+		
+	}
+	
+	@RequestMapping(value = "/manager/change", method = RequestMethod.POST)
+	public JSONObject changerValid(HttpServletRequest request, NewsInfo news)throws Exception{
+		
+		JSONObject obj = newsService.updateNew(request, news);
 		
 		return obj;
 		
 	}
 	
+	//新闻结束
+	
+	//通知开始
+	/**
+	 * 后台通知
+	 * @param info
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/manager/insertNotice", method = RequestMethod.POST)
+	public JSONObject insertNotice(HttpServletRequest request,NoticeInfo info)throws Exception{
+		
+		JSONObject obj = noticeService.insertNotice(request,info);
+		
+		return obj;
+		
+	}
+	
+	@RequestMapping(value = "/manager/findNotice", method = RequestMethod.POST)
+	public JSONObject findNotice(NoticeInfo info)throws Exception{
+		
+		JSONObject obj = noticeService.findNotice(info);
+		
+		return obj;
+		
+	}
+	
+	@RequestMapping(value = "/manager/updateNotice", method = RequestMethod.POST)
+	public JSONObject updateNotice(HttpServletRequest request,NoticeInfo info)throws Exception{
+		
+		JSONObject obj = noticeService.updateNotice(request,info);
+		
+		return obj;
+		
+	}
+	
+	@RequestMapping(value = "/manager/findAllNoticeManager", method = RequestMethod.POST)
+	public JSONArray findAllNoticeManager(NoticeInfo info)throws Exception{
+		
+		JSONArray arr = noticeService.findAllNoticeManager(info);
+		
+		return arr;
+		
+	}
+	
+	/**
+	 * 线上通知
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/findAllNotice", method = RequestMethod.POST)
+	public JSONArray findAllNotice()throws Exception{
+		
+		JSONArray arr = noticeService.findAllNotice();
+		
+		return arr;
+		
+	}
+	
+	//通知结束
+	
 	@RequestMapping(value = "/regist", method = RequestMethod.POST)
 	public JSONObject userRegist(UserInfo userLogin)throws Exception{
 		
 		JSONObject obj = userLoginService.userRegist(userLogin);
+		
+		return obj;
+		
+	}
+	
+	@RequestMapping(value = "/manager/getUser", method = RequestMethod.POST)
+	public JSONObject getUser(HttpServletRequest request)throws Exception{
+		
+		JSONObject obj = (JSONObject) request.getSession().getAttribute(KeyWord.USERSESSION);
+		
+		return obj;
+		
+	}
+	
+	@RequestMapping(value = "/manager/outLogin", method = RequestMethod.POST)
+	public JSONObject outLogin(HttpServletRequest request)throws Exception{
+		
+		JSONObject obj = new JSONObject(); 
+		if(request.getSession().getAttribute(KeyWord.USERSESSION) != null) {
+			request.getSession().removeAttribute(KeyWord.USERSESSION);
+			obj.put("outTip", StatusEnum.SSUCCESS.getNum());
+		} else {
+			obj.put("outTip", StatusEnum.FAIL.getNum());
+		}
 		
 		return obj;
 		

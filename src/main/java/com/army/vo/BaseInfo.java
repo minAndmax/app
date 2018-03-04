@@ -13,6 +13,36 @@ public class BaseInfo {
 	private String valid;
 	
 	private JSONObject obj;
+	
+	private int page;  //当前页
+	
+	private int size;  //每页多少条
+	
+	private int totalPages;//总页数
+	
+	public int getTotalPages() {
+		return totalPages;
+	}
+
+	public void setTotalPages(int totalPages) {
+		this.totalPages = totalPages;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
 
 	public JSONObject getObj() {
 		return obj;

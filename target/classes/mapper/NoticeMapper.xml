@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.army.dao.NoticeMapper">
+
+	<insert id="insertNotice" parameterType="com.army.vo.NoticeInfo">
+	
+	<selectKey keyProperty='noticeId' resultType='long' order='AFTER'  >
+    		select ident_current('tb_notice')
+    </selectKey>
+    	
+		INSERT INTO tb_notice
+           (notice_content
+           ,notice_user
+           ,user_id
+           ,is_valid
+           ,create_time
+           ,update_time)
+     	VALUES
+           (#{noticeContent}
+           ,#{noticeUser}
+           ,#{userId}
+           ,#{valid}
+           ,GETDATE()
+           ,GETDATE())
+	</insert>
+	
+	<update id="updateNotice" parameterType="com.army.vo.NoticeInfo">
+	    UPDATE tb_notice SET 
+	    	<if test="noticeContent != null and noticeContent != ''">
+			    notice_content = #{noticeContent},
+	    	</if>
+	    	<if test="noticeUser != null and noticeUser != ''">
+		        notice_user = #{noticeUser},
+	    	</if>
+	    	<if test="valid != null and valid != ''">
+		        is_valid = #{valid},
+	    	</if>
+        		update_time = GETDATE()
+ 		WHERE notice_id = #{noticeId}
+	</update>
+	
+	<select id="findAllNotice" resultType="com.army.vo.NoticeInfo">
+		SELECT 
+			notice_id AS noticeId
+	       ,notice_content AS noticeContent
+	       ,notice_user AS noticeUser
+	       ,user_id AS userId
+	       ,create_time AS createTime
+  		FROM tb_notice WHERE is_valid = 'Y' ORDER BY notice_id DESC
+	</select>
+	
+	<select id="findAllNoticeManager" parameterType="com.army.vo.NoticeInfo" resultType="com.army.vo.NoticeInfo">
+    
+		SELECT
+	    	notice_id AS noticeId
+	       ,notice_content AS noticeContent
+	       ,notice_user AS noticeUser
+	       ,user_id AS userId
+	       ,create_time AS createTime
+	       ,is_valid AS valid
+		FROM tb_notice 
+		<where>
+			<if test="noticeUser != null and noticeUser != ''">
+				notice_user LIKE '%'+#{noticeUser}+'%'
+			</if>
+			<if test="createTime != null and createTime != ''">
+				AND CONVERT(VARCHAR,create_time,120) LIKE '%'+#{createTime}+'%'
+			</if>
+		</where>
+		ORDER BY notice_id DESC OFFSET #{page} ROW FETCH NEXT #{size} ROW ONLY
+    
+    </select>
+    
+    <select id="findNoticeById" resultType="com.army.vo.NoticeInfo" parameterType="com.army.vo.NoticeInfo">
+    	SELECT
+	    	notice_id AS noticeId
+	       ,notice_content AS noticeContent
+	       ,notice_user AS noticeUser
+	       ,user_id AS userId
+	       ,create_time AS createTime
+		FROM tb_notice 
+		<where>
+			<if test="noticeId != null and noticeId != ''">
+				notice_id = #{noticeId}
+			</if>
+		</where>
+    </select>
+    
+    <select id="findAllNoticeCount" parameterType="com.army.vo.NoticeInfo" resultType="int">
+    
+		SELECT
+	    	DISTINCT
+				COUNT( DISTINCT notice_id) totalPages
+		FROM tb_notice 
+		<where>
+			<if test="noticeUser != null and noticeUser != ''">
+				AND notice_user LIKE '%'+#{noticeUser}+'%'
+			</if>
+			<if test="createTime != null and createTime != ''">
+				AND CONVERT(VARCHAR,create_time,120) LIKE '%'+#{createTime}+'%'
+			</if>
+		</where>
+    </select>
+
+</mapper>
