@@ -18,13 +18,10 @@ import com.army.service.music.MusicService;
 import com.army.service.news.NewsService;
 import com.army.service.notice.NoticeService;
 import com.army.service.user.UserLoginService;
-<<<<<<< HEAD
 import com.army.vo.AppInfo;
 import com.army.vo.MusicInfo;
-=======
 import com.army.util.KeyWord;
 import com.army.util.StatusEnum;
->>>>>>> a30696432349bedcf21dfcd406bf4f441bb26793
 import com.army.vo.NewsInfo;
 import com.army.vo.NoticeInfo;
 import com.army.vo.UserInfo;
@@ -41,7 +38,6 @@ public class WebJumpController {
 	private NewsService newsService;
 	
 	@Autowired
-<<<<<<< HEAD
 	private MusicService musicService;
 	
 	@Autowired
@@ -49,9 +45,7 @@ public class WebJumpController {
 	
 	@Autowired
 	private AppService appService;
-=======
 	private NoticeService noticeService;
->>>>>>> a30696432349bedcf21dfcd406bf4f441bb26793
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public JSONObject userLogin(HttpServletRequest request,UserInfo userLogin)throws Exception{

@@ -31,13 +31,8 @@ public class NewsServiceImpl implements NewsService {
 
 	@Autowired
 	private OperateMapper operateMapper;
-<<<<<<< HEAD
-	
-	@Transactional
-=======
 
 	@Transactional(rollbackFor=Exception.class)
->>>>>>> a30696432349bedcf21dfcd406bf4f441bb26793
 	@Override
 	public JSONObject insertNew(HttpServletRequest request, NewsInfo news) throws Exception {
 
@@ -79,11 +74,7 @@ public class NewsServiceImpl implements NewsService {
 
 	}
 	
-<<<<<<< HEAD
-	@Transactional
-=======
 	@Transactional(rollbackFor=Exception.class)
->>>>>>> a30696432349bedcf21dfcd406bf4f441bb26793
 	@Override
 	public JSONObject updateNew(HttpServletRequest request, NewsInfo news) throws Exception {
 
