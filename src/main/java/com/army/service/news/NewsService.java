@@ -14,4 +14,7 @@ public interface NewsService {
 	
 	JSONArray findAllNews()throws Exception;
 	
+	JSONArray findAllNewManager(NewsInfo news)throws Exception;
+	
+	JSONObject findNewById(NewsInfo news) throws Exception;
 }

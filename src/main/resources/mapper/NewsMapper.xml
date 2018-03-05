@@ -16,6 +16,59 @@
     
     </select>
     
+    <select id="findAllNewManager" parameterType="com.army.vo.NewsInfo" resultType="com.army.vo.NewsInfo">
+    
+		SELECT
+	    	new_id AS newId,
+	    	new_name AS newName,
+	    	new_content AS newContent,
+	    	new_type AS newType,
+	    	new_author AS newAuthor,
+			create_time AS createTime,
+			new_imgs AS newImags,
+			is_valid AS valid
+		FROM tb_new_info 
+		<where>
+			<if test="newId != null and newId != 0">
+				new_id = #{newId}
+			</if>
+			<if test="newName != null and newName != ''">
+				AND new_name LIKE '%'+#{newName}+'%'
+			</if>
+			<if test="newAuthor != null and newAuthor != ''">
+				AND new_author LIKE '%'+#{newAuthor}+'%'
+			</if>
+			<if test="createTime != null and createTime != ''">
+				AND CONVERT(VARCHAR,create_time,120) LIKE '%'+#{createTime}+'%'
+			</if>
+		</where>
+		ORDER BY new_id DESC OFFSET #{page} ROW FETCH NEXT #{size} ROW ONLY
+    
+    </select>
+    
+    <select id="findCount" parameterType="com.army.vo.NewsInfo" resultType="int">
+    
+		SELECT
+	    	DISTINCT
+				COUNT( DISTINCT new_id) totalPages
+		FROM tb_new_info 
+		<where>
+			<if test="newId != null and newId != 0">
+				new_id = #{newId}
+			</if>
+			<if test="newName != null and newName != ''">
+				AND new_name LIKE '%'+#{newName}+'%'
+			</if>
+			<if test="newAuthor != null and newAuthor != ''">
+				AND new_author LIKE '%'+#{newAuthor}+'%'
+			</if>
+			<if test="createTime != null and createTime != ''">
+				AND CONVERT(VARCHAR,create_time,120) LIKE '%'+#{createTime}+'%'
+			</if>
+		</where>
+
+    </select>
+    
     <update id="updateNews" parameterType="com.army.vo.NewsInfo">
     
     	UPDATE tb_new_info SET
@@ -38,6 +91,26 @@
 		 WHERE new_id = #{newId}
     	
     </update>
+    
+    <select id="findNewById" resultType="com.army.vo.NewsInfo" parameterType="com.army.vo.NewsInfo">
+    
+    	SELECT
+	    	new_id AS newId,
+	    	new_name AS newName,
+	    	new_content AS newContent,
+	    	new_type AS newType,
+	    	new_author AS newAuthor,
+			create_time AS createTime,
+			new_imgs AS newImags,
+			is_valid AS valid
+		FROM tb_new_info 
+		<where>
+			<if test="newId != null and newId != 0">
+				new_id = #{newId}
+			</if>
+		</where>
+    
+    </select>
     
     <insert id="insertNews" parameterType="com.army.vo.NewsInfo">
     

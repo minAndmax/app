@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.army.dao.NewsMapper">
+	<!--select all app-->
+    <select id="findAllApp" resultType="com.army.vo.AppInfo">
+		SELECT 
+			app_id AS appId,
+			app_name AS appName,
+			app_src AS appSrc,
+			app_remark AS appRemark,
+			is_valid AS valid,
+			create_time AS createTime,
+			update_time AS updateTime
+		FROM TB_APP_LIST
+		WHERE is_valid = 'Y'
+    </select>
+    <!--select one APP-->
+    <select id="findOneMusicByName" resultType="com.army.vo.AppInfo">
+		SELECT
+			app_id AS appId,
+			app_name AS appName,
+			app_src AS appSrc,
+			app_remark AS appRemark,
+			is_valid AS valid,
+			create_time AS createTime,
+			update_time AS updateTime
+		FROM TB_APP_LIST
+	    WHERE is_valid = 'Y' AND app_name LIKE %#{appName}%
+    </select>
+    <!-- add music -->
+    <insert id="insertmusics" parameterType="com.army.vo.AppInfo">
+    	<selectKey keyProperty='appId' resultType='long' order='AFTER'  >
+    		select ident_current('TB_APP_LIST')
+    	</selectKey>
+	    	INSERT INTO TB_APP_LIST
+				(app_name,
+				 app_src,
+				 app_remark,
+				 is_valid,
+				 create_time,
+				 update_time)
+	     	VALUES
+	           (#{appName},
+	            #{appSrc},
+	            #{appRemark},
+	            #{valid},
+	            GETDATE(),
+	            GETDATE())
+    </insert>
+    <!--  modify Moive information-->
+    <update id="updateMoive" parameterType="com.army.vo.AppInfo">
+    	UPDATE TB_APP_LIST SET
+    		<if test="valid != null and valid != ''">
+    			is_valid = #{valid},
+    		</if>
+    	        update_time = GETDATE()   
+		 WHERE app_id = #{appId}
+    </update>
+</mapper>

@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -32,7 +31,13 @@ public class NewsServiceImpl implements NewsService {
 
 	@Autowired
 	private OperateMapper operateMapper;
+<<<<<<< HEAD
+	
+	@Transactional
+=======
 
+	@Transactional(rollbackFor=Exception.class)
+>>>>>>> a30696432349bedcf21dfcd406bf4f441bb26793
 	@Override
 	public JSONObject insertNew(HttpServletRequest request, NewsInfo news) throws Exception {
 
@@ -67,7 +72,6 @@ public class NewsServiceImpl implements NewsService {
             e.printStackTrace();
             obj.put(KeyWord.TIPSTATUS, StatusEnum.FAIL.getNum());
 			obj.put(KeyWord.TIPSTATUSCONTEN, StatusEnum.FAIL.getValue());
-			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
 			log.error("程序异常，新闻添加失败[ {} ]" + e.getMessage());
 		}
 
@@ -75,17 +79,19 @@ public class NewsServiceImpl implements NewsService {
 
 	}
 	
+<<<<<<< HEAD
+	@Transactional
+=======
+	@Transactional(rollbackFor=Exception.class)
+>>>>>>> a30696432349bedcf21dfcd406bf4f441bb26793
 	@Override
 	public JSONObject updateNew(HttpServletRequest request, NewsInfo news) throws Exception {
 
 		JSONObject obj = new JSONObject();
 
 		try {
-
+			NewsInfo find = newsMapper.findNewById(news);
 			newsMapper.updateNews(news);
-
-			obj.put(KeyWord.TIPSTATUS, ValidEnum.VALID.getValidStatus());
-			obj.put(KeyWord.TIPSTATUSCONTEN, ValidEnum.VALID.getValidStatusName());
 
 			JSONObject sessionObj = (JSONObject) request.getSession().getAttribute(KeyWord.USERSESSION);
 
@@ -93,24 +99,33 @@ public class NewsServiceImpl implements NewsService {
 
 			opt.setOptUserId(sessionObj.getLong("userId"));
 			opt.setOptName("修改新闻");
-			opt.setOptRemark(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + "修改新闻，修改:"
-					+ news.getNewName() == null
-							? ""
-							: "新闻标题 " + news.getNewAuthor() == null ? ""
-									: "新闻作者 " + news.getNewContent() == null ? ""
-											: "新闻内容 " + news.getNewImags() == null ? ""
-													: "新闻图片 " + news.getValid() == null ? "" : "状态");
+			StringBuilder sb = new StringBuilder();
+			
+			sb.append(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName"));
+			sb.append("修改新闻《"+find.getNewName()+"》:");
+			if(news.getValid() == null) {
+				sb.append(news.getNewName() == null ? "": "标题 ");
+			}
+			sb.append(news.getNewAuthor() == null ? "": "作者 ");
+			sb.append(news.getNewContent() == null ? "": "内容 ");
+			if(news.getValid() != null) {
+				sb.append(news.getValid() == "Y" ? "状态为:有效" : "状态为:无效"+"");
+			}
+			opt.setOptRemark(sb.toString());
+			
 			opt.setTypeId(news.getNewId());
 
 			operateMapper.inserObject(opt);
-
+			
+			obj.put(KeyWord.TIPSTATUS, StatusEnum.SSUCCESS.getNum());
+			obj.put(KeyWord.TIPSTATUSCONTEN, StatusEnum.SSUCCESS.getValue());
+			
 			log.info("新闻修改成功[ {} ]" + obj);
 
 		} catch (Exception e) {
 
-			obj.put(KeyWord.TIPSTATUS, ValidEnum.NOT_VALID.getValidStatus());
-			obj.put(KeyWord.TIPSTATUSCONTEN, ValidEnum.NOT_VALID.getValidStatusName());
-			TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+			obj.put(KeyWord.TIPSTATUS, StatusEnum.FAIL.getNum());
+			obj.put(KeyWord.TIPSTATUSCONTEN, StatusEnum.FAIL.getValue());
 			log.info("程序异常，新闻修改失败[ {} ]" + e.getMessage());
 		}
 
@@ -121,14 +136,52 @@ public class NewsServiceImpl implements NewsService {
 	@Override
 	public JSONArray findAllNews() throws Exception {
 
+		
 		JSONArray arr = new JSONArray();
 		List<NewsInfo> nws = newsMapper.findAllNews();
 
 		for (NewsInfo info : nws) {
 			arr.add(info);
 		}
-
+//		log.info("线上所有新闻，[ {} ]" + arr);
 		return arr;
+	}
+
+	@Override
+	public JSONArray findAllNewManager(NewsInfo news) throws Exception {
+		
+		int pages = newsMapper.findCount(news);
+		
+		double db = Math.ceil((double) pages / (double) news.getSize());
+		
+		JSONArray arr = new JSONArray();
+		List<NewsInfo> nws = newsMapper.findAllNewManager(news);
+		if(nws.size() != 0) {
+			nws.get(0).setTotalPages((int) db);
+			nws.get(0).setPage(news.getPage());
+		} else {
+			NewsInfo ws = new NewsInfo(); 
+			ws.setTotalPages(0);
+			ws.setSize(0);
+			nws.add(ws);
+		}
+		
+		for (NewsInfo info : nws) {
+			arr.add(info);
+		}
+//		log.info("后台管理员查看所有新闻，[ {} ]" + arr);
+		return arr;
+	}
+
+	@Override
+	public JSONObject findNewById(NewsInfo news) throws Exception {
+		
+		NewsInfo nw = newsMapper.findNewById(news);
+		
+		JSONObject obj = new JSONObject();
+		obj.put("jsonobejct", nw);
+		
+		return obj;
 	}
 
 }
