@@ -31,10 +31,6 @@ public class NewsServiceImpl implements NewsService {
 
 	@Autowired
 	private OperateMapper operateMapper;
-<<<<<<< HEAD
-	
-=======
->>>>>>> b995e1db8a7ac5ee89a1b9a6b61d5c2553a7270e
 
 	@Transactional(rollbackFor=Exception.class)
 	@Override
