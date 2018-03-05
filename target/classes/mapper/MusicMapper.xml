@@ -16,8 +16,48 @@
 	    	update_time AS updateTime
 		FROM TB_MUSIC_PLAYER
 	    WHERE is_valid='Y' 
-	    ORDER BY music_id
+	    ORDER BY music_id DESC
     </select>
+    
+    <select id="findAllMusicManeger" resultType="com.army.vo.MusicInfo" parameterType="com.army.vo.MusicInfo">
+		SELECT
+			music_id AS musicId,
+	    	music_name AS musicName,
+	    	music_arrangement AS musicArrangement,
+	    	music_author AS musicAuthor,
+	    	music_singer AS musicSinger,
+	    	music_src AS musicSrc,
+	    	create_name AS createName,
+	    	is_valid AS valid,
+	    	create_time AS createTime,
+	    	update_time AS updateTime
+		FROM TB_MUSIC_PLAYER
+	    <where>
+		    <if test="musicName != null and musicName != ''">
+		    		musicName LIKE '%'+#{music_name}+'%'
+		    </if>
+		    <if test="musicSinger != null and musicSinger != ''">
+		    		AND music_singer LIKE '%'+#{musicSinger}+'%'
+		    </if>
+	    </where> 
+	    ORDER BY music_id DESC OFFSET #{page} ROW FETCH NEXT #{size} ROW ONLY
+    </select>
+    
+    <select id="findMusicCount" resultType="int" parameterType="com.army.vo.MusicInfo">
+    	SELECT
+	    	DISTINCT
+				COUNT( DISTINCT music_id) totalPages
+		FROM TB_MUSIC_PLAYER 
+		  <where>
+		    <if test="musicName != null and musicName != ''">
+		    		music_name LIKE '%'+#{musicName}+'%'
+		    </if>
+		    <if test="musicSinger != null and musicSinger != ''">
+		    		AND music_singer LIKE '%'+#{musicSinger}+'%'
+		    </if>
+	    </where> 
+    </select>
+    
     <!--select one music-->
     <select id="findOneMusicByName" resultType="com.army.vo.MusicInfo">
 		SELECT
@@ -32,10 +72,14 @@
 	    	create_time AS createTime,
 	    	update_time AS updateTime
 		FROM TB_MUSIC_PLAYER
-	    WHERE is_valid='Y' AND musicName LIKE '%#{music_name}%' OR musicSinger LIKE '%#{musicSinger}%'
+	    <where>
+	    	<if test="musicId != null and musicId != ''">
+	    		music_id = #{musicId}
+	    	</if>
+	    </where>
     </select>
     <!-- add music -->
-    <insert id="insertmusics" parameterType="com.army.vo.MusicInfo">
+    <insert id="insertMusics" parameterType="com.army.vo.MusicInfo">
     	<selectKey keyProperty='musicId' resultType='long' order='AFTER'  >
     		select ident_current('tb_music_player')
     	</selectKey>
@@ -65,9 +109,6 @@
     	UPDATE TB_MUSIC_PLAYER SET
     		<if test="valid != null and valid != ''">
     			is_valid = #{valid},
-    		</if>
-    		<if test="caeatName != null and createName != ''">
-    			create_name = #{createName},
     		</if>
     	        update_time = GETDATE()   
 		 WHERE music_id = #{musicId}

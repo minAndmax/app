@@ -31,13 +31,9 @@ public class NewsServiceImpl implements NewsService {
 
 	@Autowired
 	private OperateMapper operateMapper;
-<<<<<<< HEAD
 	
-	@Transactional
-=======
 
 	@Transactional(rollbackFor=Exception.class)
->>>>>>> a30696432349bedcf21dfcd406bf4f441bb26793
 	@Override
 	public JSONObject insertNew(HttpServletRequest request, NewsInfo news) throws Exception {
 
@@ -79,11 +75,7 @@ public class NewsServiceImpl implements NewsService {
 
 	}
 	
-<<<<<<< HEAD
-	@Transactional
-=======
 	@Transactional(rollbackFor=Exception.class)
->>>>>>> a30696432349bedcf21dfcd406bf4f441bb26793
 	@Override
 	public JSONObject updateNew(HttpServletRequest request, NewsInfo news) throws Exception {
 
@@ -104,12 +96,12 @@ public class NewsServiceImpl implements NewsService {
 			sb.append(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName"));
 			sb.append("修改新闻《"+find.getNewName()+"》:");
 			if(news.getValid() == null) {
-				sb.append(news.getNewName() == null ? "": "标题 ");
+				sb.append(news.getNewName() == null ? "": "标题:"+news.getNewName());
 			}
-			sb.append(news.getNewAuthor() == null ? "": "作者 ");
-			sb.append(news.getNewContent() == null ? "": "内容 ");
+			sb.append(news.getNewAuthor() == null ? "": " 作者:"+news.getNewAuthor());
+			sb.append(news.getNewContent() == null ? "": " 内容 ");
 			if(news.getValid() != null) {
-				sb.append(news.getValid() == "Y" ? "状态为:有效" : "状态为:无效"+"");
+				sb.append(news.getValid().equals("Y") ? "状态为:有效" : "状态为:无效"+"");
 			}
 			opt.setOptRemark(sb.toString());
 			
@@ -161,7 +153,7 @@ public class NewsServiceImpl implements NewsService {
 			nws.get(0).setPage(news.getPage());
 		} else {
 			NewsInfo ws = new NewsInfo(); 
-			ws.setTotalPages(0);
+			ws.setTotalPages(-1);
 			ws.setSize(0);
 			nws.add(ws);
 		}

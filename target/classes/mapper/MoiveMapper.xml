@@ -1,32 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.army.dao.MoiveMapper">
+
+ <select id="findAllVedioManeger" resultType="com.army.vo.VedioInfo" parameterType="com.army.vo.VedioInfo">
+ 		SELECT
+			vedio_id AS vedioId,
+	    	vedio_name AS vedioName,
+	    	is_valid AS valid,
+	    	create_name AS createName,
+	    	vedio_main_user AS vedioMainUser,
+	    	vedio_director AS vedioDirector,
+	    	vedio_src AS vedioSrc,
+	    	create_time AS createTime,
+	    	update_time AS updateTime
+		FROM TB_VEDIO_PLAYER
+	    <where>
+		    <if test="vedioName != null and vedioName != ''">
+		    		vedio_name LIKE '%'+#{vedioName}+'%'
+		    </if>
+		    <if test="vedioMainUser != null and vedioMainUser != ''">
+		    		AND vedio_main_user LIKE '%'+#{vedioMainUser}+'%'
+		    </if>
+		    <if test="vedioDirector != null and vedioDirector != ''">
+		    		AND vedio_director LIKE '%'+#{vedioDirector}+'%'
+		    </if>
+	    </where> 
+	    ORDER BY vedio_id DESC OFFSET #{page} ROW FETCH NEXT #{size} ROW ONLY
+    </select>
+    
+    <select id="findVedioCount" resultType="int" parameterType="com.army.vo.VedioInfo">
+    	SELECT
+	    	DISTINCT
+				COUNT( DISTINCT vedio_id) totalPages
+		FROM TB_VEDIO_PLAYER 
+		   <where>
+		    <if test="vedioName != null and vedioName != ''">
+		    		vedio_name LIKE '%'+#{vedioName}+'%'
+		    </if>
+		    <if test="vedioMainUser != null and vedioMainUser != ''">
+		    		AND vedio_main_user LIKE '%'+#{vedioMainUser}+'%'
+		    </if>
+		    <if test="vedioDirector != null and vedioDirector != ''">
+		    		AND vedio_director LIKE '%'+#{vedioDirector}+'%'
+		    </if>
+	    </where> 
+    </select>
+
+	<select id="findVedioById" parameterType="com.army.vo.VedioInfo" resultType="com.army.vo.VedioInfo">
+		SELECT
+			vedio_id AS vedioId,
+	    	vedio_name AS vedioName,
+	    	is_valid AS valid,
+	    	create_name AS createName,
+	    	vedio_main_user AS vedioMainUser,
+	    	vedio_director AS vedioDirector,
+	    	vedio_src AS vedioSrc,
+	    	create_time AS createTime,
+	    	update_time AS updateTime
+		FROM TB_VEDIO_PLAYER
+	    <where>
+		    <if test="vedioId != null and vedioId != ''">
+		    		vedio_id = #{vedioId}
+		    </if>
+	    </where> 
+	
+	</select>
+
 	<!--select all vedio-->
     <select id="findAllMoive" resultType="com.army.vo.VedioInfo">
 		SELECT
 			vedio_id AS vedioId,
 	    	vedio_name AS vedioName,
+	    	vedio_main_user AS vedioMainUser,
+	    	vedio_director AS vedioDirector,
 	    	is_valid AS valid,
 	    	create_name AS createName,
 	    	vedio_src AS vedioSrc,
 	    	create_time AS createTime,
 	    	update_time AS updateTime
 		FROM TB_VEDIO_PLAYER
-	    WHERE is_valid='Y' 
-	    ORDER BY vedio_id
+	    WHERE is_valid='Y'  
+	    ORDER BY vedio_id DESC
     </select>
     <!--select one vedio-->
     <select id="findOneMoiveByName" resultType="com.army.vo.VedioInfo">
 		SELECT
 			vedio_id AS vedioId,
 	    	vedio_name AS vedioName,
+	    	vedio_main_user AS vedioMainUser,
+	    	vedio_director AS vedioDirector,
 	    	is_valid AS valid,
 	    	create_name AS createName,
 	    	vedio_src AS vedioSrc,
 	    	create_time AS createTime,
 	    	update_time AS updateTime
 		FROM TB_VEDIO_PLAYER
-	    WHERE is_valid='Y' AND vedio_name LIKE %#{vedioName}%
+	    WHERE is_valid='Y' AND vedio_name LIKE '%'+#{vedioName}+'%'
     </select>
     <!-- add vedio -->
     <insert id="insertMoive" parameterType="com.army.vo.VedioInfo">
@@ -37,6 +106,8 @@
 				(vedio_name,
 	    	     is_valid,
 	    	     create_name,
+	    	     vedio_main_user,
+	    	     vedio_director
 	    	     vedio_src,
 	    	     create_time,
 	    	     update_time)
@@ -44,6 +115,8 @@
 	           (#{vedioName},
 	            #{valid},
 	            #{createName},
+	            #{vedioMainUser},
+	            #{vedioDirector},
 	            #{vedioSrc},
 	            GETDATE(),
 	            GETDATE())
@@ -53,9 +126,6 @@
     	UPDATE TB_VEDIO_PLAYER SET
     		<if test="valid != null and valid != ''">
     			is_valid = #{valid},
-    		</if>
-    		<if test="caeatName != null and createName != ''">
-    			create_name = #{createName},
     		</if>
     	        update_time = GETDATE()   
 		 WHERE vedio_id = #{vedioId}

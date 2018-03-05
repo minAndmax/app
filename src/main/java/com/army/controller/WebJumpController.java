@@ -18,13 +18,10 @@ import com.army.service.music.MusicService;
 import com.army.service.news.NewsService;
 import com.army.service.notice.NoticeService;
 import com.army.service.user.UserLoginService;
-<<<<<<< HEAD
 import com.army.vo.AppInfo;
 import com.army.vo.MusicInfo;
-=======
 import com.army.util.KeyWord;
 import com.army.util.StatusEnum;
->>>>>>> a30696432349bedcf21dfcd406bf4f441bb26793
 import com.army.vo.NewsInfo;
 import com.army.vo.NoticeInfo;
 import com.army.vo.UserInfo;
@@ -41,7 +38,6 @@ public class WebJumpController {
 	private NewsService newsService;
 	
 	@Autowired
-<<<<<<< HEAD
 	private MusicService musicService;
 	
 	@Autowired
@@ -49,9 +45,9 @@ public class WebJumpController {
 	
 	@Autowired
 	private AppService appService;
-=======
+	
+	@Autowired
 	private NoticeService noticeService;
->>>>>>> a30696432349bedcf21dfcd406bf4f441bb26793
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public JSONObject userLogin(HttpServletRequest request,UserInfo userLogin)throws Exception{
@@ -226,8 +222,8 @@ public class WebJumpController {
 		
 		return mv;
 	}
-
-	@RequestMapping(value = "/updateMusic", method = RequestMethod.POST)
+	//music开始
+	@RequestMapping(value = "/manager/updateMusic", method = RequestMethod.POST)
 	public JSONObject updateMusic(HttpServletRequest request, MusicInfo music)throws Exception{
 		
 		JSONObject obj = musicService.updateMusic(request, music);
@@ -236,23 +232,16 @@ public class WebJumpController {
 		
 	}
 	
-	@RequestMapping(value = "/updateMoive", method = RequestMethod.POST)
-	public JSONObject updateMoive(HttpServletRequest request, VedioInfo vedio)throws Exception {
-	
-		JSONObject obj = moiveService.updateMoive(request, vedio);
+	@RequestMapping(value = "/manager/insertMusics", method = RequestMethod.POST)
+	public JSONObject insertMusics(HttpServletRequest request, MusicInfo music)throws Exception{
+		
+		JSONObject obj = musicService.insertMusics(request, music);
 		
 		return obj;
+		
 	}
 	
-	@RequestMapping(value = "/updateApp", method = RequestMethod.POST)
-	public JSONObject updateApp(HttpServletRequest request, AppInfo app)throws Exception {
-		
-		JSONObject obj = appService.updateApp(request, app);
-		
-		return obj;
-	}
-	
-	@RequestMapping(value ="/findAllMusic", method = RequestMethod.GET)
+	@RequestMapping(value ="/manager/findAllMusic", method = RequestMethod.POST)
 	public JSONArray findAllMusic()throws Exception{
 		
 		JSONArray arry = musicService.findAllMusic();
@@ -260,23 +249,49 @@ public class WebJumpController {
 		return arry;
 	}
 	
-	@RequestMapping(value ="/findAllMusicByName", method = RequestMethod.GET)
+	@RequestMapping(value ="/manager/findAllMusicManeger", method = RequestMethod.POST)
+	public JSONArray findAllMusicManeger(MusicInfo info)throws Exception{
+		
+		JSONArray arry = musicService.findAllMusicManeger(info);
+		
+		return arry;
+	}
+	
+	@RequestMapping(value ="/manager/findAllMusicByName", method = RequestMethod.POST)
 	public JSONArray findAllMusicByName(MusicInfo music)throws Exception{
 		
 		JSONArray arry = musicService.findOneMusicByName(music);
 		
 		return arry;
 	}
+	//music结束
 	
-	@RequestMapping(value ="/findAllMoive", method = RequestMethod.GET)
+	//vedio begin
+	@RequestMapping(value = "/manager/updateMoive", method = RequestMethod.POST)
+	public JSONObject updateMoive(HttpServletRequest request, VedioInfo vedio)throws Exception {
+	
+		JSONObject obj = moiveService.updateMoive(request, vedio);
+		
+		return obj;
+	}
+	
+	@RequestMapping(value ="/manager/findAllMoive", method = RequestMethod.POST)
 	public JSONArray findAllMoive()throws Exception{
 		
 		JSONArray arry = moiveService.findAllMoive();
-				
+		
 		return arry;
 	}
 	
-	@RequestMapping(value ="/findAllMoiveByName", method = RequestMethod.GET)
+	@RequestMapping(value ="/manager/findAllVedioManeger", method = RequestMethod.POST)
+	public JSONArray findAllVedioManeger(VedioInfo vedio)throws Exception{
+		
+		JSONArray arry = moiveService.findAllVedioManeger(vedio);
+		
+		return arry;
+	}
+	
+	@RequestMapping(value ="/manager/findAllMoiveByName", method = RequestMethod.POST)
 	public JSONArray findAllMoiveByName(VedioInfo vedio)throws Exception{
 		
 		JSONArray arry = moiveService.findOneMoiveByName(vedio);
@@ -284,7 +299,17 @@ public class WebJumpController {
 		return arry;
 	}
 	
-	@RequestMapping(value ="/findAllApp", method = RequestMethod.GET)
+	//vedio end
+	
+	@RequestMapping(value = "/manager/updateApp", method = RequestMethod.POST)
+	public JSONObject updateApp(HttpServletRequest request, AppInfo app)throws Exception {
+		
+		JSONObject obj = appService.updateApp(request, app);
+		
+		return obj;
+	}
+	
+	@RequestMapping(value ="/manager/findAllApp", method = RequestMethod.POST)
 	public JSONArray findAllApp()throws Exception{
 		
 		JSONArray arry = appService.findAllApp();
@@ -292,7 +317,7 @@ public class WebJumpController {
 		return arry;
 	}
 	
-	@RequestMapping(value ="/findAllAppByName", method = RequestMethod.GET)
+	@RequestMapping(value ="/manager/findAllAppByName", method = RequestMethod.POST)
 	public JSONArray findAllAppByName(AppInfo app)throws Exception{
 		
 		JSONArray arry = appService.findOneAppByName(app);

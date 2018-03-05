@@ -8,6 +8,26 @@ public class VedioInfo extends BaseInfo{
 	
 	private String vedioSrc;
 	
+	private String vedioMainUser;
+	
+	private String vedioDirector;
+	
+	public String getVedioMainUser() {
+		return vedioMainUser;
+	}
+
+	public void setVedioMainUser(String vedioMainUser) {
+		this.vedioMainUser = vedioMainUser;
+	}
+
+	public String getVedioDirector() {
+		return vedioDirector;
+	}
+
+	public void setVedioDirector(String vedioDirector) {
+		this.vedioDirector = vedioDirector;
+	}
+
 	public Long getVedioId() {
 		return vedioId;
 	}

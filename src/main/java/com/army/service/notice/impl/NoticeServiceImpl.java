@@ -97,7 +97,7 @@ public class NoticeServiceImpl implements NoticeService {
 			sb.append(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName"));
 			sb.append("修改通知《"+find.getNoticeContent()+"》:");
 			if(notice.getValid() != null) {
-				sb.append(notice.getValid() == "Y" ? "状态为:有效" : "状态为:无效"+"");
+				sb.append(notice.getValid().equals("Y") ? "状态为:有效" : "状态为:无效"+"");
 			}
 			if(notice.getValid() == null && notice.getNoticeContent() != null) {
 				sb.append("修改内容:"+notice.getNoticeContent());
@@ -147,7 +147,7 @@ public class NoticeServiceImpl implements NoticeService {
 			ns.get(0).setPage(notice.getPage());
 		} else {
 			NoticeInfo f = new NoticeInfo();
-			f.setTotalPages(0);
+			f.setTotalPages(-1);
 			ns.add(f);
 		}
 		for (NoticeInfo os : ns) {

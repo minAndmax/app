@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -32,14 +32,15 @@ public class MusicServiceImpl implements MusicService{
 	@Autowired
 	private OperateMapper operateMapper;
 
+	@Transactional(rollbackFor=Exception.class)
 	@Override
 	public JSONObject updateMusic(HttpServletRequest request, MusicInfo music) throws Exception {
 		JSONObject obj = new JSONObject();
 		try {
 			musicMapper.updateMusic(music);
-			
-			obj.put(KeyWord.TIPSTATUS, ValidEnum.VALID.getValidStatus());
-			obj.put(KeyWord.TIPSTATUSCONTEN, ValidEnum.VALID.getValidStatusName());
+			MusicInfo mi = musicMapper.findOneMusicByName(music);
+			obj.put(KeyWord.TIPSTATUS, StatusEnum.SSUCCESS.getNum());
+			obj.put(KeyWord.TIPSTATUSCONTEN, StatusEnum.SSUCCESS.getValue());
 			
 			JSONObject sessionObj = (JSONObject) request.getSession().getAttribute(KeyWord.USERSESSION);
 
@@ -47,22 +48,20 @@ public class MusicServiceImpl implements MusicService{
 
 			opt.setOptUserId(sessionObj.getLong("userId"));
 			opt.setOptName("修改音乐");
-			opt.setOptRemark(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + "修改音乐，修改:"
-					+ music.getMusicName() == null
-							? ""
-							: "音乐名称 " + music.getMusicName() == null ? ""
-									: "制作人 " + music.getMusicAuthor() == null ? ""
-											: "歌手 " + music.getMusicSinger() == null ? ""
-													: "编曲 " + music.getMusicArrangement() == null ? "" : "状态");
+			
+			StringBuilder sb = new StringBuilder();
+			sb.append(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + "修改音乐《"+mi.getMusicName()+"》，");
+			sb.append(music.getValid().equals("Y")? "修改状态为：有效": "修改状态为：无效 ");
+			opt.setOptRemark(sb.toString());
+			
 			opt.setTypeId(music.getMusicId());
 
 			operateMapper.inserObject(opt);
 
 			log.info("音乐修改成功[ {} ]" + obj);
 		} catch (Exception e) {
-	            obj.put(KeyWord.TIPSTATUS, StatusEnum.FAIL.getNum());
-				obj.put(KeyWord.TIPSTATUSCONTEN, StatusEnum.FAIL.getValue());
-				TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();//事务回滚
+			obj.put(KeyWord.TIPSTATUS, StatusEnum.FAIL.getNum());
+			obj.put(KeyWord.TIPSTATUSCONTEN, StatusEnum.FAIL.getValue());
 				log.error("程序异常，音乐修改失败[ {} ]" + e.getMessage());
 		}
 		return obj;
@@ -83,11 +82,71 @@ public class MusicServiceImpl implements MusicService{
 	public JSONArray findOneMusicByName(MusicInfo musicInfo) throws Exception {
 		JSONArray arry = new JSONArray();
 		
-		List<MusicInfo> minfo = musicMapper.findOneMusicByName(musicInfo);
+//		List<MusicInfo> minfo = musicMapper.findOneMusicByName(musicInfo);
+//		for(MusicInfo m : minfo) {
+//			arry.add(m);
+//		}
+		return arry;
+	}
+
+	@Override
+	public JSONArray findAllMusicManeger(MusicInfo musicInfo) throws Exception {
+		
+		int pages = musicMapper.findMusicCount(musicInfo);
+		
+		double db = Math.ceil((double) pages / (double) musicInfo.getSize());
+		
+		JSONArray arry = new JSONArray();
+	
+		List<MusicInfo> minfo = musicMapper.findAllMusicManeger(musicInfo);
+		if(minfo.size() > 0) {
+			minfo.get(0).setTotalPages((int)db);
+		} else {
+			MusicInfo f = new MusicInfo();
+			f.setTotalPages(-1);
+			minfo.add(f);
+		}
 		for(MusicInfo m : minfo) {
 			arry.add(m);
 		}
 		return arry;
+	}
+	@Transactional(rollbackFor=Exception.class)
+	@Override
+	public JSONObject insertMusics(HttpServletRequest request,MusicInfo info) throws Exception {
+		JSONObject obj = new JSONObject();
+
+		try {
+			JSONObject sessionObj = (JSONObject) request.getSession().getAttribute(KeyWord.USERSESSION);
+			
+			info.setValid(ValidEnum.VALID.getValidStatus());
+			info.setCreateName(sessionObj.getString("userName"));
+			musicMapper.insertMusics(info);
+            
+			obj.put(KeyWord.TIPSTATUS, StatusEnum.SSUCCESS.getNum());
+			obj.put(KeyWord.TIPSTATUSCONTEN, StatusEnum.SSUCCESS.getValue());
+
+
+			OperateInfo opt = new OperateInfo();
+
+			opt.setOptUserId(sessionObj.getLong("userId"));
+			opt.setOptName("添加音乐");
+			opt.setOptRemark(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + "添加音乐，名字《"+ info.getMusicName() + "》,演唱人人：" + info.getMusicSinger());
+			opt.setTypeId(info.getMusicId());
+
+			operateMapper.inserObject(opt);
+
+			log.info("通知音乐成功[ {} ]" + obj);
+
+		} catch (Exception e) {
+            e.printStackTrace();
+            obj.put(KeyWord.TIPSTATUS, StatusEnum.FAIL.getNum());
+			obj.put(KeyWord.TIPSTATUSCONTEN, StatusEnum.FAIL.getValue());
+			log.error("程序异常，通知音乐失败[ {} ]" + e.getMessage());
+		}
+
+		
+		return obj;
 	}
 
 	

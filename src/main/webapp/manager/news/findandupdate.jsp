@@ -58,7 +58,7 @@
     <span class="sp">位置：</span>
     <ul class="placeul">
     <li><a href="#">首页</a></li>
-    <li><a href="bewstab.html">新闻管理</a></li>
+    <li><a href="newstab.html">新闻管理</a></li>
     </ul>
     </div>
     

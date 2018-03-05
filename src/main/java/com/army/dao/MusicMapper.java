@@ -8,7 +8,13 @@ public interface MusicMapper {
 	
 	List<MusicInfo> findAllMusic()throws Exception;
 	
-	List<MusicInfo> findOneMusicByName(MusicInfo musicInfo)throws Exception;
+	void insertMusics(MusicInfo info)throws Exception;
+	
+	MusicInfo findOneMusicByName(MusicInfo musicInfo)throws Exception;
 	
 	void updateMusic(MusicInfo musicInfo)throws Exception;
+	
+	int findMusicCount(MusicInfo musicInfo)throws Exception;
+	
+	List<MusicInfo> findAllMusicManeger(MusicInfo musicInfo)throws Exception;
 }
