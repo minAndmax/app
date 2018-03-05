@@ -45,11 +45,9 @@ public class WebJumpController {
 	
 	@Autowired
 	private AppService appService;
-<<<<<<< HEAD
 	
 	@Autowired
-=======
->>>>>>> b995e1db8a7ac5ee89a1b9a6b61d5c2553a7270e
+
 	private NoticeService noticeService;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
