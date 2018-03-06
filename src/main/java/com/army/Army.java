@@ -18,5 +18,4 @@ public class Army {
 		sapp.run(args);
 
 	}
-
 }

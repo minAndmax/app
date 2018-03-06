@@ -42,7 +42,7 @@ public class NoticeServiceImpl implements NoticeService {
 			JSONObject sessionObj = (JSONObject) request.getSession().getAttribute(KeyWord.USERSESSION);
 			
 			notice.setValid(ValidEnum.VALID.getValidStatus());
-			notice.setRemark(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + "添加通知，内容《"	+ "》,通知人：" + notice.getNoticeUser());
+			notice.setRemark(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + ",添加通知，内容《"	+ "》,通知人：" + notice.getNoticeUser());
 			notice.setCreateName(sessionObj.getString("userName"));
 			notice.setUserId(sessionObj.getLong("userId"));
 			noticeMapper.insertNotice(notice);
@@ -55,8 +55,8 @@ public class NoticeServiceImpl implements NoticeService {
 
 			opt.setOptUserId(sessionObj.getLong("userId"));
 			opt.setOptName("添加通知");
-			opt.setOptRemark(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + "添加通知，内容《"
-					+ notice.getNoticeContent() + "》，通知人:" + notice.getNoticeUser());
+			opt.setOptRemark(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + ",添加通知，内容《"
+					+ notice.getNoticeContent() + "》,通知人:" + notice.getNoticeUser());
 			opt.setTypeId(notice.getNoticeId());
 
 			operateMapper.inserObject(opt);
@@ -95,14 +95,14 @@ public class NoticeServiceImpl implements NoticeService {
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName"));
-			sb.append("修改通知《"+find.getNoticeContent()+"》:");
+			sb.append(",修改通知《"+find.getNoticeContent()+"》:");
 			if(notice.getValid() != null) {
-				sb.append(notice.getValid().equals("Y") ? "状态为:有效" : "状态为:无效"+"");
+				sb.append(notice.getValid().equals("Y") ? ",状态为:有效" : ",状态为:无效"+"");
 			}
 			if(notice.getValid() == null && notice.getNoticeContent() != null) {
-				sb.append("修改内容:"+notice.getNoticeContent());
+				sb.append(",修改内容:"+notice.getNoticeContent());
 			}
-			sb.append("修改拟定人:"+notice.getNoticeUser());
+			sb.append(",修改拟定人:"+notice.getNoticeUser());
 			opt.setOptRemark(sb.toString());
 			
 			opt.setTypeId(notice.getNoticeId());

@@ -50,8 +50,8 @@ public class MoiveServiceImpl implements MoiveService{
 			opt.setOptUserId(sessionObj.getLong("userId"));
 			opt.setOptName("修改影视");
 			StringBuilder sb = new StringBuilder();
-			sb.append(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + "修改影视，修改《"+find.getVedioName()+"》");
-			sb.append(vinfo.getValid().equals("N") ? "修改状态为:无效":"修改状态为:有效");
+			sb.append(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + ",修改影视，修改《"+find.getVedioName()+"》");
+			sb.append(vinfo.getValid().equals("N") ? ",修改状态为:无效":",修改状态为:有效");
 			opt.setOptRemark(sb.toString());
 			opt.setTypeId(vinfo.getVedioId());
 

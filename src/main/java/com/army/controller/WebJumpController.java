@@ -17,6 +17,7 @@ import com.army.service.app.AppService;
 import com.army.service.music.MusicService;
 import com.army.service.news.NewsService;
 import com.army.service.notice.NoticeService;
+import com.army.service.opt.OperateService;
 import com.army.service.user.UserLoginService;
 import com.army.vo.AppInfo;
 import com.army.vo.MusicInfo;
@@ -45,12 +46,12 @@ public class WebJumpController {
 	
 	@Autowired
 	private AppService appService;
-<<<<<<< HEAD
 	
 	@Autowired
-=======
->>>>>>> b995e1db8a7ac5ee89a1b9a6b61d5c2553a7270e
 	private NoticeService noticeService;
+	
+	@Autowired
+	private OperateService operateService;
 	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public JSONObject userLogin(HttpServletRequest request,UserInfo userLogin)throws Exception{
@@ -60,6 +61,25 @@ public class WebJumpController {
 		return obj;
 		
 	}
+	
+	@RequestMapping(value = "/manager/findOpt", method = RequestMethod.POST)
+	public JSONArray findOpt(HttpServletRequest request,String opt)throws Exception{
+		
+		JSONArray arr = operateService.findOpt(request,opt);
+		
+		return arr;
+		
+	}
+	
+	@RequestMapping(value = "/manager/findAllCount", method = RequestMethod.POST)
+	public JSONArray findAllCount(HttpServletRequest request)throws Exception{
+		
+		JSONArray arr = operateService.findAllCount(request);
+		
+		return arr;
+		
+	}
+	
 	//新闻开始
 	@RequestMapping(value = "/manager/insertNew", method = RequestMethod.POST)
 	public JSONObject insertNew(HttpServletRequest request, NewsInfo news)throws Exception{

@@ -166,13 +166,16 @@ h2{font-weight:normal;}
 .maintj{text-align:center;}
 .newlist{padding-left:14px; padding-top:15px;}
 .newlist li{line-height:25px; background:url(../images/list2.png) no-repeat 0px 8px; text-indent:11px;}
+.tooli li{line-height:25px; background:url(../images/list2.png) no-repeat 0px 8px; text-indent:11px;}
 .newlist i{width:80px; display:block; float:left; font-style:normal;}
 .newlist b{font-weight:normal; color:#7b7b7b; padding-left:10px;}
+.tooli b{font-weight:normal; color:#7b7b7b; padding-left:10px;}
 .leftinfos{height:238px;margin-top:8px;}
-.infoleft{border:#d3dbde solid 1px; float:left;height:238px;}
-.inforight{border:#d3dbde solid 1px; float:right;height:238px; }
-.tooli{padding:30px 20px;}
-.tooli li{float:left;padding-left:15px; padding-right:15px;margin-bottom:20px;}
+.infoleft{border:#d3dbde solid 1px; height:260px; width: 100%;}
+.inforight{border:#d3dbde solid 1px; height:260px; width: 100%; }
+.infofoot{border:#d3dbde solid 1px; height:80px; width: 100%; text-align: center;}
+.tooli{padding:30px 8px;}
+/* .tooli li{float:left;padding-left:15px; padding-right:15px;margin-bottom:20px;} */
 .tooli li span{text-align:center;}
 .tooli li p{line-height:35px; text-align:center;}
 
@@ -331,3 +334,60 @@ h2{font-weight:normal;}
 	height: 25px; 
 	background: url(../images/logo/noticeLogo.png) left center no-repeat; 
 	background-size: 15px 15px; }
+#newscount{ 
+	overflow: hidden; 
+	text-align:center;
+	list-style-type:none;
+	padding-left: 45px; 
+	height: 45px; 
+	background: url(../images/logo/newLogo.jpg) left center no-repeat; 
+	background-size: 35px 35px; }
+#musiccount{ 
+	overflow: hidden; 
+	list-style-type:none;
+	text-align:center;
+	padding-left: 45px; 
+	height: 45px; 
+	background: url(../images/logo/musicLogo.png) left center no-repeat; 
+	background-size: 35px 35px; }
+#vediocount{ 
+	overflow: hidden; 
+	list-style-type:none;
+	text-align:center;
+	padding-left: 45px; 
+	height: 45px; 
+	background: url(../images/logo/vedioLogo.png) left center no-repeat; 
+	background-size: 35px 35px; }
+#appLogo1{ 
+	overflow: hidden; 
+	list-style-type:none;
+	text-align:center;
+	padding-left: 45px; 
+	height: 45px; 
+	background: url(../images/logo/appLogo.jpg) left center no-repeat; 
+	background-size: 35px 35px; }
+#noticecount{ 
+	overflow: hidden; 
+	text-align:center;
+	list-style-type:none;
+	padding-left: 45px; 
+	height: 45px; 
+	background: url(../images/logo/noticeLogo.png) left center no-repeat; 
+	background-size: 35px 35px; }
+.newscount{
+	
+	margin-left: 15%;
+	float: left;
+}
+.musiccount{
+	margin-left: 15%;
+	float: left;
+}
+.vediocount{
+	margin-left: 15%;
+	float: left;
+}
+.noticecount{
+	margin-left: 15%;
+	float: left;
+}

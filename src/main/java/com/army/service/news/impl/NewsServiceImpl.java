@@ -31,11 +31,7 @@ public class NewsServiceImpl implements NewsService {
 
 	@Autowired
 	private OperateMapper operateMapper;
-<<<<<<< HEAD
 	
-=======
->>>>>>> b995e1db8a7ac5ee89a1b9a6b61d5c2553a7270e
-
 	@Transactional(rollbackFor=Exception.class)
 	@Override
 	public JSONObject insertNew(HttpServletRequest request, NewsInfo news) throws Exception {
@@ -46,7 +42,7 @@ public class NewsServiceImpl implements NewsService {
 			JSONObject sessionObj = (JSONObject) request.getSession().getAttribute(KeyWord.USERSESSION);
 			
 			news.setValid(ValidEnum.VALID.getValidStatus());
-            news.setNewRemark(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + "添加新闻，标题《"
+            news.setNewRemark(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + ",添加新闻，标题《"
 					+ news.getNewName() + "》作者:" + news.getNewAuthor());
             news.setCreateName(sessionObj.getString("userName"));
 			newsMapper.insertNews(news);
@@ -59,7 +55,7 @@ public class NewsServiceImpl implements NewsService {
 
 			opt.setOptUserId(sessionObj.getLong("userId"));
 			opt.setOptName("添加新闻");
-			opt.setOptRemark(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + "添加新闻，标题《"
+			opt.setOptRemark(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + ",添加新闻，标题《"
 					+ news.getNewName() + "》作者:" + news.getNewAuthor());
 			opt.setTypeId(news.getNewId());
 
@@ -97,14 +93,14 @@ public class NewsServiceImpl implements NewsService {
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName"));
-			sb.append("修改新闻《"+find.getNewName()+"》:");
+			sb.append("修改新闻《"+find.getNewName()+"》");
 			if(news.getValid() == null) {
-				sb.append(news.getNewName() == null ? "": "标题:"+news.getNewName());
+				sb.append(news.getNewName() == null ? "": ",标题:"+news.getNewName());
 			}
-			sb.append(news.getNewAuthor() == null ? "": " 作者:"+news.getNewAuthor());
-			sb.append(news.getNewContent() == null ? "": " 内容 ");
+			sb.append(news.getNewAuthor() == null ? "": ",作者:"+news.getNewAuthor());
+			sb.append(news.getNewContent() == null ? "": ",内容 ");
 			if(news.getValid() != null) {
-				sb.append(news.getValid().equals("Y") ? "状态为:有效" : "状态为:无效"+"");
+				sb.append(news.getValid().equals("Y") ? ",状态为:有效" : ",状态为:无效"+"");
 			}
 			opt.setOptRemark(sb.toString());
 			

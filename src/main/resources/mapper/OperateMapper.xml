@@ -16,5 +16,25 @@
            ,#{typeId}
            ,GETDATE())
 	</insert>
+	
+	<select id="findOpt" parameterType="com.army.vo.OperateInfo" resultType="com.army.vo.OperateInfo">
+		SELECT 
+		   opt_id AS optId
+	      ,opt_name AS optName
+	      ,opt_remark AS optRemark
+	      ,opt_user_id AS optUserId
+	      ,type_id AS typeId
+	      ,create_time AS createTime
+  		FROM tb_operate_record 
+  		<where>
+  			<if test="optName != null and optName != ''">
+	  			opt_name LIKE '%'+#{optName}+'%'
+  			</if>
+  			<if test="optUserId != null and optUserId != 0">
+	  			AND opt_user_id = #{optUserId}
+  			</if>
+  		</where>
+  		ORDER BY opt_id DESC
+	</select>
 
 </mapper>

@@ -1,5 +1,8 @@
 package com.army.service.user.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -8,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
+import com.alipay.api.domain.Data;
 import com.army.dao.UserLoginMapper;
 import com.army.service.user.UserLoginService;
 import com.army.util.KeyWord;

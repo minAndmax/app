@@ -55,6 +55,12 @@
 		    <if test="musicSinger != null and musicSinger != ''">
 		    		AND music_singer LIKE '%'+#{musicSinger}+'%'
 		    </if>
+		     <if test="valid != null and valid != ''">
+		    		AND is_valid = #{valid}
+		    </if>
+		    <if test="createName != null and createName != ''">
+		    		AND create_name = #{createName}
+		    </if>
 	    </where> 
     </select>
     

@@ -99,6 +99,12 @@
 			<if test="createTime != null and createTime != ''">
 				AND CONVERT(VARCHAR,create_time,120) LIKE '%'+#{createTime}+'%'
 			</if>
+			 <if test="valid != null and valid != ''">
+		    	AND is_valid = #{valid}
+		    </if>
+		    <if test="createName != null and createName != ''">
+				AND create_name = #{createName}
+			</if>
 		</where>
     </select>
 

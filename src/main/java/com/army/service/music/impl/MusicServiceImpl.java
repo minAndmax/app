@@ -50,8 +50,8 @@ public class MusicServiceImpl implements MusicService{
 			opt.setOptName("修改音乐");
 			
 			StringBuilder sb = new StringBuilder();
-			sb.append(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + "修改音乐《"+mi.getMusicName()+"》，");
-			sb.append(music.getValid().equals("Y")? "修改状态为：有效": "修改状态为：无效 ");
+			sb.append(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + ",修改音乐《"+mi.getMusicName()+"》，");
+			sb.append(music.getValid().equals("Y")? ",修改状态为：有效": ",修改状态为：无效 ");
 			opt.setOptRemark(sb.toString());
 			
 			opt.setTypeId(music.getMusicId());

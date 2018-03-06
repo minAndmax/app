@@ -57,7 +57,6 @@
 	<div class="place">
     <span class="sp">位置：</span>
     <ul class="placeul">
-    <li><a href="#">首页</a></li>
     <li><a href="tab.html">通知管理</a></li>
     </ul>
     </div>
@@ -200,5 +199,15 @@
         });
 	});
 </script>
-             
+             <script type="text/javascript">
+	$(document).ready(function(){
+		$.post("/data/manager/getUser",{},function(data){
+  		  if(data.userName != null){
+	    		  $("#showuser").html(data.roleName+":"+data.userName);
+  		  } else{
+  			  window.top.location = "/manager/login.html";
+  		  }
+  	  })
+	})
+</script>
 </html>
