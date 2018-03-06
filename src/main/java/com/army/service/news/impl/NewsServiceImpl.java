@@ -31,7 +31,7 @@ public class NewsServiceImpl implements NewsService {
 
 	@Autowired
 	private OperateMapper operateMapper;
-	
+
 	@Transactional(rollbackFor=Exception.class)
 	@Override
 	public JSONObject insertNew(HttpServletRequest request, NewsInfo news) throws Exception {
