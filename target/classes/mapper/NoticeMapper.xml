@@ -13,6 +13,7 @@
            ,notice_user
            ,user_id
            ,is_valid
+           ,create_name
            ,create_time
            ,update_time)
      	VALUES
@@ -20,6 +21,7 @@
            ,#{noticeUser}
            ,#{userId}
            ,#{valid}
+           ,#{createName}
            ,GETDATE()
            ,GETDATE())
 	</insert>

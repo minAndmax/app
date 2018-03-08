@@ -189,7 +189,7 @@ body.stop-scrolling {
   .sweet-alert[data-has-cancel-button=false] button {
     box-shadow: none !important; }
   .sweet-alert[data-has-confirm-button=false][data-has-cancel-button=false] {
-    padding-bottom: 40px; background-color: #ff9900;}
+    padding-bottom: 40px; background-color: #FF0000;}
   .sweet-alert .sa-icon {
     width: 80px;
     height: 80px;
@@ -202,7 +202,7 @@ body.stop-scrolling {
     position: relative;
     box-sizing: content-box; }
     .sweet-alert .sa-icon.sa-error {
-      border-color: #1ab394; }
+      border-color: #FF3300; }
       .sweet-alert .sa-icon.sa-error .sa-x-mark {
         position: relative;
         display: block; }
@@ -210,7 +210,7 @@ body.stop-scrolling {
         position: absolute;
         height: 5px;
         width: 47px;
-        background-color: #1ab394;
+        background-color: #FF3300;
         display: block;
         top: 37px;
         border-radius: 2px; }
@@ -223,7 +223,7 @@ body.stop-scrolling {
           transform: rotate(-45deg);
           right: 16px; }
     .sweet-alert .sa-icon.sa-warning {
-      border-color: #1ab394; }
+      border-color: #FF3300; }
       .sweet-alert .sa-icon.sa-warning .sa-body {
         position: absolute;
         width: 5px;
@@ -243,7 +243,7 @@ body.stop-scrolling {
         margin-left: -3px;
         left: 50%;
         bottom: 10px;
-        background-color: #1ab394; }
+        background-color: #FF3300; }
     .sweet-alert .sa-icon.sa-info {
       border-color: #C9DAE1; }
       .sweet-alert .sa-icon.sa-info::before {
@@ -299,7 +299,7 @@ body.stop-scrolling {
       .sweet-alert .sa-icon.sa-success .sa-placeholder {
         width: 80px;
         height: 80px;
-        border: 4px solid   #1ab394  ;
+        border: 4px solid   #FF3300  ;
         -webkit-border-radius: 40px;
         border-radius: 40px;
         border-radius: 50%;
@@ -320,7 +320,7 @@ body.stop-scrolling {
         transform: rotate(-45deg); }
       .sweet-alert .sa-icon.sa-success .sa-line {
         height: 5px;
-        background-color: #1ab394;
+        background-color: #FF3300;
         display: block;
         border-radius: 2px;
         position: absolute;

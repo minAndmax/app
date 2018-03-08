@@ -1,6 +1,8 @@
 package com.army.controller;
 
 
+import java.io.File;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,7 @@ import com.army.vo.AppInfo;
 import com.army.vo.MusicInfo;
 import com.army.util.KeyWord;
 import com.army.util.StatusEnum;
+import com.army.util.UpLoadImageUtil;
 import com.army.vo.NewsInfo;
 import com.army.vo.NoticeInfo;
 import com.army.vo.UserInfo;
@@ -57,6 +60,15 @@ public class WebJumpController {
 	public JSONObject userLogin(HttpServletRequest request,UserInfo userLogin)throws Exception{
 		
 		JSONObject obj = userLoginService.userLogin(request,userLogin);
+		
+		return obj;
+		
+	}
+	
+	@RequestMapping(value = "/manager/uploadFile" , method = RequestMethod.POST)
+public JSONObject uploadFile(HttpServletRequest request)throws Exception{
+		
+		JSONObject obj = UpLoadImageUtil.uploadFile(request);
 		
 		return obj;
 		

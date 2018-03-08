@@ -102,7 +102,9 @@ public class NoticeServiceImpl implements NoticeService {
 			if(notice.getValid() == null && notice.getNoticeContent() != null) {
 				sb.append(",修改内容:"+notice.getNoticeContent());
 			}
-			sb.append(",修改拟定人:"+notice.getNoticeUser());
+			if(notice.getValid() == null) {
+				sb.append(",修改拟定人:"+notice.getNoticeUser());
+			}
 			opt.setOptRemark(sb.toString());
 			
 			opt.setTypeId(notice.getNoticeId());

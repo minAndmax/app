@@ -5,11 +5,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>查看与修改</title>
-	<link rel="stylesheet" href="../kindeditor/themes/default/default.css" />
-	<link rel="stylesheet" href="../kindeditor/plugins/code/prettify.css" />
-	<script charset="utf-8" src="../kindeditor/kindeditor.js"></script>
-	<script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
-	<script charset="utf-8" src="../kindeditor/plugins/code/prettify.js"></script>
 <link href="../css/style.css" rel="stylesheet" type="text/css" />
 <link href="../css/select.css" rel="stylesheet" type="text/css" />
 <link href="../css/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
@@ -24,32 +19,6 @@
   	cursor: pointer;
   }
 </style>
-<script>
-		KindEditor.ready(function(K) {
-			var editor1 = K.create('textarea[name="content1"]', {
-				cssPath : '../kindeditor/plugins/code/prettify.css',
-				uploadJson : '../kindeditor/jsp/upload_json.jsp',
-				fileManagerJson : '../kindeditor/jsp/file_manager_json.jsp',
-				allowFileManager : true,
-				afterCreate : function() {
-					var self = this;
-					K.ctrl(document, 13, function() {
-						self.sync();
-						document.forms['example'].submit();
-					});
-					K.ctrl(self.edit.doc, 13, function() {
-						self.sync();
-						document.forms['example'].submit();
-					});
-				},
-			afterBlur:function(){this.sync();} 
-			});
-			prettyPrint();
-		});
-	</script>
-  
-<script type="text/javascript">
-</script>
 </head>
 
 <body>
@@ -88,7 +57,7 @@
     <li><label>通知内容<b>*</b></label>
     
 
-    <textarea id="content7" name="content1" style="width:100%;height:400px;visibility:hidden;"></textarea>
+    <textarea id="content7" class="newc" name="content1" style="width:600%;height:400px;"></textarea>
     
     </li>
     <li><label>&nbsp;</label><input type="button" id="bt" class="btn" value="修改"/></li>
@@ -141,7 +110,7 @@
 				{noticeId:noticeID},
 				function(data){
 					$("#author").val(data.jsonobejct.noticeUser);
-					KindEditor.html("#content7",data.jsonobejct.noticeContent);
+					$("#content7").val(data.jsonobejct.noticeContent);
 		})
 		
 	}
@@ -152,24 +121,45 @@
 			title: "确定修改?",
             type: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#1ab394",
+            confirmButtonColor: "#FF0000",
             cancelButtonText: "取消",
             confirmButtonText: "确定 ",
             closeOnConfirm: false,
 		},function(isConfirm){
 			if(isConfirm){
 				
+				var author = $("#author").val();
+				var content = $("#content7").val();
+				var newID = $("#id").val();
+     			
+     			if(author == null || author == ''){
+	     			swal({
+						confirmButtonColor: "#FF0000",
+						title: "拟定人输入不能为空",
+						confirmButtonText: "确认",
+						type: "error"
+					});
+	     			return false;
+     			}
+     			
+     			if(content == null || content == ''){
+	     			swal({
+						confirmButtonColor: "#FF0000",
+						title: "通知内容输入不能为空",
+						confirmButtonText: "确认",
+						type: "error"
+					});
+	     			return false;
+     			}
+				
 				swal({
                     title: "请等待……",
                     type: "warning",
+                    confirmButtonColor: "#FF0000",
                     showConfirmButton: false,
                     showCancelButton: true,
                     cancelButtonText:"取消"
                 });
-				
-				var author = $("#author").val();
-				var content = $("#content7").val();
-				var newID = $("#id").val();
 				
 				var requests = {
 						noticeUser : author,
@@ -179,7 +169,7 @@
 				$.post("/data/manager/updateNotice",requests,function(date){
 					if(date.tipStatus == 1){
 						swal({
-        	                confirmButtonColor: "#1ab394",
+        	                confirmButtonColor: "#FF0000",
         	                title: "修改成功!",
         	                confirmButtonText: "确认",
         	                type: "success"
@@ -188,7 +178,7 @@
         	            }, 2000);
 					} else{
 						swal({
-        	                confirmButtonColor: "#1ab394",
+        	                confirmButtonColor: "#FF0000",
         	                title: "数据异常!",
         	                confirmButtonText: "确认",
         	                type: "error"

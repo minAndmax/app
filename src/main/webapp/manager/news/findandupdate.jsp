@@ -5,11 +5,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>查看与修改</title>
+	
 	<link rel="stylesheet" href="../kindeditor/themes/default/default.css" />
 	<link rel="stylesheet" href="../kindeditor/plugins/code/prettify.css" />
 	<script charset="utf-8" src="../kindeditor/kindeditor.js"></script>
 	<script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
 	<script charset="utf-8" src="../kindeditor/plugins/code/prettify.js"></script>
+	
 <link href="../css/style.css" rel="stylesheet" type="text/css" />
 <link href="../css/select.css" rel="stylesheet" type="text/css" />
 <link href="../css/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
@@ -25,27 +27,27 @@
   }
 </style>
 <script>
-		KindEditor.ready(function(K) {
-			var editor1 = K.create('textarea[name="content1"]', {
-				cssPath : '../kindeditor/plugins/code/prettify.css',
-				uploadJson : '../kindeditor/jsp/upload_json.jsp',
-				fileManagerJson : '../kindeditor/jsp/file_manager_json.jsp',
-				allowFileManager : true,
-				afterCreate : function() {
-					var self = this;
-					K.ctrl(document, 13, function() {
-						self.sync();
-						document.forms['example'].submit();
-					});
-					K.ctrl(self.edit.doc, 13, function() {
-						self.sync();
-						document.forms['example'].submit();
-					});
-				},
-			afterBlur:function(){this.sync();} 
+KindEditor.ready(function(K) {
+	var editor1 = K.create('textarea[name="content1"]', {
+		cssPath : '../kindeditor/plugins/code/prettify.css',
+		uploadJson : '/data/manager/uploadFile',
+		fileManagerJson : '../kindeditor/jsp/file_manager_json.jsp',
+		allowFileManager : true,
+		afterCreate : function() {
+			var self = this;
+			K.ctrl(document, 13, function() {
+				self.sync();
+				document.forms['example'].submit();
 			});
-			prettyPrint();
-		});
+			K.ctrl(self.edit.doc, 13, function() {
+				self.sync();
+				document.forms['example'].submit();
+			});
+		},
+		afterBlur:function(){this.sync();} 
+	});
+	prettyPrint();
+});
 	</script>
   
 <script type="text/javascript">
@@ -91,7 +93,6 @@
     </li>
     <li><label>新闻内容<b>*</b></label>
     
-
     <textarea id="content7" name="content1" style="width:100%;height:400px;visibility:hidden;"></textarea>
     
     </li>
@@ -126,6 +127,7 @@
 		loadUpdate();
 		loadFind();
 	})
+	var alreadyContent;
 	function loadFind(){
 		
 		var newID = $("#id").val();
@@ -147,6 +149,7 @@
 				function(data){
 					$("#tip").val(data.jsonobejct.newName);
 					$("#author").val(data.jsonobejct.newAuthor);
+					alreadyContent = data.jsonobejct.newContent;
 					KindEditor.html("#content7",data.jsonobejct.newContent);
 		})
 		
@@ -165,17 +168,39 @@
 		},function(isConfirm){
 			if(isConfirm){
 				
+				var tip = $("#tip").val();
+				var author = $("#author").val();
+				var content = $("#content7").val();
+				var newID = $("#id").val();
+				
+				alert(content)
+				
+				if(tip == null || tip == ''){
+	     			swal({
+						confirmButtonColor: "#FF0000",
+						title: "标题输入不能为空",
+						confirmButtonText: "确认",
+						type: "error"
+					});
+	     			return false;
+     			}
+     			
+     			if(author == null || author == ''){
+	     			swal({
+						confirmButtonColor: "#FF0000",
+						title: "作者输入不能为空",
+						confirmButtonText: "确认",
+						type: "error"
+					});
+	     			return false;
+     			}
+				
 				swal({
                     title: "请等待……",
                     type: "warning",
                     showConfirmButton: false,
                     showCancelButton: true
                 });
-				
-				var tip = $("#tip").val();
-				var author = $("#author").val();
-				var content = $("#content7").val();
-				var newID = $("#id").val();
 				
 				var requests = {
 						newName : tip,

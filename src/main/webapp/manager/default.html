@@ -1,14 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>无标题文档</title>
 <link href="css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/jsapi.js"></script>
-<script type="text/javascript" src="js/format+zh_CN,default,corechart.I.js"></script>		
-<script type="text/javascript" src="js/jquery.gvChart-1.0.1.min.js"></script>
-<script type="text/javascript" src="js/jquery.ba-resize.min.js"></script>
+<script charset="utf-8" type="text/javascript" src="js/jquery.js"></script>
+<!-- <script type="text/javascript" src="js/jsapi.js"></script> -->
+<!-- <script type="text/javascript" src="js/format+zh_CN,default,corechart.I.js"></script>		 -->
+<!-- <script type="text/javascript" src="js/jquery.gvChart-1.0.1.min.js"></script> -->
+<!-- <script type="text/javascript" src="js/jquery.ba-resize.min.js"></script> -->
 
 </head>
 <body>
@@ -82,7 +81,7 @@
     <div class="inforight">
     <div class="listtitle">添加记录</div>
     
-    <ul class="tooli" id="insertopt" style="overflow-y:scroll;height: 160px;">
+    <ul class="newlist" id="insertopt" style="overflow-y:scroll;height: 200px;">
     </ul>
     
     </div>
@@ -118,22 +117,23 @@
 </body>
 <script type="text/javascript">
 	
-$(document).ready(function(){
-	$.post("/data/manager/getUser",{},function(data){
-		  if(data.userName != null){
-    		  $("#showuser").html(data.roleName+":"+data.userName);
-		  } else{
-			  window.top.location = "/manager/login.html";
-		  }
-	  });
-		loadUpdate();
-		loadInsert();
-		loadCount();
+	
+	$(document).ready(function(){
+		$.post("/data/manager/getUser",{},function(data){
+			  if(data.userName != null){
+	    		  $("#showuser").html(data.roleName+":"+data.userName);
+			  } else{
+				  window.top.location = "/manager/login.html";
+			  }
+		  });
+			loadUpdate();
+			loadInsert();
+			loadCount();
 	})
 	
 	function loadUpdate(){
 		var opt = "update";
-		$.post("/data/manager/findOpt",{opt , opt},function(data){
+		$.post("/data/manager/findOpt",{opt : opt},function(data){
 			var html = "";
 			for(var i = 0 ; i < data.length ; i++){
 				html += "<li>"+data[i].optName+":"+data[i].optRemark+"<b>"+data[i].createTime+"</b></li>";
@@ -143,7 +143,7 @@ $(document).ready(function(){
 	}
 	function loadInsert(){
 		var opt = "insert";
-		$.post("/data/manager/findOpt",{opt , opt},function(data){
+		$.post("/data/manager/findOpt",{opt : opt},function(data){
 			var html = "";
 			for(var i = 0 ; i < data.length ; i++){
 				html += "<li>"+data[i].optName+":"+data[i].optRemark+"<b>"+data[i].createTime+"</b></li>";
@@ -157,9 +157,9 @@ $(document).ready(function(){
 		$.post("/data/manager/findAllCount",{},function(data){
 			if(data != null){
 				$("#nwc").html(data[0].newNum);
-				$("#mct").html(data[0].noticeNum);
-				$("#vdc").html(data[0].musicNum);
-				$("#ntc").html(data[0].vedioNum);
+				$("#mct").html(data[0].musicNum);
+				$("#vdc").html(data[0].vedioNum);
+				$("#ntc").html(data[0].noticeNum);
 			}
 		});
 		

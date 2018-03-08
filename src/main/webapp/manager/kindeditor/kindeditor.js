@@ -258,10 +258,10 @@ K.options = {
 		'undo', 'redo', '|', 'preview', 'cut', 'copy', 'paste',
 		'|', 'justifyleft', 'justifycenter', 'justifyright',
 		'justifyfull', 'insertorderedlist', 'insertunorderedlist', 'indent', 'outdent', 'subscript',
-		'superscript', 'clearhtml', 'quickformat', 'selectall', '|', 'fullscreen', '|',
+		'superscript', 'quickformat', 'selectall', '|', 'fullscreen', '|',
 		'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
-		'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image', 'multiimage',
-		'flash', 'media', 'insertfile', 'table', 'hr', 'link', 'unlink', '|', 'about'
+		'italic', 'underline', 'strikethrough', 'lineheight', 'removeformat', '|', 'image',
+		'table', 'hr', 'link', 'unlink', '|', 'about'
 	],
 	noDisableItems : ['source', 'fullscreen'],
 	colorTable : [
