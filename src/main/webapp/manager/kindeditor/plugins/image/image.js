@@ -292,7 +292,7 @@ KindEditor.plugin('image', function(K) {
 				imageHeight : img ? img.height() : '',
 				imageTitle : img ? img.attr('title') : '',
 				imageAlign : img ? img.attr('align') : '',
-				showRemote : allowImageRemote,
+				showRemote : false,
 				showLocal : allowImageUpload,
 				tabIndex: img ? 0 : imageTabIndex,
 				clickFn : function(url, title, width, height, border, align) {

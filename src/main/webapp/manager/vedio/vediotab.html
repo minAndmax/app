@@ -15,6 +15,37 @@
 <script language="JavaScript" type="text/javascript" src="../js/date/WebCalendar.js"></script>
 
 
+	<link rel="stylesheet" href="../kindeditor/themes/default/default.css" />
+	<link rel="stylesheet" href="../kindeditor/plugins/code/prettify.css" />
+	<script charset="utf-8" src="../kindeditor/kindeditor.js"></script>
+	<script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
+	<script charset="utf-8" src="../kindeditor/plugins/code/prettify.js"></script>
+
+<script>
+		KindEditor.ready(function(K) {
+			var editor1 = K.create('textarea[name="content1"]', {
+				cssPath : '../kindeditor/plugins/code/prettify.css',
+				uploadJson : '/data/manager/uploadFile',
+// 				fileManagerJson : '../kindeditor/jsp/file_manager_json.jsp',
+				allowFileManager : true,
+				items : ['flash'],
+				afterCreate : function() {
+					var self = this;
+					K.ctrl(document, 13, function() {
+						self.sync();
+						document.forms['example'].submit();
+					});
+					K.ctrl(self.edit.doc, 13, function() {
+						self.sync();
+						document.forms['example'].submit();
+					});
+				},
+			afterBlur:function(){this.sync();} 
+			});
+			prettyPrint();
+		});
+	</script>
+
 </script>
 <style type="text/css">
   .tablelink{
@@ -56,21 +87,21 @@
     <ul class="forminfo">
     <li>
     	<label>视频名称<b>*</b></label>
-    	<input name="" id="aaah" type="text" class="dfinput" value="视频名称"  style="width:518px;"/>
+    	<input name="" id="inputName" type="text" class="dfinput" value=""  style="width:518px;"/>
     </li>
     <li>
     	<label>主演<b>*</b></label>
-    	<input name="" id="aaah" type="text" class="dfinput" value="主演"  style="width:518px;"/>
+    	<input name="" id="inputMainUser" type="text" class="dfinput" value="未知"  style="width:518px;"/>
     </li>
     <li>
     	<label>导演<b>*</b></label>
-    	<input name="" id="aaah" type="text" class="dfinput" value="导演"  style="width:518px;"/>
+    	<input name="" id="inputDirector" type="text" class="dfinput" value="未知"  style="width:518px;"/>
     </li>
    
     
     </li>
     <li><label>选择视频<b>*</b></label>
-    	<input name="" id="aaah" type="file" value="选择音乐"  style="width:518px;"/>
+    	<textarea id="content7" class="newc" name="content1" style="width:30%;height:20px;visibility:hidden;"></textarea>
     </li>
     <li><label>&nbsp;</label><input name="" type="button" id="butt" class="btn" value="添加"/></li>
     </ul>
@@ -187,6 +218,108 @@
  				 load(1);
  			  })
  			
+ 			  $("#butt").click(function(){     //发布
+     			//
+     			swal({
+					title: "添加?",
+		            type: "warning",
+		            showCancelButton: true,
+		            confirmButtonColor: "#FF0000",
+		            cancelButtonText: "取消",
+		            confirmButtonText: "确定 ",
+		            closeOnConfirm: false,
+					},function(isConfirm){
+						if(isConfirm){
+							
+			     			var inputName = $("#inputName").val();
+			     			var inputMainUser = $("#inputMainUser").val();
+			     			var inputDirector = $("#inputDirector").val();
+			     			var content = $("#content7").val();
+			     			
+			     			if(inputName == null || inputName == ''){
+				     			swal({
+		    						confirmButtonColor: "#FF0000",
+		    						title: "视频名称输入不能为空",
+		    						confirmButtonText: "确认",
+		    						type: "error"
+		    					});
+				     			return false;
+			     			}
+			     			
+			     			if(inputMainUser == null || inputMainUser == ''){
+				     			swal({
+		    						confirmButtonColor: "#FF0000",
+		    						title: "主演输入不能为空",
+		    						confirmButtonText: "确认",
+		    						type: "error"
+		    					});
+				     			return false;
+			     			}
+			     			
+			     			if(inputDirector == null || inputDirector == ''){
+				     			swal({
+		    						confirmButtonColor: "#FF0000",
+		    						title: "导演输入不能为空",
+		    						confirmButtonText: "确认",
+		    						type: "error"
+		    					});
+				     			return false;
+			     			}
+			     			
+			     			if(content == null || content == ''){
+				     			swal({
+		    						confirmButtonColor: "#FF0000",
+		    						title: "没有选择视频",
+		    						confirmButtonText: "确认",
+		    						type: "error"
+		    					});
+				     			return false;
+			     			}
+			     			
+			     			
+							swal({
+								confirmButtonColor: "#FF0000",
+			                    title: "请等待……",
+			                    type: "warning",
+			                    showConfirmButton: false,
+			                    showCancelButton: true
+			                });
+							
+							var dd=content.replace(/<\/?.+?>/g,"");
+							var dds=dd.replace(/ /g,"");
+			     			
+			     			var requests = {
+			     					vedioName : inputName,
+			     					vedioMainUser : inputMainUser,
+			     					vedioDirector : inputDirector,
+			     					vedioSrc : dds
+			     			}
+     			
+     			$.post("/data/manager/insertMoive",requests,function(date){
+     				
+     				if(date.tipStatus != 1){
+     					swal({
+    						confirmButtonColor: "#FF0000",
+    						title: "添加失败"+date.tipStatusContent,
+    						confirmButtonText: "确认",
+    						type: "error"
+    					});
+     				} else{
+     					swal({
+    						confirmButtonColor: "#FF0000",
+    						title: "添加成功",
+    						confirmButtonText: "确认",
+    						type: "success"
+    					},function(inputValue){
+    						load(1);
+        	            }, 2000);
+     				}
+     				
+     					})
+					}
+       			 });
+			});	
+ 			  
      	function status(id,obj){   //改变状态
      		
      		var vedioId = id;

@@ -119,6 +119,10 @@ public class MoiveServiceImpl implements MoiveService{
 		try {
 			JSONObject sessionObj = (JSONObject) request.getSession().getAttribute(KeyWord.USERSESSION);
 			
+			VedioInfo v = moiveMapper.findVedioById(vedio);
+			
+			if(v == null) {
+			
 			vedio.setValid(ValidEnum.VALID.getValidStatus());
 			vedio.setCreateName(sessionObj.getString("userName"));
 			moiveMapper.insertMoive(vedio);
@@ -136,13 +140,13 @@ public class MoiveServiceImpl implements MoiveService{
 
 			operateMapper.inserObject(opt);
 
-			log.info("通知视频成功[ {} ]" + obj);
-
+			log.info("添加视频成功[ {} ]" + obj);
+			} 
 		} catch (Exception e) {
             e.printStackTrace();
             obj.put(KeyWord.TIPSTATUS, StatusEnum.FAIL.getNum());
 			obj.put(KeyWord.TIPSTATUSCONTEN, StatusEnum.FAIL.getValue());
-			log.error("程序异常，通知视频失败[ {} ]" + e.getMessage());
+			log.error("程序异常，添加视频失败[ {} ]" + e.getMessage());
 		}
 		
 		return obj;

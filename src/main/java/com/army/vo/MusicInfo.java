@@ -11,6 +11,16 @@ public class MusicInfo extends BaseInfo{
 	private String musicAuthor;
 	
 	private String musicSrc;
+	
+	private String fileName;
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
 
 	private String musicArrangement;
 	

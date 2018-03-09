@@ -6,8 +6,7 @@
 		SELECT
 			music_id AS musicId,
 	    	music_name AS musicName,
-	    	music_arrangement AS musicArrangement,
-	    	music_author AS musicAuthor,
+	    	file_name AS fileName,
 	    	music_singer AS musicSinger,
 	    	music_src AS musicSrc,
 	    	create_name AS createName,
@@ -23,8 +22,7 @@
 		SELECT
 			music_id AS musicId,
 	    	music_name AS musicName,
-	    	music_arrangement AS musicArrangement,
-	    	music_author AS musicAuthor,
+	    	file_name AS fileName,
 	    	music_singer AS musicSinger,
 	    	music_src AS musicSrc,
 	    	create_name AS createName,
@@ -69,8 +67,7 @@
 		SELECT
 			music_id AS musicId,
 	    	music_name AS musicName,
-	    	music_arrangement AS musicArrangement,
-	    	music_author AS musicAuthor,
+	    	file_name AS fileName,
 	    	music_singer AS musicSinger,
 	    	music_src AS musicSrc,
 	    	create_name AS createName,
@@ -82,6 +79,9 @@
 	    	<if test="musicId != null and musicId != ''">
 	    		music_id = #{musicId}
 	    	</if>
+	    	<if test="musicSrc != null and musicSrc != ''">
+	    		AND music_src = #{musicSrc}
+	    	</if>
 	    </where>
     </select>
     <!-- add music -->
@@ -91,8 +91,7 @@
     	</selectKey>
 	    	INSERT INTO TB_MUSIC_PLAYER
 				(music_name,
-	             music_arrangement,
-	             music_author,
+	             file_name,
 	             music_singer,
 	             create_name,
 	             is_valid,
@@ -101,8 +100,7 @@
 	             update_time)
 	     	VALUES
 	           (#{musicName},
-	            #{musicArrangement},
-	            #{musicAuthor},
+	            #{fileName},
 	            #{musicSinger},
 	            #{createName},
 	            #{valid},

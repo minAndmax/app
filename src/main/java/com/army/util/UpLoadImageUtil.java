@@ -40,12 +40,11 @@ public class UpLoadImageUtil {
 	private static final String UPLOAD_MUSIC_PATH = "/upload/music/";
 
 	public static JSONObject uploadFile(HttpServletRequest request) {
-		String errorTip = checkFile();
 		// 定义允许上传的文件扩展名
 		HashMap<String, String> extMap = new HashMap<String, String>();
 		extMap.put("image", "gif,jpg,png");
-		extMap.put("vedio", "swf,flv,mp4");
-		extMap.put("music", "mp3");
+		extMap.put("flash", "mp4");
+		extMap.put("media", "mp3");
 
 		MultipartHttpServletRequest requestMult = (MultipartHttpServletRequest) request;
 
@@ -54,10 +53,11 @@ public class UpLoadImageUtil {
 		List<MultipartFile> requestFileName = mults.get("imgFile");
 
 		String fileName = requestFileName.get(0).getOriginalFilename();   //获取传进来的文件名
+		String errorTip = checkFile(fileName);
 
 		JSONObject obj = new JSONObject();
 
-		String suffix = fileName.substring(fileName.indexOf(".") + 1, fileName.length());		//获取当前文件的扩展名
+		String suffix = fileName.substring(fileName.lastIndexOf(".") + 1, fileName.length());		//获取当前文件的扩展名
 
 		String dirName = request.getParameter("dir");
 		
@@ -66,16 +66,16 @@ public class UpLoadImageUtil {
 		if (Arrays.<String>asList(extMap.get(dirName).split(",")).contains(suffix)) {
 
 			try {
-				if (dirName.equals("music")) {
-					SaveFileFromInputStream(requestFileName.get(0).getInputStream(), UPLOAD_MUSIC_PATH, newName);
+				if (dirName.equals("media")) {
+					SaveFileFromInputStream(requestFileName.get(0).getInputStream(), UPLOAD_MUSIC_PATH, fileName);
 					obj.put(KeyWord.TIPSTATUSCONTEN, "上传成功");
 					obj.put("error", 0);
-					obj.put("url", UPLOAD_MUSIC_PATH+newName);
-					log.info("music:上传{}"+obj);
-			} else if (dirName.equals("vedio")) {
-					SaveFileFromInputStream(requestFileName.get(0).getInputStream(), UPLOAD_VEDIO_PATH, newName);
+					obj.put("url", UPLOAD_MUSIC_PATH+fileName);
+					log.info("media:上传{}"+obj);
+			} else if (dirName.equals("flash")) {
+					SaveFileFromInputStream(requestFileName.get(0).getInputStream(), UPLOAD_VEDIO_PATH, fileName);
 					obj.put(KeyWord.TIPSTATUSCONTEN, "上传成功");
-					obj.put("url", UPLOAD_VEDIO_PATH+newName);
+					obj.put("url", UPLOAD_VEDIO_PATH+fileName);
 					obj.put("error", 0);
 					log.info("vedio:上传{}"+obj);
 			} else if (dirName.equals("image")) {
@@ -92,7 +92,8 @@ public class UpLoadImageUtil {
 			}
 
 		} else {
-			obj.put(KeyWord.TIPSTATUSCONTEN, "不支持的扩展名");
+			obj.put("error", 1);
+			obj.put("message", "不支持的扩展名");
 			log.info("不支持的扩展名");
 		}
 
@@ -104,7 +105,16 @@ public class UpLoadImageUtil {
 		FileOutputStream fs = null;
 		try {
 			fs = new FileOutputStream("D:"+File.separator+path + "/" + filename);
-			byte[] buffer = new byte[1024 * 1024];
+			byte[] buffer = null;
+			
+			if(path.equals(UPLOAD_MUSIC_PATH)) {
+				buffer = new byte[1024 * 1024 * 100];
+			} else if(path.equals(UPLOAD_VEDIO_PATH)){
+				buffer = new byte[1024 * 1024*1000];
+			} else {
+				buffer = new byte[1024 * 1024*10];
+			}
+			
 			int byteread = 0;
 			while ((byteread = stream.read(buffer)) != -1) {
 				fs.write(buffer, 0, byteread);
@@ -131,7 +141,7 @@ public class UpLoadImageUtil {
 		}
 	}
 
-	public static String checkFile() {
+	public static String checkFile(String fileName) {
 
 		File uploadApp = new File("D:"+File.separator+UPLOAD_APP_PATH);
 
@@ -150,6 +160,13 @@ public class UpLoadImageUtil {
 		if (!uploadApp.isDirectory() || !uploadMusic.isDirectory() || !uploadVedio.isDirectory()
 				|| !uploadImage.isDirectory()) {
 			reStr = "上传目录不存在";
+		}
+		
+		if(new File("D:"+File.separator+UPLOAD_MUSIC_PATH+fileName).exists()) {
+			new File("D:"+File.separator+UPLOAD_MUSIC_PATH+fileName).delete();
+		}
+		if(new File("D:"+File.separator+UPLOAD_VEDIO_PATH+fileName).exists()) {
+			new File("D:"+File.separator+UPLOAD_VEDIO_PATH+fileName).delete();
 		}
 
 		if (!uploadApp.exists()) {

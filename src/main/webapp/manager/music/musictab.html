@@ -14,8 +14,36 @@
 <script type="text/javascript" src="../js/sweetalert/sweetalert.min.js"></script>
 <script language="JavaScript" type="text/javascript" src="../js/date/WebCalendar.js"></script>
 
+	<link rel="stylesheet" href="../kindeditor/themes/default/default.css" />
+	<link rel="stylesheet" href="../kindeditor/plugins/code/prettify.css" />
+	<script charset="utf-8" src="../kindeditor/kindeditor.js"></script>
+	<script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
+	<script charset="utf-8" src="../kindeditor/plugins/code/prettify.js"></script>
 
-</script>
+<script>
+		KindEditor.ready(function(K) {
+			var editor1 = K.create('textarea[name="content1"]', {
+				cssPath : '../kindeditor/plugins/code/prettify.css',
+				uploadJson : '/data/manager/uploadFile',
+// 				fileManagerJson : '../kindeditor/jsp/file_manager_json.jsp',
+				allowFileManager : true,
+				items : ['media'],
+				afterCreate : function() {
+					var self = this;
+					K.ctrl(document, 13, function() {
+						self.sync();
+						document.forms['example'].submit();
+					});
+					K.ctrl(self.edit.doc, 13, function() {
+						self.sync();
+						document.forms['example'].submit();
+					});
+				},
+			afterBlur:function(){this.sync();} 
+			});
+			prettyPrint();
+		});
+	</script>
 <style type="text/css">
   .tablelink{
   	cursor: pointer;
@@ -58,21 +86,16 @@
     <ul class="forminfo">
     <li>
     	<label>歌曲名称<b>*</b></label>
-    	<input name="" id="aaah" type="text" class="dfinput" value="歌曲名称"  style="width:518px;"/>
-    </li>
-    <li>
-    	<label>歌曲编曲<b>*</b></label>
-    	<input name="" id="aaah" type="text" class="dfinput" value="歌曲编曲"  style="width:518px;"/>
+    	<input name="" id="singname" type="text" class="dfinput" value=""  style="width:518px;"/>
     </li>
     <li>
     	<label>演唱人<b>*</b></label>
-    	<input name="" id="aaah" type="text" class="dfinput" value="演唱人"  style="width:518px;"/>
+    	<input name="" id="singer" type="text" class="dfinput" value=""  style="width:518px;"/>
     </li>
-   
     
     </li>
     <li><label>选择音乐<b>*</b></label>
-    	<input name="" id="aaah" type="file" value="选择音乐"  style="width:518px;"/>
+   <textarea id="content7" class="newc" name="content1" style="width:30%;height:20px;visibility:hidden;"></textarea>
     </li>
     <li><label>&nbsp;</label><input name="" type="button" id="butt" class="btn" value="添加"/></li>
     </ul>
@@ -97,7 +120,6 @@
         <th>编号<i class="sort"><img src="../images/px.gif" /></i></th>
         <th>音乐名称</th>
         <th>演唱人</th>
-        <th>编曲人</th>
         <th>状态</th>
         <th>改变状态</th>
         </tr>
@@ -166,7 +188,6 @@
 	         						tabhtml += "<td>"+i+"</td>";
 	         						tabhtml += "<td>"+data[i].musicName+"</td>";
 	         						tabhtml += "<td>"+data[i].musicSinger+"</td>";
-	         						tabhtml += "<td>"+data[i].musicArrangement+"</td>";
 	        						if(data[i].valid == 'Y'){
 	        							tabhtml += "<td>有效</td>";
 	        						}else{
@@ -218,6 +239,96 @@
      	$(document).ready(function(){
      		load(1);
 			})
+			
+			$("#butt").click(function(){     //发布
+     			//
+     			swal({
+					title: "添加?",
+		            type: "warning",
+		            showCancelButton: true,
+		            confirmButtonColor: "#FF0000",
+		            cancelButtonText: "取消",
+		            confirmButtonText: "确定 ",
+		            closeOnConfirm: false,
+					},function(isConfirm){
+						if(isConfirm){
+							
+			     			var singname = $("#singname").val();
+			     			var singer = $("#singer").val();
+			     			var content = $("#content7").val();
+			     			
+			     			if(singname == null || singname == ''){
+				     			swal({
+		    						confirmButtonColor: "#FF0000",
+		    						title: "音乐名称输入不能为空",
+		    						confirmButtonText: "确认",
+		    						type: "error"
+		    					});
+				     			return false;
+			     			}
+			     			
+			     			if(singer == null || singer == ''){
+				     			swal({
+		    						confirmButtonColor: "#FF0000",
+		    						title: "歌唱人输入不能为空",
+		    						confirmButtonText: "确认",
+		    						type: "error"
+		    					});
+				     			return false;
+			     			}
+			     			
+			     			if(content == null || content == ''){
+				     			swal({
+		    						confirmButtonColor: "#FF0000",
+		    						title: "没有选择音乐",
+		    						confirmButtonText: "确认",
+		    						type: "error"
+		    					});
+				     			return false;
+			     			}
+			     			
+			     			
+							swal({
+								confirmButtonColor: "#FF0000",
+			                    title: "请等待……",
+			                    type: "warning",
+			                    showConfirmButton: false,
+			                    showCancelButton: true
+			                });
+							
+							var dd=content.replace(/<\/?.+?>/g,"");
+							var dds=dd.replace(/ /g,"");
+			     			
+			     			var requests = {
+			     					musicName : singname,
+			     					musicSinger : singer,
+			     					musicSrc : dds
+			     			}
+     			
+     			$.post("/data/manager/insertMusics",requests,function(date){
+     				
+     				if(date.tipStatus != 1){
+     					swal({
+    						confirmButtonColor: "#FF0000",
+    						title: "添加失败"+date.tipStatusContent,
+    						confirmButtonText: "确认",
+    						type: "error"
+    					});
+     				} else{
+     					swal({
+    						confirmButtonColor: "#FF0000",
+    						title: "添加成功",
+    						confirmButtonText: "确认",
+    						type: "success"
+    					},function(inputValue){
+    						load(1);
+        	            }, 2000);
+     				}
+     				
+     					})
+					}
+       			 });
+			});	
      </script>
      <script type="text/javascript">
 		$(document).ready(function(){

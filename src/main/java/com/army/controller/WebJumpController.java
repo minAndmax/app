@@ -1,8 +1,6 @@
 package com.army.controller;
 
 
-import java.io.File;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -306,6 +304,14 @@ public JSONObject uploadFile(HttpServletRequest request)throws Exception{
 	public JSONObject updateMoive(HttpServletRequest request, VedioInfo vedio)throws Exception {
 	
 		JSONObject obj = moiveService.updateMoive(request, vedio);
+		
+		return obj;
+	}
+	
+	@RequestMapping(value = "/manager/insertMoive", method = RequestMethod.POST)
+	public JSONObject insertMoive(HttpServletRequest request, VedioInfo vedio)throws Exception {
+	
+		JSONObject obj = moiveService.insertMoive(request, vedio);
 		
 		return obj;
 	}

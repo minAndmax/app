@@ -115,8 +115,12 @@ public class MusicServiceImpl implements MusicService{
 	@Override
 	public JSONObject insertMusics(HttpServletRequest request,MusicInfo info) throws Exception {
 		JSONObject obj = new JSONObject();
-
+		
 		try {
+			
+			MusicInfo m = musicMapper.findOneMusicByName(info);
+			
+			if(m == null) {
 			JSONObject sessionObj = (JSONObject) request.getSession().getAttribute(KeyWord.USERSESSION);
 			
 			info.setValid(ValidEnum.VALID.getValidStatus());
@@ -131,18 +135,18 @@ public class MusicServiceImpl implements MusicService{
 
 			opt.setOptUserId(sessionObj.getLong("userId"));
 			opt.setOptName("添加音乐");
-			opt.setOptRemark(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + "添加音乐，名字《"+ info.getMusicName() + "》,演唱人人：" + info.getMusicSinger());
+			opt.setOptRemark(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + "添加音乐，名字《"+ info.getMusicName() + "》,演唱人：" + info.getMusicSinger());
 			opt.setTypeId(info.getMusicId());
 
 			operateMapper.inserObject(opt);
 
-			log.info("通知音乐成功[ {} ]" + obj);
-
+			log.info("音乐添加成功[ {} ]" + obj);
+			}
 		} catch (Exception e) {
             e.printStackTrace();
             obj.put(KeyWord.TIPSTATUS, StatusEnum.FAIL.getNum());
 			obj.put(KeyWord.TIPSTATUSCONTEN, StatusEnum.FAIL.getValue());
-			log.error("程序异常，通知音乐失败[ {} ]" + e.getMessage());
+			log.error("程序异常，音乐添加失败[ {} ]" + e.getMessage());
 		}
 
 		

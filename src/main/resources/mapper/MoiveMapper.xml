@@ -68,6 +68,9 @@
 		    <if test="vedioId != null and vedioId != ''">
 		    		vedio_id = #{vedioId}
 		    </if>
+		    <if test="vedioSrc != null and vedioSrc != ''">
+		    		AND vedio_src = #{vedioSrc}
+		    </if>
 	    </where> 
 	
 	</select>
@@ -113,7 +116,7 @@
 	    	     is_valid,
 	    	     create_name,
 	    	     vedio_main_user,
-	    	     vedio_director
+	    	     vedio_director,
 	    	     vedio_src,
 	    	     create_time,
 	    	     update_time)

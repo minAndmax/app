@@ -31,12 +31,12 @@ KindEditor.plugin('media', function(K) {
 				//width
 				'<div class="ke-dialog-row">',
 				'<label for="keWidth" style="width:60px;">' + lang.width + '</label>',
-				'<input type="text" id="keWidth" class="ke-input-text ke-input-number" name="width" value="550" maxlength="4" />',
+				'<input type="text" id="keWidth" class="ke-input-text ke-input-number" name="width" value="300" maxlength="4" />',
 				'</div>',
 				//height
 				'<div class="ke-dialog-row">',
 				'<label for="keHeight" style="width:60px;">' + lang.height + '</label>',
-				'<input type="text" id="keHeight" class="ke-input-text ke-input-number" name="height" value="400" maxlength="4" />',
+				'<input type="text" id="keHeight" class="ke-input-text ke-input-number" name="height" value="200" maxlength="4" />',
 				'</div>',
 				//autostart
 				'<div class="ke-dialog-row">',
@@ -72,7 +72,7 @@ KindEditor.plugin('media', function(K) {
 							heightBox[0].focus();
 							return;
 						}
-						var html = K.mediaImg(self.themesPath + 'common/blank.gif', {
+						var html = K.mediaImg(url, {
 								src : url,
 								type : K.mediaType(url),
 								width : width,
@@ -109,7 +109,7 @@ KindEditor.plugin('media', function(K) {
 							if (self.afterUpload) {
 								self.afterUpload.call(self, url, data, name);
 							}
-							alert(self.lang('uploadSuccess'));
+//							alert(self.lang('uploadSuccess'));
 						} else {
 							alert(data.message);
 						}

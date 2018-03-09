@@ -931,26 +931,26 @@ function _mediaEmbed(attrs) {
 	return html;
 }
 function _mediaImg(blankPath, attrs) {
-	var width = attrs.width,
-		height = attrs.height,
-		type = attrs.type || _mediaType(attrs.src),
-		srcTag = _mediaEmbed(attrs),
-		style = '';
-	if (/\D/.test(width)) {
-		style += 'width:' + width + ';';
-	} else if (width > 0) {
-		style += 'width:' + width + 'px;';
-	}
-	if (/\D/.test(height)) {
-		style += 'height:' + height + ';';
-	} else if (height > 0) {
-		style += 'height:' + height + 'px;';
-	}
-	var html = '<img class="' + _mediaClass(type) + '" src="' + blankPath + '" ';
-	if (style !== '') {
-		html += 'style="' + style + '" ';
-	}
-	html += 'data-ke-tag="' + escape(srcTag) + '" alt="" />';
+//	var width = attrs.width,
+//		height = attrs.height,
+//		type = attrs.type || _mediaType(attrs.src),
+//		srcTag = _mediaEmbed(attrs),
+//		style = '';
+//	if (/\D/.test(width)) {
+//		style += 'width:' + width + ';';
+//	} else if (width > 0) {
+//		style += 'width:' + width + 'px;';
+//	}
+//	if (/\D/.test(height)) {
+//		style += 'height:' + height + ';';
+//	} else if (height > 0) {
+//		style += 'height:' + height + 'px;';
+//	}
+//	var html = '<img class="' + _mediaClass(type) + '" src="' + blankPath + '" ';
+//	if (style !== '') {
+//		html += 'style="' + style + '" ';
+//	}
+	html = "<span>"+blankPath+"</span>";
 	return html;
 }
 function _tmpl(str, data) {

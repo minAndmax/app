@@ -29,15 +29,15 @@ KindEditor.plugin('flash', function(K) {
 				'</span>',
 				'</div>',
 				//width
-				'<div class="ke-dialog-row">',
-				'<label for="keWidth" style="width:60px;">' + lang.width + '</label>',
-				'<input type="text" id="keWidth" class="ke-input-text ke-input-number" name="width" value="550" maxlength="4" /> ',
-				'</div>',
+//				'<div class="ke-dialog-row">',
+//				'<label for="keWidth" style="width:60px;">' + lang.width + '</label>',
+//				'<input type="text" id="keWidth" class="ke-input-text ke-input-number" name="width" value="550" maxlength="4" /> ',
+//				'</div>',
 				//height
-				'<div class="ke-dialog-row">',
-				'<label for="keHeight" style="width:60px;">' + lang.height + '</label>',
-				'<input type="text" id="keHeight" class="ke-input-text ke-input-number" name="height" value="400" maxlength="4" /> ',
-				'</div>',
+//				'<div class="ke-dialog-row">',
+//				'<label for="keHeight" style="width:60px;">' + lang.height + '</label>',
+//				'<input type="text" id="keHeight" class="ke-input-text ke-input-number" name="height" value="400" maxlength="4" /> ',
+//				'</div>',
 				'</div>'
 			].join('');
 			var dialog = self.createDialog({
@@ -66,7 +66,7 @@ KindEditor.plugin('flash', function(K) {
 							heightBox[0].focus();
 							return;
 						}
-						var html = K.mediaImg(self.themesPath + 'common/blank.gif', {
+						var html = K.mediaImg(url, {
 								src : url,
 								type : K.mediaType('.swf'),
 								width : width,

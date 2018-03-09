@@ -50,7 +50,7 @@ h2{font-weight:normal;}
 
 /*top.html*/
 .header{height:88px;}
-.topleft{height:88px;background:url(../images/first.jpg) no-repeat;float:left; width:300px;}
+/* .topleft{height:88px;background:url(../images/first.jpg) no-repeat;float:left; width:300px;} */
 .topleft img{margin-top:12px;margin-left:10px;}
 .topright{height:88px;background:url() no-repeat right;float:right;}
 .nav{float:left;}
@@ -334,6 +334,13 @@ h2{font-weight:normal;}
 	height: 25px; 
 	background: url(../images/logo/noticeLogo.png) left center no-repeat; 
 	background-size: 15px 15px; }
+#appLogo1{ 
+	overflow: hidden; 
+	list-style-type:none;
+	padding-left: 25px; 
+	height: 25px; 
+	background: url(../images/icon01.png) left center no-repeat; 
+	background-size: 15px 15px; }
 #newscount{ 
 	overflow: hidden; 
 	text-align:center;
@@ -358,14 +365,7 @@ h2{font-weight:normal;}
 	height: 45px; 
 	background: url(../images/logo/vedioLogo.png) left center no-repeat; 
 	background-size: 35px 35px; }
-#appLogo1{ 
-	overflow: hidden; 
-	list-style-type:none;
-	text-align:center;
-	padding-left: 45px; 
-	height: 45px; 
-	background: url(../images/logo/appLogo.jpg) left center no-repeat; 
-	background-size: 35px 35px; }
+
 #noticecount{ 
 	overflow: hidden; 
 	text-align:center;
