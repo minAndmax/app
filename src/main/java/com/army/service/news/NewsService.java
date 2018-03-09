@@ -12,7 +12,7 @@ public interface NewsService {
 	
 	JSONObject updateNew(HttpServletRequest request,NewsInfo news)throws Exception;
 	
-	JSONArray findAllNews()throws Exception;
+	JSONArray findAllNews(NewsInfo news)throws Exception;
 	
 	JSONArray findAllNewManager(NewsInfo news)throws Exception;
 	

@@ -125,11 +125,24 @@ public class NewsServiceImpl implements NewsService {
 	}
 
 	@Override
-	public JSONArray findAllNews() throws Exception {
+	public JSONArray findAllNews(NewsInfo news) throws Exception {
 
+        int pages = newsMapper.findwebNewsCount(news);
+		
+		double db = Math.ceil((double) pages / (double) news.getSize());
 		
 		JSONArray arr = new JSONArray();
-		List<NewsInfo> nws = newsMapper.findAllNews();
+		List<NewsInfo> nws = newsMapper.findAllNews(news);
+		
+		if(nws.size() != 0) {
+			nws.get(0).setTotalPages((int) db);
+			nws.get(0).setPage(news.getPage());
+		} else {
+			NewsInfo ws = new NewsInfo(); 
+			ws.setTotalPages(-1);
+			ws.setSize(0);
+			nws.add(ws);
+		}
 
 		for (NewsInfo info : nws) {
 			arr.add(info);

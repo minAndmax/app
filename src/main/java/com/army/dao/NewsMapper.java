@@ -10,12 +10,14 @@ public interface NewsMapper {
 	
 	void updateNews(NewsInfo news)throws Exception;
 	
-	List<NewsInfo> findAllNews()throws Exception;
+	List<NewsInfo> findAllNews(NewsInfo news)throws Exception;
 	
 	List<NewsInfo> findAllNewManager(NewsInfo news)throws Exception;
 	
 	int findCount(NewsInfo news) throws Exception;
 	
 	NewsInfo findNewById(NewsInfo news) throws Exception;
+	
+	int findwebNewsCount (NewsInfo news)throws Exception;
 	
 }
