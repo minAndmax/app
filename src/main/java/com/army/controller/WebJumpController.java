@@ -109,9 +109,9 @@ public JSONObject uploadFile(HttpServletRequest request)throws Exception{
 	 */
 	
 	@RequestMapping(value = "/findAllNews", method = RequestMethod.POST)
-	public JSONArray findAllNews()throws Exception{
+	public JSONArray findAllNews(NewsInfo news)throws Exception{
 		
-		JSONArray arr = newsService.findAllNews();
+		JSONArray arr = newsService.findAllNews(news);
 		
 		return arr;
 		
@@ -125,6 +125,16 @@ public JSONObject uploadFile(HttpServletRequest request)throws Exception{
 		return obj;
 		
 	}
+	
+	@RequestMapping(value = "/findNewById", method = RequestMethod.POST)
+	public JSONObject findwebNewById(NewsInfo news)throws Exception{
+		
+		JSONObject obj = newsService.findNewById(news);
+		
+		return obj;
+		
+	}
+
 
 	@RequestMapping(value = "/manager/findAllNewManager", method = RequestMethod.POST)
 	public JSONArray findAllNewManager(NewsInfo news)throws Exception{

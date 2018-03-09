@@ -61,7 +61,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		
 <!-- popular(Custom news) -->
 <div class="popular">
-	<div class="col-md-8 popular-left">
+	<div class="col-md-8 popular-left" id="customNews">
 		<div class="twe-top">
 			<div class="twe">
                 <a href="blog.html"><h3 id="militaryDemeanor">军营风采</h3></a>
@@ -70,41 +70,27 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<ul>
 <!-- 				<li><h6><a href="#">订阅</a></h6></li> -->
 <!-- 				<li><a href="#"><i class="rs"></i></a></li> -->
-				<li><h6><a href="#">更多</a></h6></li>
+				<li><h6><a href="blog.html">更多</a></h6></li>
 			</ul>
 			</div>
 			<div class="clearfix"> </div>
 		</div>
-		<div class="popular-top">
-			<div class="pop-im">
-			<a href="single.html"><img src="../source/images/img3.jpg" class="img-responsive" alt="" /></a>	
-			</div>
-			<div class="pop-dat">
-			    
-				<h4>军营风采</h4>
-				<p>军人风采军人风采军人风采军人风采军人风采军人风采军人风采军人风采</p>
-				<ul class="links">
-					<li><i class="date"> </i><span class="icon_text">10月, 2017</span></li>
-<!-- 					<li><a href="#"><i class="comt"> </i><span class="icon_text">8 评论</span></a></li> -->
-				</ul>
-			</div>
-				<div class="clearfix"> </div>
+<!-- 		<div class="popular-top"> -->
+<!-- 			<div class="pop-im"> -->
+<!-- 			<a href="single.html"><img src="../source/images/img3.jpg" class="img-responsive" alt="" /></a>	 -->
+<!-- 			</div> -->
+<!-- 				<div class="pop-dat"> -->
+				    
+<!-- 					<h4>军营风采</h4> -->
+<!-- 					<p>军人风采军人风采军人风采军人风采军人风采军人风采军人风采军人风采</p> -->
+<!-- 					<ul class="links"> -->
+<!-- 						<li><i class="date"> </i><span class="icon_text">10月, 2017</span></li> -->
+<!-- 	 					<li><a href="#"><i class="comt"> </i><span class="icon_text">8 评论</span></a></li> --> 
+<!-- 					</ul> -->
+<!-- 				</div> -->
+<!-- 					<div class="clearfix"> </div> -->
+<!-- 			</div> -->
 		</div>
-		<div class="popular-top">
-			<div class="pop-im">
-			    <a href="single.html"><img src="../source/images/img4.jpg" class="img-responsive" alt="" /></a>
-			</div>
-			<div class="pop-dat">
-				<h4>军营风采</h4>
-				<p>军人风采军人风采军人风采军人风采军人风采军人风采军人风采</p>
-				<ul class="links">
-					<li><i class="date"> </i><span class="icon_text">10月, 2017</span></li>
-<!-- 					<li><a href="#"><i class="comt"> </i><span class="icon_text">8 评论</span></a></li> -->
-				</ul>
-			</div>
-				<div class="clearfix"> </div>
-		</div>
-	</div>
     <div class="copyrights"></div>
 	<div class="col-md-4 twets">
 		<div class="twe-top">
@@ -325,6 +311,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
     $(document).ready(function(){
     	loadNotice();
+    	loadCustomNews();
     })
     
    function loadNotice(){
@@ -338,6 +325,35 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     	});
     }
 
+    function loadCustomNews(){//加载自定义新闻 
+    	$.post("data/findAllNews",{page:0,size:2},function(date){
+    		var len = date.length;
+    		var html ="";
+    		for(var i = 0 ; i < len ; i++){
+    			var str = date[i].newContent;
+				var dd=str.replace(/<\/?.+?>/g,"");
+				var dds=dd.replace(/ /g,"");//dds为得到后的内容
+				var d = dds.replace(/&nbsp;/g,"");
+				
+    			html +="<div class='popular-top'>";
+	    			html +="<div class='pop-im'>";
+	    				html +="<a href='newsDetail.jsp?newId="+date[i].newId+"'><img src='../source/images/img3.jpg' class='img-responsive' alt=''/></a>";
+	    			html +="</div>";
+	    			html +="<div class='pop-dat'>";
+		    			html +="<a href='newsDetail.jsp?newId="+date[i].newId+"'><h4>"+date[i].newName.substring(0,15)+"......</h4></a>";
+		    			html +='<p>'+d.substring(0,35)+'......</p>';
+// 		    			html +="<p>"+date[i].newContent.substring(0,30)+"......</p>";
+		    			html +="<ul class='links'>";
+		    			html +="<li><i class='date'> </i><span class='icon_text'>"+date[i].createTime+"</span></li>";
+		    			html +="</ul>";
+	    			html +="</div>";
+	    			html +="<div class='clearfix'> </div>";
+    			html +="</div>";
+    		}
+    		$("#customNews").append(html);
+    	});
+    }
+    
     $(window).scroll(function(){
         var sc=$(window).scrollTop();
         var rwidth=$(window).width()+$(document).scrollLeft();

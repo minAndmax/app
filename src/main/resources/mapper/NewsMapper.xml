@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.army.dao.NewsMapper">
-    <select id="findAllNews" resultType="com.army.vo.NewsInfo">
+    <select id="findAllNews" parameterType="com.army.vo.NewsInfo" resultType="com.army.vo.NewsInfo">
     
 		SELECT
 	    	new_id AS newId,
@@ -12,8 +12,9 @@
 			create_time AS createTime,
 			new_imgs AS newImags,
 			is_valid AS valid
-		FROM tb_new_info WHERE is_valid='Y' ORDER BY new_id
-    
+		FROM tb_new_info WHERE is_valid='Y' 
+		ORDER BY new_id DESC
+		OFFSET #{page} ROW FETCH NEXT #{size} ROW ONLY
     </select>
     
     <select id="findAllNewManager" parameterType="com.army.vo.NewsInfo" resultType="com.army.vo.NewsInfo">
@@ -73,6 +74,14 @@
 		    </if>
 		</where>
 
+    </select>
+    
+    <select id="findwebNewsCount" parameterType="com.army.vo.NewsInfo" resultType="int">
+		SELECT
+	    	DISTINCT
+				COUNT( DISTINCT new_id) totalPages
+		FROM tb_new_info  
+		WHERE is_valid ='Y'
     </select>
     
     <update id="updateNews" parameterType="com.army.vo.NewsInfo">

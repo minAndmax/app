@@ -1,6 +1,11 @@
 <!DOCTYPE HTML>
 <html>
 <head>
+<title>军营风采</title>
+<link href="../source/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
+<link href="../source/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="../manager/js/page/footable.core.css" rel="stylesheet" type="text/css" />
 <title>Blog</title>
 <link href="../source/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
 <link href="../source/css/style.css" rel="stylesheet" type="text/css" media="all" />
@@ -11,8 +16,19 @@
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
 <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
 <link href='https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="../manager/js/page/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="../manager/js/page/footable.all.min.js"></script>
+<script type="text/javascript" src="../manager/js/page/jquery.page.js"></script>
 <!-- <link rel="stylesheet" href="../source/css/flexslider.css" type="text/css" media="screen" /> -->
-<script src="../source/js/jquery.min.js"></script>
+<!-- <script src="../source/js/jquery.min.js"></script> -->
+<style>
+.tcdPageCode a{display: inline-block;color:inherit;display: inline-block;height: 25px;	line-height: 25px;	padding: 0 10px;border: 1px solid #ddd;	margin: 0 2px;border-radius: 4px;vertical-align: middle;}
+.tcdPageCode a:hover{text-decoration: none;border: 1px solid #ccc;}
+.tcdPageCode span.current{display: inline-block;height: 25px;line-height: 25px;padding: 0 10px;margin: 0 2px;color: black;background-color:#f4f4f4;border:	1px solid #DDDDDD;border-radius: 4px;vertical-align: middle;}
+.tcdPageCode span.disabled{	display: inline-block;height: 25px;line-height: 25px;padding: 0 10px;margin: 0 2px;	color:#ccc;background: #f2f2f2;border:	1px solid #DDDDDD;border-radius: 4px;vertical-align: middle;}
+</style>
+<!-- <link rel="stylesheet" href="../source/css/flexslider.css" type="text/css" media="screen" /> -->
+<!-- <script src="../source/js/jquery.min.js"></script> -->
 </head>
 <body>
 <!-- header -->
@@ -51,45 +67,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	
 <!-- header -->	
 <div class="blog">
-			<div class="top-blog">
-				<div class="col-md-6 blog-top">
-					<h3><a href="newsDetail.html">Lorem Ipsum is simply dummy text</a></h3>
-					<h6>Posted on, 12 July 2015 at 10.30am by <a href="#">admin</a></h6>
-					<a href="newsDetail.html"><img class="img-responsive" src="../source/images/1.jpg" alt=" "></a>
-					<p>Praesent interdum blandit quam. Asunt in anim uis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.
-					Praesent interdum blandit quam. Asunt in anim uis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
-					<a href="newsDetail.html" class="read">Read More</a>
-				</div>
-				<div class="col-md-6 blog-top">
-					<h3><a href="newsDetail.html">Lorem Ipsum is simply dummy text</a></h3>
-					<h6>Posted on, 12 July 2015 at 10.30am by <a href="#">admin</a></h6>
-					<a href="newsDetail.html"><img class="img-responsive" src="../source/images/2.jpg" alt=" "></a>
-					<p>Praesent interdum blandit quam. Asunt in anim uis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.
-					Praesent interdum blandit quam. Asunt in anim uis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
-					<a href="newsDetail.html" class="read">Read More</a>
-				</div>
-			<div class="clearfix"> </div>
-		</div>
-			<div class="top-blog">
-				<div class="col-md-6 blog-top">
-					<h3><a href="newsDetail.html">Lorem Ipsum is simply dummy text</a></h3>
-					<h6>Posted on, 12 July 2015 at 10.30am by <a href="#">admin</a></h6>
-					<a href="newsDetail.html"><img class="img-responsive" src="../source/images/3.jpg" alt=" "></a>
-					<p>Praesent interdum blandit quam. Asunt in anim uis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.
-					Praesent interdum blandit quam. Asunt in anim uis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
-					<a href="newsDetail.html" class="read">Read More</a>
-				</div>
-					<div class="col-md-6 blog-top">
-					<h3><a href="newsDetail.html">Lorem Ipsum is simply dummy text</a></h3>
-					<h6>Posted on, 12 July 2015 at 10.30am by <a href="#">admin</a></h6>
-					<a href="newsDetail.html"><img class="img-responsive" src="../source/images/4.jpg" alt=" "></a>
-					<p>Praesent interdum blandit quam. Asunt in anim uis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.
-					Praesent interdum blandit quam. Asunt in anim uis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p>
-					<a href="newsDetail.html" class="read">Read More</a>
-				</div>
-			<div class="clearfix"> </div>
-		</div>
+			<div class="top-blog" id="allNews">
+<!-- 				<div class="col-md-6 blog-top" id="allNews"> -->
+<!-- 					<h3><a href="newsDetail.html">Lorem Ipsum is simply dummy text</a></h3> -->
+<!-- 					<h6>Posted on, 12 July 2015 at 10.30am by <a href="#">admin</a></h6> -->
+<!-- 					<a href="newsDetail.html"><img class="img-responsive" src="../source/images/1.jpg" alt=" "></a> -->
+<!-- 					<p>Praesent interdum blandit quam. Asunt in anim uis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore. -->
+<!-- 					Praesent interdum blandit quam. Asunt in anim uis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore.</p> -->
+<!-- 					<a href="newsDetail.html" class="read">Read More</a> -->
+<!-- 				 </div> -->
 
+<!-- 			<div class="clearfix"> </div> -->
+		</div>
+			<div class="clearfix"> </div>
+		</div>
+		<div class="tcdPageCode" style="text-align: center;"></div>
 			
    </div>
 
@@ -99,6 +91,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="container">
 			<div class="footer-top">
 				<div class="foot-left">
+					<h5><a href="#">西安军事网</a></h5>
+				</div>
+				<div class="foot-right">
+				<!--链接图标-->
 					<h5><a href="#">KaiserSosa</a></h5>
 				</div>
 				<div class="foot-right">
@@ -118,16 +114,78 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="foot-nav">
 					<ul>
 						<li class="active"><a href="index.html">首页</a></li>
+						<li><a href="blog.html">军营风采</a></li>
+						<li><a href="blog.html">政事要闻</a></li>
+						<li><a href="products">影音下载专区</a></li>
+							<div class="clearfix"></div>
 					</ul>
 					</div>					
 				</div>
 				<div class="foot-right">
-					<p>Copyright &copy; 2015.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+					<p>Copyright &copy; 2018.Company - MagicalJ And MinAndMax Personal studio </p>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
 		</div>
+		
 	</div>
-	<!-- footer -->
-</html>
+    <div id="goTop" class="goTop"></div>
+<!-- footer -->
 </body>
+<script type="text/javascript">
+	var totalPage;       //总页数 
+	var pageSize = 4;    //每页显示的数量
+	var current;       //dangqia
+
+	function load(current){
+		
+		$.post("data/findAllNews",
+				{
+					page : (current-1)*pageSize,
+					size : pageSize
+				},
+				callback);
+	    function callback(date){
+	    	    $(".tcdPageCode").createPage({  
+   	    	    pageCount : date[0].totalPages,
+   	    	    current : current,
+	    	    backFn:function(p){
+				 }
+	    	    });
+	    	    var html = ""
+				if(date[0].totalPages != 0){
+					
+					var len = date.length;
+					for(var i = 0 ; i <  len; i++){
+						var str = date[i].newContent;
+						var dd=str.replace(/<\/?.+?>/g,"");
+						var dds=dd.replace(/ /g,"");//dds为得到后的内容
+						var d = dds.replace(/&nbsp;/g,"");
+						html +='<div class="col-md-6 blog-top">';
+		    			html +='<h3><a href="newsDetail.jsp?newId='+date[i].newId+'">'+date[i].newName.substring(0,20)+'......</a></h3>';
+		    			html +='<h6>发布于:&nbsp;&nbsp;'+date[i].createTime+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作者：'+date[i].newAuthor+'</h6>';
+		    			html +='<a href="newsDetail.html"><img class="img-responsive" src="../source/images/1.jpg" alt=""></a>';
+// 		    			html +='<p>'+date[i].newContent.substring(0,20)+'......</p>';
+						html +='<p>'+d.substring(0,35)+'......</p>';
+		    			html +='<div style="height:50px;">';
+		    			html +='<a href="newsDetail.html" class="read">更多</a>'; 
+		    			html +='</div>';
+		    			html +='</div>';
+					}
+				}
+				$("#allNews").html(html);
+       }
+	}
+
+  function pageHtml(current){
+	  load(current);
+    }
+  
+  
+	$(document).ready(function(){
+		 load(1);
+		})
+
+    
+</script>
+</html>
