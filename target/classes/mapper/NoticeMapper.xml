@@ -59,6 +59,7 @@
 	       ,notice_user AS noticeUser
 	       ,user_id AS userId
 	       ,create_time AS createTime
+	       ,create_name AS createName
 	       ,is_valid AS valid
 		FROM tb_notice 
 		<where>
@@ -67,6 +68,9 @@
 			</if>
 			<if test="createTime != null and createTime != ''">
 				AND CONVERT(VARCHAR,create_time,120) LIKE '%'+#{createTime}+'%'
+			</if>
+			 <if test="createName != null and createName != ''">
+				AND create_name = #{createName}
 			</if>
 		</where>
 		ORDER BY notice_id DESC OFFSET #{page} ROW FETCH NEXT #{size} ROW ONLY

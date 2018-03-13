@@ -67,15 +67,15 @@ public class UpLoadImageUtil {
 
 			try {
 				if (dirName.equals("media")) {
-					SaveFileFromInputStream(requestFileName.get(0).getInputStream(), UPLOAD_MUSIC_PATH, fileName);
+					SaveFileFromInputStream(requestFileName.get(0).getInputStream(), UPLOAD_MUSIC_PATH, newName);
 					obj.put(KeyWord.TIPSTATUSCONTEN, "上传成功");
 					obj.put("error", 0);
-					obj.put("url", UPLOAD_MUSIC_PATH+fileName);
+					obj.put("url", UPLOAD_MUSIC_PATH+newName);
 					log.info("media:上传{}"+obj);
 			} else if (dirName.equals("flash")) {
-					SaveFileFromInputStream(requestFileName.get(0).getInputStream(), UPLOAD_VEDIO_PATH, fileName);
+					SaveFileFromInputStream(requestFileName.get(0).getInputStream(), UPLOAD_VEDIO_PATH, newName);
 					obj.put(KeyWord.TIPSTATUSCONTEN, "上传成功");
-					obj.put("url", UPLOAD_VEDIO_PATH+fileName);
+					obj.put("url", UPLOAD_VEDIO_PATH+newName);
 					obj.put("error", 0);
 					log.info("vedio:上传{}"+obj);
 			} else if (dirName.equals("image")) {
@@ -157,11 +157,6 @@ public class UpLoadImageUtil {
 			reStr = "上传目录没有写入权限";
 		}
 
-		if (!uploadApp.isDirectory() || !uploadMusic.isDirectory() || !uploadVedio.isDirectory()
-				|| !uploadImage.isDirectory()) {
-			reStr = "上传目录不存在";
-		}
-		
 		if(new File("D:"+File.separator+UPLOAD_MUSIC_PATH+fileName).exists()) {
 			new File("D:"+File.separator+UPLOAD_MUSIC_PATH+fileName).delete();
 		}

@@ -49,6 +49,7 @@ public class MoiveServiceImpl implements MoiveService{
 
 			opt.setOptUserId(sessionObj.getLong("userId"));
 			opt.setOptName("修改影视");
+			opt.setOptType("update");
 			StringBuilder sb = new StringBuilder();
 			sb.append(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + ",修改影视，修改《"+find.getVedioName()+"》");
 			sb.append(vinfo.getValid().equals("N") ? ",修改状态为:无效":",修改状态为:有效");
@@ -67,10 +68,10 @@ public class MoiveServiceImpl implements MoiveService{
 	}
 
 	@Override
-	public JSONArray findAllMoive() throws Exception {
+	public JSONArray findAllMoive(VedioInfo vedio) throws Exception {
 		JSONArray arry = new JSONArray();
 		
-		List<VedioInfo> vinfo = moiveMapper.findAllMoive();
+		List<VedioInfo> vinfo = moiveMapper.findAllMoive(vedio);
 		for(VedioInfo v : vinfo) {
 			arry.add(v);
 		}
@@ -90,6 +91,11 @@ public class MoiveServiceImpl implements MoiveService{
 
 	@Override
 	public JSONArray findAllVedioManeger(VedioInfo vedio) throws Exception {
+		
+		if(vedio.getCreateName().equals("admin")) {
+			vedio.setCreateName(null);
+			vedio.setValid(null);
+		}
 		
 		int pages = moiveMapper.findVedioCount(vedio);
 		
@@ -132,7 +138,7 @@ public class MoiveServiceImpl implements MoiveService{
 
 
 			OperateInfo opt = new OperateInfo();
-
+			opt.setOptType("insert");
 			opt.setOptUserId(sessionObj.getLong("userId"));
 			opt.setOptName("添加视频");
 			opt.setOptRemark(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + "添加视频，名字《"+ vedio.getVedioName() + "》,导演:"+vedio.getVedioDirector());

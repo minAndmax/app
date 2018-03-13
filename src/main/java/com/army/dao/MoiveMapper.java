@@ -6,7 +6,7 @@ import com.army.vo.VedioInfo;
 
 public interface MoiveMapper {
 
-	List<VedioInfo> findAllMoive()throws Exception;
+	List<VedioInfo> findAllMoive(VedioInfo vedio)throws Exception;
 	
 	List<VedioInfo> findOneMoiveByName(VedioInfo vedio)throws Exception;
 	

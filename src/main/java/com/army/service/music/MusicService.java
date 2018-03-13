@@ -13,7 +13,7 @@ public interface MusicService {
 	
 	JSONObject insertMusics(HttpServletRequest request,MusicInfo info)throws Exception;
 	
-	JSONArray findAllMusic()throws Exception;
+	JSONArray findAllMusic(MusicInfo info)throws Exception;
 	
 	JSONArray findOneMusicByName(MusicInfo musicInfo)throws Exception;
 	

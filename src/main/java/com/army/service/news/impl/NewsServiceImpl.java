@@ -52,7 +52,7 @@ public class NewsServiceImpl implements NewsService {
 
 
 			OperateInfo opt = new OperateInfo();
-
+			opt.setOptType("insert");
 			opt.setOptUserId(sessionObj.getLong("userId"));
 			opt.setOptName("添加新闻");
 			opt.setOptRemark(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + ",添加新闻，标题《"
@@ -87,7 +87,7 @@ public class NewsServiceImpl implements NewsService {
 			JSONObject sessionObj = (JSONObject) request.getSession().getAttribute(KeyWord.USERSESSION);
 
 			OperateInfo opt = new OperateInfo();
-
+			opt.setOptType("update");
 			opt.setOptUserId(sessionObj.getLong("userId"));
 			opt.setOptName("修改新闻");
 			StringBuilder sb = new StringBuilder();
@@ -153,6 +153,11 @@ public class NewsServiceImpl implements NewsService {
 
 	@Override
 	public JSONArray findAllNewManager(NewsInfo news) throws Exception {
+		
+		if(news.getCreateName().equals("admin")) {
+			news.setCreateName(null);
+			news.setValid(null);
+		}
 		
 		int pages = newsMapper.findCount(news);
 		

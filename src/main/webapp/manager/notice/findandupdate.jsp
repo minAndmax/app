@@ -37,8 +37,8 @@
     
     <div class="itab">
   	<ul> 
-    <li><a href="#tab1" class="selected">修改通知</a></li> 
-    <li><a href="#tab2">预览通知</a></li> 
+    <li><a href="#tab2" class="selected">预览通知</a></li> 
+    <li><a href="#tab1">修改通知</a></li> 
   	</ul>
     </div> 
     

@@ -6,7 +6,7 @@ import com.army.vo.MusicInfo;
 
 public interface MusicMapper {
 	
-	List<MusicInfo> findAllMusic()throws Exception;
+	List<MusicInfo> findAllMusic(MusicInfo info)throws Exception;
 	
 	void insertMusics(MusicInfo info)throws Exception;
 	

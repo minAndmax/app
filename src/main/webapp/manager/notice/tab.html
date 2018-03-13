@@ -45,8 +45,8 @@
     
     <div class="itab">
   	<ul> 
-    <li><a href="#tab1" class="selected">发布通知</a></li> 
-    <li><a href="#tab2">通知列表</a></li> 
+    <li><a href="#tab2" class="selected">通知列表</a></li> 
+    <li><a href="#tab1">发布通知</a></li> 
   	</ul>
     </div> 
     
@@ -90,6 +90,7 @@
         <th>编号<i class="sort"><img src="../images/px.gif" /></i></th>
         <th>通知人</th>
         <th>通知内容</th>
+        <th>创建人</th>
         <th>状态</th>
         <th>发布时间</th>
         <th>改变状态</th>
@@ -159,11 +160,12 @@
 	         						tabhtml += "<td><input name='' type='checkbox' value='' /></td>";
 	         						tabhtml += "<td>"+i+"</td>";
 	         						tabhtml += "<td>"+data[i].noticeUser+"</td>";
-	         						if(data[i].noticeContent.length < 50){
+	         						if(data[i].noticeContent.length < 30){
 		         						tabhtml += "<td><font>"+data[i].noticeContent+"</font></td>";
 	         						} else{
-	         							tabhtml += "<td><font>"+data[i].noticeContent.substring(0,50)+"......</font></td>";
+	         							tabhtml += "<td><font>"+data[i].noticeContent.substring(0,30)+"......</font></td>";
 	         						}
+	         						tabhtml += "<td>"+data[i].createName+"</td>";
 	        						if(data[i].valid == 'Y'){
 	        							tabhtml += "<td>有效</td>";
 	        						}else{
@@ -251,6 +253,10 @@
 		    						confirmButtonText: "确认",
 		    						type: "success"
 		    					},function(inputValue){
+		    						
+		    						$("#aaah").val("");
+		    						$("#content7").val("");
+		    						
 		    						load(1);
 		        	            }, 2000);
 		     				}

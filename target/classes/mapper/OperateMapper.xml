@@ -8,13 +8,15 @@
            ,opt_remark
            ,opt_user_id
            ,type_id
-           ,create_time)
+           ,create_time
+           ,opt_type)
     	 VALUES
            (#{optName}
            ,#{optRemark}
            ,#{optUserId}
            ,#{typeId}
-           ,GETDATE())
+           ,GETDATE()
+           ,#{optType})
 	</insert>
 	
 	<select id="findOpt" parameterType="com.army.vo.OperateInfo" resultType="com.army.vo.OperateInfo">
@@ -27,8 +29,8 @@
 	      ,create_time AS createTime
   		FROM tb_operate_record 
   		<where>
-  			<if test="optName != null and optName != ''">
-	  			opt_name LIKE '%'+#{optName}+'%'
+  			<if test="optType != null and optType != ''">
+	  			opt_type = #{optType}
   			</if>
   			<if test="optUserId != null and optUserId != 0">
 	  			AND opt_user_id = #{optUserId}

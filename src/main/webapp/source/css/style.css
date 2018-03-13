@@ -73,7 +73,7 @@ body a{
 	border: none;
 	width: 79.33%;
 }
-.search2 input[type="submit"] {
+.search2 input[type="button"] {
 	background: url('../images/sprit-1.png') no-repeat 2px -1px #0D414A;
 	padding: 6.1px 18px;
 	border: none;

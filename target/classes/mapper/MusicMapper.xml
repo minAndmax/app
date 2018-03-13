@@ -15,6 +15,10 @@
 	    	update_time AS updateTime
 		FROM TB_MUSIC_PLAYER
 	    WHERE is_valid='Y' 
+	    <if test="musicName != null and musicName != ''">
+	    	AND music_name LIKE '%'+#{musicName}+'%'
+	    	OR music_singer LIKE '%'+#{musicName}+'%' 
+	    </if>
 	    ORDER BY music_id DESC
     </select>
     
@@ -32,11 +36,14 @@
 		FROM TB_MUSIC_PLAYER
 	    <where>
 		    <if test="musicName != null and musicName != ''">
-		    		musicName LIKE '%'+#{music_name}+'%'
+		    		music_name LIKE '%'+#{musicName}+'%'
 		    </if>
 		    <if test="musicSinger != null and musicSinger != ''">
 		    		AND music_singer LIKE '%'+#{musicSinger}+'%'
 		    </if>
+		     <if test="createName != null and createName != ''">
+		    		AND create_name = #{createName}
+		     </if>
 	    </where> 
 	    ORDER BY music_id DESC OFFSET #{page} ROW FETCH NEXT #{size} ROW ONLY
     </select>

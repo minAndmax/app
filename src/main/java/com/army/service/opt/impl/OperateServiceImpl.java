@@ -46,17 +46,17 @@ public class OperateServiceImpl implements OperateService {
 		
 		OperateInfo op = new OperateInfo();
 		JSONObject sessionObj = (JSONObject) request.getSession().getAttribute(KeyWord.USERSESSION);
-		if(sessionObj.getString("roleName").equals("管理员")) {
+		if(!sessionObj.getString("userName").equals("admin")) {
 			op.setOptUserId(sessionObj.getLong("userId"));
 		}
 
 		if (tip.equals("update")) {
 			
-			op.setOptName("修");
+			op.setOptType("update");
 			
 		} else if (tip.equals("insert")) {
 			
-			op.setOptName("添");
+			op.setOptType("insert");
 			
 		}
 

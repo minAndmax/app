@@ -21,6 +21,7 @@ import com.army.service.opt.OperateService;
 import com.army.service.user.UserLoginService;
 import com.army.vo.AppInfo;
 import com.army.vo.MusicInfo;
+import com.army.util.GetUserInfo;
 import com.army.util.KeyWord;
 import com.army.util.StatusEnum;
 import com.army.util.UpLoadImageUtil;
@@ -135,8 +136,8 @@ public JSONObject uploadFile(HttpServletRequest request)throws Exception{
 
 
 	@RequestMapping(value = "/manager/findAllNewManager", method = RequestMethod.POST)
-	public JSONArray findAllNewManager(NewsInfo news)throws Exception{
-		
+	public JSONArray findAllNewManager(HttpServletRequest request,NewsInfo news)throws Exception{
+		news.setCreateName(GetUserInfo.getUserName(request));
 		JSONArray arr = newsService.findAllNewManager(news);
 		
 		return arr;
@@ -189,8 +190,8 @@ public JSONObject uploadFile(HttpServletRequest request)throws Exception{
 	}
 	
 	@RequestMapping(value = "/manager/findAllNoticeManager", method = RequestMethod.POST)
-	public JSONArray findAllNoticeManager(NoticeInfo info)throws Exception{
-		
+	public JSONArray findAllNoticeManager(HttpServletRequest request,NoticeInfo info)throws Exception{
+		info.setCreateName(GetUserInfo.getUserName(request));
 		JSONArray arr = noticeService.findAllNoticeManager(info);
 		
 		return arr;
@@ -284,17 +285,17 @@ public JSONObject uploadFile(HttpServletRequest request)throws Exception{
 		
 	}
 	
-	@RequestMapping(value ="/manager/findAllMusic", method = RequestMethod.POST)
-	public JSONArray findAllMusic()throws Exception{
+	@RequestMapping(value ="/findAllMusic", method = RequestMethod.POST)
+	public JSONArray findAllMusic(MusicInfo music)throws Exception{
 		
-		JSONArray arry = musicService.findAllMusic();
+		JSONArray arry = musicService.findAllMusic(music);
 		
 		return arry;
 	}
 	
 	@RequestMapping(value ="/manager/findAllMusicManeger", method = RequestMethod.POST)
-	public JSONArray findAllMusicManeger(MusicInfo info)throws Exception{
-		
+	public JSONArray findAllMusicManeger(HttpServletRequest request, MusicInfo info)throws Exception{
+		info.setCreateName(GetUserInfo.getUserName(request));
 		JSONArray arry = musicService.findAllMusicManeger(info);
 		
 		return arry;
@@ -326,17 +327,17 @@ public JSONObject uploadFile(HttpServletRequest request)throws Exception{
 		return obj;
 	}
 	
-	@RequestMapping(value ="/manager/findAllMoive", method = RequestMethod.POST)
-	public JSONArray findAllMoive()throws Exception{
+	@RequestMapping(value ="/findAllMoive", method = RequestMethod.POST)
+	public JSONArray findAllMoive(VedioInfo vedio)throws Exception{
 		
-		JSONArray arry = moiveService.findAllMoive();
+		JSONArray arry = moiveService.findAllMoive(vedio);
 		
 		return arry;
 	}
 	
 	@RequestMapping(value ="/manager/findAllVedioManeger", method = RequestMethod.POST)
-	public JSONArray findAllVedioManeger(VedioInfo vedio)throws Exception{
-		
+	public JSONArray findAllVedioManeger(HttpServletRequest request, VedioInfo vedio)throws Exception{
+		vedio.setCreateName(GetUserInfo.getUserName(request));
 		JSONArray arry = moiveService.findAllVedioManeger(vedio);
 		
 		return arry;

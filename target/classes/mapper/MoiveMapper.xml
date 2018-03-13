@@ -24,6 +24,9 @@
 		    <if test="vedioDirector != null and vedioDirector != ''">
 		    		AND vedio_director LIKE '%'+#{vedioDirector}+'%'
 		    </if>
+		    <if test="createName != null and createName != ''">
+		    		AND create_name = #{createName}
+		    </if>
 	    </where> 
 	    ORDER BY vedio_id DESC OFFSET #{page} ROW FETCH NEXT #{size} ROW ONLY
     </select>
@@ -88,7 +91,13 @@
 	    	create_time AS createTime,
 	    	update_time AS updateTime
 		FROM TB_VEDIO_PLAYER
-	    WHERE is_valid='Y'  
+	    <where> is_valid='Y'  
+	    	<if test="vedioName != null and vedioName != ''">
+		    		AND vedio_name LIKE '%'+#{vedioName}+'%' 
+		    		OR vedio_main_user LIKE '%'+#{vedioName}+'%' 
+		    		OR vedio_director LIKE '%'+#{vedioName}+'%'
+		    </if>
+	    </where>
 	    ORDER BY vedio_id DESC
     </select>
     <!--select one vedio-->

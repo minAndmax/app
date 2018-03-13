@@ -45,13 +45,13 @@ public class MusicServiceImpl implements MusicService{
 			JSONObject sessionObj = (JSONObject) request.getSession().getAttribute(KeyWord.USERSESSION);
 
 			OperateInfo opt = new OperateInfo();
-
+			opt.setOptType("update");
 			opt.setOptUserId(sessionObj.getLong("userId"));
 			opt.setOptName("修改音乐");
 			
 			StringBuilder sb = new StringBuilder();
 			sb.append(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + ",修改音乐《"+mi.getMusicName()+"》，");
-			sb.append(music.getValid().equals("Y")? ",修改状态为：有效": ",修改状态为：无效 ");
+			sb.append(music.getValid().equals("Y")? "修改状态为：有效": "修改状态为：无效 ");
 			opt.setOptRemark(sb.toString());
 			
 			opt.setTypeId(music.getMusicId());
@@ -68,10 +68,10 @@ public class MusicServiceImpl implements MusicService{
 	}
 
 	@Override
-	public JSONArray findAllMusic() throws Exception {
+	public JSONArray findAllMusic(MusicInfo info) throws Exception {
 		JSONArray arry = new JSONArray();
 		
-		List<MusicInfo> minfo = musicMapper.findAllMusic();
+		List<MusicInfo> minfo = musicMapper.findAllMusic(info);
 		for(MusicInfo m : minfo) {
 			arry.add(m);
 		}
@@ -91,6 +91,11 @@ public class MusicServiceImpl implements MusicService{
 
 	@Override
 	public JSONArray findAllMusicManeger(MusicInfo musicInfo) throws Exception {
+		
+		if(musicInfo.getCreateName().equals("admin")) {
+			musicInfo.setCreateName(null);
+			musicInfo.setValid(null);
+		}
 		
 		int pages = musicMapper.findMusicCount(musicInfo);
 		
@@ -118,9 +123,7 @@ public class MusicServiceImpl implements MusicService{
 		
 		try {
 			
-			MusicInfo m = musicMapper.findOneMusicByName(info);
 			
-			if(m == null) {
 			JSONObject sessionObj = (JSONObject) request.getSession().getAttribute(KeyWord.USERSESSION);
 			
 			info.setValid(ValidEnum.VALID.getValidStatus());
@@ -132,7 +135,7 @@ public class MusicServiceImpl implements MusicService{
 
 
 			OperateInfo opt = new OperateInfo();
-
+			opt.setOptType("insert");
 			opt.setOptUserId(sessionObj.getLong("userId"));
 			opt.setOptName("添加音乐");
 			opt.setOptRemark(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + "添加音乐，名字《"+ info.getMusicName() + "》,演唱人：" + info.getMusicSinger());
@@ -141,7 +144,6 @@ public class MusicServiceImpl implements MusicService{
 			operateMapper.inserObject(opt);
 
 			log.info("音乐添加成功[ {} ]" + obj);
-			}
 		} catch (Exception e) {
             e.printStackTrace();
             obj.put(KeyWord.TIPSTATUS, StatusEnum.FAIL.getNum());

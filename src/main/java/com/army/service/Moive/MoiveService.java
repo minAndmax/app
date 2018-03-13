@@ -11,7 +11,7 @@ public interface MoiveService {
 	
 	JSONObject updateMoive(HttpServletRequest request,VedioInfo vinfo)throws Exception; 
 	
-	JSONArray findAllMoive()throws Exception;
+	JSONArray findAllMoive(VedioInfo vedio)throws Exception;
 	
 	JSONArray findOneMoiveByName(VedioInfo vedio)throws Exception;
 	

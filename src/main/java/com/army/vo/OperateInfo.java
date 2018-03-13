@@ -11,6 +11,16 @@ public class OperateInfo extends BaseInfo{
 	private Long optUserId;
 	
 	private Long typeId;  //操作新闻 || 音乐等的id
+	
+	private String optType;
+	
+	public String getOptType() {
+		return optType;
+	}
+
+	public void setOptType(String optType) {
+		this.optType = optType;
+	}
 
 	public Long getOptId() {
 		return optId;

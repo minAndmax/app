@@ -3184,12 +3184,12 @@ _extend(KCmd, {
 		title = _undef(title, '');
 		border = _undef(border, 0);
 		var html = '<img src="' + _escape(url) + '" data-ke-src="' + _escape(url) + '" ';
-		if (width) {
-			html += 'width="' + _escape(width) + '" ';
-		}
-		if (height) {
-			html += 'height="' + _escape(height) + '" ';
-		}
+//		if (width) {  width="400" height="240"
+			html += 'width="' + 400 + '" ';
+//		}
+//		if (height) {
+			html += 'height="' + 240 + '" ';
+//		}
 		if (title) {
 			html += 'title="' + _escape(title) + '" ';
 		}

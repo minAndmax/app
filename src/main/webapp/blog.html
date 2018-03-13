@@ -56,8 +56,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<!-- script-for-nav -->
 				<div class="search2">
 					<form>
-						<input type="text" value="Search here.." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search here..';}">
-						<input type="submit" value="">
+						搜索<input type="text" id="newBy">
+						<input type="button" value="" id="searchBut">
 					</form>
 				</div>
 					<div class="clearfix"> </div>
@@ -90,23 +90,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="footer">
 			<div class="container">
 			<div class="footer-top">
-				<div class="foot-left">
-					<h5><a href="#">西安军事网</a></h5>
-				</div>
-				<div class="foot-right">
-				<!--链接图标-->
-					<h5><a href="#">KaiserSosa</a></h5>
-				</div>
-				<div class="foot-right">
-					<ul>
-						<li><a href="#"><i class="fb"></i></a></li>
-						<li><a href="#"><i class="twt"></i></a></li>
-						<li><a href="#"><i class="in"></i></a></li>
-						<li><a href="#"><i class="rss"></i></a></li>
-						<div class="clearfix"> </div>
-					</ul>
-				</div>
-				<div class="clearfix"> </div>
 			</div>
 			<i class="line"> </i>
 			<div class="footer-bottom">
@@ -138,9 +121,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	var current;       //dangqia
 
 	function load(current){
-		
+		var newName = $("#newBy").val();
 		$.post("data/findAllNews",
 				{
+					newName : newName,
 					page : (current-1)*pageSize,
 					size : pageSize
 				},
@@ -161,10 +145,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						var dd=str.replace(/<\/?.+?>/g,"");
 						var dds=dd.replace(/ /g,"");//dds为得到后的内容
 						var d = dds.replace(/&nbsp;/g,"");
+						
+						var img = '';
+						if(date[i].newContent.indexOf("<img") > 0){
+							img = date[i].newContent.substring(date[i].newContent.indexOf("<img"),date[i].newContent.indexOf("/>"));
+						} else{
+							img = '';
+						}
 						html +='<div class="col-md-6 blog-top">';
 		    			html +='<h3><a href="newsDetail.jsp?newId='+date[i].newId+'">'+date[i].newName.substring(0,20)+'......</a></h3>';
 		    			html +='<h6>发布于:&nbsp;&nbsp;'+date[i].createTime+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作者：'+date[i].newAuthor+'</h6>';
-		    			html +='<a href="newsDetail.html"><img class="img-responsive" src="../source/images/1.jpg" alt=""></a>';
+		    			if(img.length > 0){
+		    				html +='<a href="newsDetail.html">'+img+'/></a>';
+		    			} else{
+		    				html +='<a href="newsDetail.html"><img src="../source/images/end.png"  width="400" height="240"/></a>';
+		    			}
+		    			
 // 		    			html +='<p>'+date[i].newContent.substring(0,20)+'......</p>';
 						html +='<p>'+d.substring(0,35)+'......</p>';
 		    			html +='<div style="height:50px;">';
@@ -177,7 +173,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
        }
 	}
 
-  function pageHtml(current){
+	$("#searchBut").click(function(){
+		
+		load(1);
+		
+	})
+	
+	function pageHtml(current){
 	  load(current);
     }
   

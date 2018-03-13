@@ -74,8 +74,8 @@
     
     <div class="itab">
   	<ul> 
-    <li><a href="#tab1">添加音乐</a></li> 
     <li><a href="#tab2">音乐列表</a></li> 
+    <li><a href="#tab1">添加音乐</a></li> 
   	</ul>
     </div> 
     
@@ -95,7 +95,7 @@
     
     </li>
     <li><label>选择音乐<b>*</b></label>
-   <textarea id="content7" class="newc" name="content1" style="width:30%;height:20px;visibility:hidden;"></textarea>
+   <textarea id="content7" class="newc" name="content1" style="width:30%;height:20px;visibility:hidden;" readonly></textarea>
     </li>
     <li><label>&nbsp;</label><input name="" type="button" id="butt" class="btn" value="添加"/></li>
     </ul>
@@ -120,6 +120,7 @@
         <th>编号<i class="sort"><img src="../images/px.gif" /></i></th>
         <th>音乐名称</th>
         <th>演唱人</th>
+        <th>创建人</th>
         <th>状态</th>
         <th>改变状态</th>
         </tr>
@@ -188,6 +189,7 @@
 	         						tabhtml += "<td>"+i+"</td>";
 	         						tabhtml += "<td>"+data[i].musicName+"</td>";
 	         						tabhtml += "<td>"+data[i].musicSinger+"</td>";
+	         						tabhtml += "<td>"+data[i].createName+"</td>";
 	        						if(data[i].valid == 'Y'){
 	        							tabhtml += "<td>有效</td>";
 	        						}else{
@@ -241,7 +243,7 @@
 			})
 			
 			$("#butt").click(function(){     //发布
-     			//
+				
      			swal({
 					title: "添加?",
 		            type: "warning",
@@ -321,6 +323,12 @@
     						confirmButtonText: "确认",
     						type: "success"
     					},function(inputValue){
+    						
+
+			     			$("#singname").val("");
+			     			$("#singer").val("");
+			     			KindEditor.html("#content7","");
+    						
     						load(1);
         	            }, 2000);
      				}

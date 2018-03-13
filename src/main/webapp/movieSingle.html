@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>影音区</title>
+<title>视频区</title>
 <link href="../source/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
 <link href="../source/css/style.css" rel="stylesheet" type="text/css" media="all" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,10 +19,22 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	a,img{border:0;}
 	body{font:12px/180% Arial, Helvetica, sans-serif, "新宋体";}
 	/* videobox */
-	.videobox{background:#ff6600;border:solid 5px #ff6600;width:408px;margin:30px auto 0 auto;}
-	.video-img{width:400px;height:266px;overflow:hidden;}
-	.video-list{height:78px;padding:15px 0 0 0;}
-	.video-list li{width:78px;height:59px;overflow:hidden;position:relative;float:left;border:solid 2px #fff;margin:0 10px;cursor:pointer;}
+	.videobox{background:#ff6600;width:1208px;margin:0 auto 0 auto;}
+	.video-img{width:1000px;height:618px;overflow:hidden;float: left;}
+	.video-list{height:618px;padding:15px 0 0 0;width: 180px;float: left;border:solid 1px gray;background-image: url(../source/images/vedioImages/movebg.jpg) left center no-repeat;}
+	.vedioList{
+		float: left; width: 160px; height: 618px;
+	}
+	.video-list li{width:170px;height:30px;overflow:hidden;border-bottom:solid 1px gray;margin:0 10px;cursor:pointer; font-size: 15px;}
+	.now{
+/* 		overflow: hidden;  */
+/* 		list-style-type:none; */
+/* 		padding-left: 15px;  */
+/* 		height: 15px;  */
+/*  		background: url(../source/images/musicimages/volume.png) left center no-repeat;   */
+/*  		background-size: 15px 15px;  */
+ 		background-color: gray;
+	}
 	.video-list li .icon-video{position:absolute;left:22px;top:12px;width:33px;height:33px;z-index:99;}
 	.video-list li.now .icon-video{display:none;}
 	</style>
@@ -39,10 +51,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="head-nav">
 						<span class="menu"> </span>
 					<ul class="cl-effect-1">
-					    <li class="active"><a href="index.html">首页</a></li>
-						<li><a href="blog.html">政事要闻</a></li>
-						<li><a href="blog.html">军人风采</a></li>
-						<li><a href="products.html">影音下载专区</a></li>
+					    <li class="active"><a href="index.html" target="_blank">首页</a></li>
+						<li><a href="blog.html" target="_blank">政事要闻</a></li>
+						<li><a href="blog.html" target="_blank">军人风采</a></li>
+<!-- 						<li><a href="products.html" target="_blank">影音下载专区</a></li> -->
 							<div class="clearfix"></div>
 					</ul>
 				</div>
@@ -57,124 +69,38 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<!-- script-for-nav -->
 				<div class="search2">
 					<form>
-						<input type="text" value="Search here.." onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search here..';}">
-						<input type="submit" value="">
+						搜索<input type="text" id="vedioSearch" onfocus="this.value = '';">
+						<input type="button" id="submitsearch" value="">
 					</form>
 				</div>
 					<div class="clearfix"> </div>
 			</div>
 				<div class="clearfix"> </div>
 		</div>
-	
 <!-- header -->	
 <div class="single-page-artical">
+	<h4>视频区&nbsp;<span id="tipCur"></span></h4>
+	
 								<div class="artical-content">
 									<div class="videobox">
-										<div class="video-img">
-											<embed id="js_videoCon_1" class="js_videoCon"  src="CuPlayerMiniV3_Black_S.swf?CuPlayerFile=../source/vedio/test1.mp4&CuPlayerImage=Images/video_1.jpg&CuPlayerWidth=408&CuPlayerHeight=266&CuPlayerAutoPlay=true&CuPlayerAutoRepeat=true&CuPlayerShowControl=true&CuPlayerAutoHideControl=false&CuPlayerAutoHideTime=5&CuPlayerVolume=80&CuPlayerGetNext=false" allowFullScreen="true" quality="high" width="408" height="266" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
-											<embed id="js_videoCon_2" class="js_videoCon" style="display:none"  src="CuPlayerMiniV3_Black_S.swf?CuPlayerFile=http://admin.geely.com/upload/201304/ad741f7ff29425a0aacff89c9e844f5b.flv&CuPlayerImage=Images/video_2.jpg&CuPlayerWidth=408&CuPlayerHeight=266&CuPlayerAutoPlay=true&CuPlayerAutoRepeat=true&CuPlayerShowControl=true&CuPlayerAutoHideControl=false&CuPlayerAutoHideTime=5&CuPlayerVolume=80&CuPlayerGetNext=false" allowFullScreen="true" quality="high" width="408" height="266" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
-											<embed id="js_videoCon_3" class="js_videoCon" style="display:none"  src="CuPlayerMiniV3_Black_S.swf?CuPlayerFile=http://www.dali-group.com/heqizheng/flv.flv&CuPlayerImage=Images/video_1.jpg&CuPlayerWidth=408&CuPlayerHeight=266&CuPlayerAutoPlay=true&CuPlayerAutoRepeat=true&CuPlayerShowControl=true&CuPlayerAutoHideControl=false&CuPlayerAutoHideTime=5&CuPlayerVolume=80&CuPlayerGetNext=false" allowFullScreen="true" quality="high" width="408" height="266" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
-											<embed id="js_videoCon_4" class="js_videoCon" style="display:none"  src="CuPlayerMiniV3_Black_S.swf?CuPlayerFile=http://admin.geely.com/upload/201304/ad741f7ff29425a0aacff89c9e844f5b.flv&CuPlayerImage=Images/video_4.jpg&CuPlayerWidth=408&CuPlayerHeight=266&CuPlayerAutoPlay=true&CuPlayerAutoRepeat=true&CuPlayerShowControl=true&CuPlayerAutoHideControl=false&CuPlayerAutoHideTime=5&CuPlayerVolume=80&CuPlayerGetNext=false" allowFullScreen="true" quality="high" width="408" height="266" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>
+										<div class="video-img" id="vedioPlayer">
 										</div>
-										<div class="video-list">
-											<ul>
-												<li class="now" id="http://player.youku.com/player.php/sid/XNTMyNzE2ODk2/v.swf" video="1" vid="1">
-													<img src="../source/images/video_1.jpg" width="78" height="59">
-													<img src="../source/images/icon-video.png" class="icon-video">
-												</li>
-												<li id="http://player.youku.com/player.php/sid/XNTMyNzM4MzA4/v.swf" video="2" vid="2">
-													<img src="../source/images/video_2.jpg" width="78" height="59">
-													<img src="../source/images/icon-video.png" class="icon-video">
-												</li>
-												<li id="http://player.youku.com/player.php/sid/XNTMyNzQ1MjQw/v.swf" video="3" vid="3">
-													<img src="../source/images/video_3.jpg" width="78" height="59">
-													<img src="../source/images/icon-video.png" class="icon-video">
-												</li>
-												<li id="http://player.youku.com/player.php/sid/XNTMyODE3NTU2/v.swf" video="4" vid="4">
-													<img src="../source/images/video_4.jpg" width="78" height="59">
-													<img src="../source/images/icon-video.png" class="icon-video">
-												</li>
+										
+										<div class="video-list" style="overflow-y:scroll;height: 618px;">
+											<ul id="vedioList">
 											</ul>
 										</div>
 									</div>
-									<p>地雷战</p>
 								    </div>
-								    <div class="artical-links">
-		  						 	<ul>
-		  						 		<li><small> </small><span>2月09, 2018</span></li>
-		  						 		<li><a href="#"><small class="admin"> </small><span>管理员</span></a></li>
-		  						 		<li><a href="#"><small class="no"> </small><span>没有评论</span></a></li>
-		  						 		<li><a href="#"><small class="posts"> </small><span>查看帖子</span></a></li>
-		  						 		<li><a href="#"><small class="link"> </small><span>链接</span></a></li>
-		  						 	</ul>
-		  						 </div>
-								 <div class="comment-grid-top">
-			<h3>4 Responses</h3>
-			<div class="comments-top-top">
-				<div class="top-comment-left">
-					<a href="#"><img class="img-responsive" src="../source/images/co.png" alt=""></a>
-				</div>
-				<div class="top-comment-right">
-					<ul>
-						<li><span class="left-at"><a href="#">Admin</a></span></li>
-						<li><span class="right-at">12 July 2015 at 10.30am</span></li>
-						<li><a class="reply" href="#">REPLY</a></li>
-					</ul>
-				<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.The point of using Lorem Ipsum is that it has a more-or-less </p>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-			<div class="comments-top-top top-grid-comment">
-				<div class="top-comment-left">
-					<a href="#"><img class="img-responsive" src="../source/images/co.png" alt=""></a>
-				</div>
-				<div class="top-comment-right">
-					<ul>
-						<li><span class="left-at"><a href="#">Admin</a></li>
-						<li><span class="right-at">12 July 2015 at 10.30am</span></li>
-						<li><a class="reply" href="#">REPLY</a></li>
-					</ul>
-				<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.The point of using Lorem Ipsum is that it has a more-or-less </p>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
-			
 			
 		</div>
-		  						
-		  						 <div class="artical-commentbox">
-		  						 	<h3>leave a comment</h3>
-		  						 	<div class="table-form">
-									<form>
-										<input type="text" class="textbox" value="Name" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Name';}">
-										<input type="text" class="textbox" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}">
-										<input type="text" class="textbox" value="Phone number" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Phone number';}">
-										<textarea value="Message:" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Message';}">Message</textarea>	
-									<input type="submit" value="SEND">
-									</form>
-									
-								</div>
-		  						 </div>
-								
-							</div>
-
-</div>	
+		<span>下载</span>
+</div>
+<!-- </div>	 -->
 	<!-- footer -->
 		<div class="footer">
 			<div class="container">
 			<div class="footer-top">
-				<div class="foot-left">
-					<h5><a href="#">KaiserSosa</a></h5>
-				</div>
-				<div class="foot-right">
-					<ul>
-						<li><a href="#"><i class="fb"></i></a></li>
-						<li><a href="#"><i class="twt"></i></a></li>
-						<li><a href="#"><i class="in"></i></a></li>
-						<li><a href="#"><i class="rss"></i></a></li>
-						<div class="clearfix"> </div>
-					</ul>
-				</div>
 				<div class="clearfix"> </div>
 			</div>
 			<i class="line"> </i>
@@ -182,37 +108,74 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="foot-left">
 					<div class="foot-nav">
 					<ul>
-					    <li class="active"><a href="index.html">首页</a></li>
-						<li><a href="blog.html">政事要闻</a></li>
-						<li><a href="blog.html">军人风采</a></li>
-						<li><a href="products.html">影音下载专区</a></li>
+					    <li class="active"><a href="index.html" target="_blank">首页</a></li>
+						<li><a href="blog.html" target="_blank">政事要闻</a></li>
+						<li><a href="blog.html" target="_blank">军人风采</a></li>
 							<div class="clearfix"></div>
 					</ul>
 					</div>					
 				</div>
 				<div class="foot-right">
-					<p>Copyright &copy; 2015.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+					<p>Copyright &copy;</p>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
 		</div>
 	</div>
 	<!-- footer -->
-</body>
-<script type="text/javascript" src="../source/js/jquery-1.4.2.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	// 切换视频
-	$(".video-list li").click(function(){
-		var obj = $(this);
-		var video_id = obj.attr("video");
-		var path = obj.attr("id");
-		var vid = obj.attr("vid");
-		$(".js_videoCon").hide();
-		$("#js_videoCon_"+vid).show();
-		obj.addClass("now").siblings().removeClass("now");
-	});
+	loadVedio();
 });
+	
+	$("#submitsearch").click(function(){
+		loadVedio();
+	});
+	
+	function loadVedio(){
+		var vedioName = $("#vedioSearch").val();
+		$.post("/data/findAllMoive",{vedioName:vedioName},function(data){
+			var n = 1;
+			var len = data.length;
+			var vedioList = "";
+			for(var i = 0 ; i < len ; i++){
+				var playersrc = data[i].vedioSrc;
+				var embedsrc = "CuPlayerMiniV3_Black_S.swf?CuPlayerFile="+playersrc+"&CuPlayerImage=../source/images/icon-video.png&CuPlayerWidth=1008&CuPlayerHeight=618&CuPlayerAutoPlay=true&CuPlayerAutoRepeat=true&CuPlayerShowControl=true&CuPlayerAutoHideControl=false&CuPlayerAutoHideTime=5&CuPlayerVolume=80&CuPlayerGetNext=false";
+				if(i == 0){
+				var htmll = '<embed id="js_videoCon" src="CuPlayerMiniV3_Black_S.swf?CuPlayerFile='+playersrc+'&CuPlayerImage=../source/images/icon-video.png&CuPlayerWidth=1008&CuPlayerHeight=618&CuPlayerAutoPlay=true&CuPlayerAutoRepeat=true&CuPlayerShowControl=true&CuPlayerAutoHideControl=false&CuPlayerAutoHideTime=5&CuPlayerVolume=80&CuPlayerGetNext=false" class="js_videoCon" allowFullScreen="true" quality="high" width="1000" height="618" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"/>';
+					$("#tipCur").html("当前播放:"+n+"."+data[i].vedioName);
+					$("#vedioPlayer").html(htmll);
+					vedioList += '<li onmouseover="over(this)" onmouseout="out(this)" onclick="change(this)" class="now" id="http://player.youku.com/player.php/sid/XNTMyNzE2ODk2/v.swf" sc="'+embedsrc+'" video="'+n+'" vid="'+n+'">'+n+"."+data[i].vedioName+'</li>';
+				} else{
+					vedioList += '<li onmouseover="over(this)" onmouseout="out(this)" onclick="change(this)" id="http://player.youku.com/player.php/sid/XNTMyNzE2ODk2/v.swf" video="'+n+'" sc="'+embedsrc+'"vid="'+n+'">'+n+"."+data[i].vedioName+'</li>';
+				}
+				n++;
+			}
+			
+			$("#vedioList").html(vedioList);
+		})
+		
+	}
+	// 切换视频
+	function change(object){
+			var obj = $(object);
+			var path = obj.attr("sc");
+			var html = '<embed id="js_videoCon" src="'+path+'" class="js_videoCon" allowFullScreen="true" quality="high" width="1000" height="618" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>';
+			$("#vedioPlayer").html(html);
+			
+			$("#tipCur").html("当前播放:"+$(object).html());
+			obj.addClass("now").siblings().removeClass("now");
+	}
+	 function over(obj){
+		 $(obj).css("background-color","green") ;  
+	 }
+	 
+	 function out(obj){
+		 $(obj).css("background-color","") ;  
+	 }
+
 </script>  
+</body>
+<!-- <script type="text/javascript" src="../source/js/jquery-1.4.2.min.js"></script> -->
 
 </html>

@@ -52,7 +52,7 @@ public class NoticeServiceImpl implements NoticeService {
 
 
 			OperateInfo opt = new OperateInfo();
-
+			opt.setOptType("insert");
 			opt.setOptUserId(sessionObj.getLong("userId"));
 			opt.setOptName("添加通知");
 			opt.setOptRemark(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName") + ",添加通知，内容《"
@@ -93,7 +93,7 @@ public class NoticeServiceImpl implements NoticeService {
 			opt.setOptUserId(sessionObj.getLong("userId"));
 			opt.setOptName("修改通知");
 			StringBuilder sb = new StringBuilder();
-			
+			opt.setOptType("update");
 			sb.append(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName"));
 			sb.append(",修改通知《"+find.getNoticeContent()+"》:");
 			if(notice.getValid() != null) {
@@ -140,6 +140,12 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public JSONArray findAllNoticeManager(NoticeInfo notice) throws Exception {
+		
+		if(notice.getCreateName().equals("admin")){
+			notice.setCreateName(null);
+			notice.setValid(null);
+		}
+		
 		JSONArray arr = new JSONArray();
 		int pages = noticeMapper.findAllNoticeCount(notice);
 		double db = Math.ceil((double) pages / (double) notice.getSize());

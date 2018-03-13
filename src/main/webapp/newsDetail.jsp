@@ -57,20 +57,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- header -->	
             <input type="hidden" id="hiddenNewsId" value="<%= request.getParameter("newId")%>">
             <div class="single-page-artical" id="newDetail">
-<!-- 								<div class="artical-content"> -->
-<!-- 									<h3>经典电影地雷战</h3> -->
-<!-- 									<img class="img-responsive" src="../source/images/img7.jpg" title="banner1"> -->
-<!-- 									<p>地雷战</p> -->
-<!-- 								    </div> -->
-<!-- 								    <div class="artical-links"> -->
-<!-- 		  						 	<ul> -->
-<!-- 		  						 		<li><small> </small><span>2月09, 2018</span></li> -->
-<!-- 		  						 		<li><a href="#"><small class="admin"> </small><span>管理员</span></a></li> -->
-<!-- 		  						 		<li><a href="#"><small class="no"> </small><span>没有评论</span></a></li> -->
-<!-- 		  						 		<li><a href="#"><small class="posts"> </small><span>查看帖子</span></a></li> -->
-<!-- 		  						 		<li><a href="#"><small class="link"> </small><span>链接</span></a></li> -->
-<!-- 		  						 	</ul> -->
-<!-- 		  						 </div> -->
 								
 	        </div>
 
@@ -78,21 +64,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<!-- footer -->
 		<div class="footer">
 			<div class="container">
-			<div class="footer-top">
-				<div class="foot-left">
-					<h5><a href="#">KaiserSosa</a></h5>
-				</div>
-				<div class="foot-right">
-					<ul>
-						<li><a href="#"><i class="fb"></i></a></li>
-						<li><a href="#"><i class="twt"></i></a></li>
-						<li><a href="#"><i class="in"></i></a></li>
-						<li><a href="#"><i class="rss"></i></a></li>
-						<div class="clearfix"> </div>
-					</ul>
-				</div>
-				<div class="clearfix"> </div>
-			</div>
 			<i class="line"> </i>
 			<div class="footer-bottom">
 				<div class="foot-left">
@@ -107,7 +78,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					</div>					
 				</div>
 				<div class="foot-right">
-					<p>Copyright &copy; 2015.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="模板之家">模板之家</a> - Collect from <a href="http://www.cssmoban.com/" title="网页模板" target="_blank">网页模板</a></p>
+					<p>Copyright &copy;</p>
 				</div>
 				<div class="clearfix"> </div>
 			</div>
@@ -125,7 +96,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
   function loadCustomNews(){//加载自定义新闻 
 	 
 		var newId = $("#hiddenNewsId").val();
-  alert(newId);
     	$.post("${pageContent.request.contentPath}/data/findNewById",{newId : newId},
     		function(date){
     		var html ="";
@@ -139,7 +109,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				html += "<ul>";
 				html += "<li><small> </small><span>"+date.jsonobejct.createTime+"</span></li>";
 				html += "<li><small class='admin'> </small><span>"+date.jsonobejct.newAuthor+"</span></li>";
-				html += "<li><a href='#'><small class='link'> </small><span>链接</span></a></li>";
+// 				html += "<li><a href='#'><small class='link'> </small><span>链接</span></a></li>";
 				html += "</ul>";
 				html += " </div>";
     		$("#newDetail").html(html);
