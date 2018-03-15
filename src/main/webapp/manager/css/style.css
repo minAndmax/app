@@ -303,44 +303,51 @@ h2{font-weight:normal;}
 	overflow: hidden; 
 	list-style-type:none;
 	padding-left: 25px; 
-	height: 25px; 
+	height: 35px; 
 	background: url(../images/logo/newLogo.jpg) left center no-repeat; 
 	background-size: 15px 15px; }
 #musicLogo1{ 
 	overflow: hidden; 
 	list-style-type:none;
 	padding-left: 25px; 
-	height: 25px; 
+	height: 35px; 
 	background: url(../images/logo/musicLogo.png) left center no-repeat; 
 	background-size: 15px 15px; }
 #vedioLogo1{ 
 	overflow: hidden; 
 	list-style-type:none;
 	padding-left: 25px; 
-	height: 25px; 
+	height: 35px; 
 	background: url(../images/logo/vedioLogo.png) left center no-repeat; 
 	background-size: 15px 15px; }
 #appLogo1{ 
 	overflow: hidden; 
 	list-style-type:none;
 	padding-left: 25px; 
-	height: 25px; 
+	height: 35px; 
 	background: url(../images/logo/appLogo.jpg) left center no-repeat; 
 	background-size: 15px 15px; }
 #noticeLogo1{ 
 	overflow: hidden; 
 	list-style-type:none;
 	padding-left: 25px; 
-	height: 25px; 
+	height: 35px; 
 	background: url(../images/logo/noticeLogo.png) left center no-repeat; 
 	background-size: 15px 15px; }
 #appLogo1{ 
 	overflow: hidden; 
 	list-style-type:none;
 	padding-left: 25px; 
-	height: 25px; 
+	height: 35px; 
 	background: url(../images/icon01.png) left center no-repeat; 
 	background-size: 15px 15px; }
+#userLogo1{ 
+	overflow: hidden; 
+	list-style-type:none;
+	padding-left: 25px; 
+	height: 35px; 
+	background: url(../images/userlogo.jpg) left center no-repeat; 
+	background-size: 15px 15px; }userLogo1
 #newscount{ 
 	overflow: hidden; 
 	text-align:center;

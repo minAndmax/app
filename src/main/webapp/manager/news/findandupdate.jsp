@@ -79,19 +79,19 @@ KindEditor.ready(function(K) {
     
     <ul class="forminfo">
     <li>
-    	<label>标题<b>*</b></label>
+    	<label><b>* &nbsp;</b>标题</label>
     	<input name="" type="text" class="dfinput" id="tip"  style="width:518px;"/>
     </li>
     
     <ul class="forminfo">
     <li>
-    	<label>作者<b>*</b></label>
+    	<label><b>* &nbsp;</b>作者</label>
     	<input name="" type="text" class="dfinput" id="author"  style="width:518px;"/>
     </li>
    
     
     </li>
-    <li><label>新闻内容<b>*</b></label>
+    <li><label><b>* &nbsp;</b>新闻内容</label>
     
     <textarea id="content7" name="content1" style="width:100%;height:400px;visibility:hidden;"></textarea>
     

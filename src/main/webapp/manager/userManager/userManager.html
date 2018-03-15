@@ -1,25 +1,26 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta charset="UTF-8">
-<title>新闻管理</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>用户管理</title>
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<link href="../css/select.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jquery.idTabs.min.js"></script>
+<script type="text/javascript" src="../js/select-ui.min.js"></script>
+
+<link href="../js/page/footable.core.css" rel="stylesheet" type="text/css" />
+<link href="../css/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/sweetalert/sweetalert.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="../js/date/WebCalendar.js"></script>
+
 
 	<link rel="stylesheet" href="../kindeditor/themes/default/default.css" />
 	<link rel="stylesheet" href="../kindeditor/plugins/code/prettify.css" />
 	<script charset="utf-8" src="../kindeditor/kindeditor.js"></script>
 	<script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
 	<script charset="utf-8" src="../kindeditor/plugins/code/prettify.js"></script>
-
-<link href="../css/style.css" rel="stylesheet" type="text/css" />
-<link href="../css/select.css" rel="stylesheet" type="text/css" />
-<link href="../js/page/footable.core.css" rel="stylesheet" type="text/css" />
-<link href="../css/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../js/jquery.js"></script>
-<script type="text/javascript" src="../js/jquery.idTabs.min.js"></script>
-<script type="text/javascript" src="../js/select-ui.min.js"></script>
-<!-- <script type="text/javascript" src="../editor/kindeditor.js"></script> -->
-<script type="text/javascript" src="../js/sweetalert/sweetalert.min.js"></script>
-<script language="JavaScript" type="text/javascript" src="../js/date/WebCalendar.js"></script>
+</script>
 <style type="text/css">
   .tablelink{
   	cursor: pointer;
@@ -31,37 +32,15 @@
 .tcdPageCode span.current{display: inline-block;height: 25px;line-height: 25px;padding: 0 10px;margin: 0 2px;color: black;background-color:#f4f4f4;border:	1px solid #DDDDDD;border-radius: 4px;vertical-align: middle;}
 .tcdPageCode span.disabled{	display: inline-block;height: 25px;line-height: 25px;padding: 0 10px;margin: 0 2px;	color:#ccc;background: #f2f2f2;border:	1px solid #DDDDDD;border-radius: 4px;vertical-align: middle;}
 </style>
-<script>
-		KindEditor.ready(function(K) {
-			var editor1 = K.create('textarea[name="content1"]', {
-				cssPath : '../kindeditor/plugins/code/prettify.css',
-				uploadJson : '/data/manager/uploadFile',
-// 				fileManagerJson : '../kindeditor/jsp/file_manager_json.jsp',
-				allowFileManager : true,
-				afterCreate : function() {
-					var self = this;
-					K.ctrl(document, 13, function() {
-						self.sync();
-						document.forms['example'].submit();
-					});
-					K.ctrl(self.edit.doc, 13, function() {
-						self.sync();
-						document.forms['example'].submit();
-					});
-				},
-			afterBlur:function(){this.sync();} 
-			});
-			prettyPrint();
-		});
-	</script>
-  
+</style>
 </head>
 
 <body>
+
 	<div class="place">
-    <span class="sp">位置：</span>
+    <span>位置：</span>
     <ul class="placeul">
-    <li><a href="newstab.html">新闻管理</a></li>
+    <li><a href="userManager.html">用户管理</a></li>
     </ul>
     </div>
     
@@ -72,68 +51,69 @@
     
     <div class="itab">
   	<ul> 
-    <li><a href="#tab2" class="selected">新闻列表</a></li> 
-    <li><a href="#tab1">发布新闻</a></li> 
+    <li><a href="#tab2" class="selected">用户列表</a></li> 
+    <li><a href="#tab1">添加用户</a></li> 
   	</ul>
     </div> 
     
-  	<div id="tab1" class="tabson">
+      	<div id="tab1" class="tabson">
     
     <ul class="forminfo">
-    <li>
-    	<label><b>* &nbsp;</b>标题</label>
-    	<input name="" type="text" class="dfinput" id="tip" value=""  style="width:518px;"/>
-    </li>
-    
-    <ul class="forminfo">
-    <li>
-    	<label><b>* &nbsp;</b>作者</label>
-    	<input name="" type="text" class="dfinput" id="author" value=""  style="width:518px;"/>
-    </li>
-   
-    
-    </li>
-    <li><label><b>* &nbsp;</b>新闻内容</label>
-    <textarea id="content7" class="newc" name="content1" style="width:100%;height:400px;visibility:hidden;"></textarea>
-    </li>
-    <li class="rigthbut"><label>&nbsp;</label><input name="" type="button" id="bt" class="btn" value="发布" /></li>
+	    <li>
+	    	<label><b>* &nbsp;</b>用户名称</label>
+	    	<input name="" id="inputName" type="text" class="dfinput" value=""  style="width:200px;"/>
+	    </li>
+	    <li>
+	    	<label><b>* &nbsp;</b>用户密码</label>
+	    	<input name="" id="inputPassword" type="text" class="dfinput" value=""  style="width:200px;"/>
+	    </li>
+	    <li>
+	    	<label><b>* &nbsp;</b>真实姓名</label>
+	    	<input name="" id="realName" type="text" class="dfinput" value=""  style="width:200px;"/>
+	    </li>
+	    <li>
+	    	<label><b>&nbsp;&nbsp;</b>联系方式</label>
+	    	<input name="" id="inputPhone" type="text" class="dfinput" value=""  style="width:200px;"/>
+	    </li>
+	    <li>
+	    	<label><b>* &nbsp;</b>用户角色</label>
+	    	<input name="" id="inputRole" type="text" class="dfinput" value="管理员" disabled="disabled" readonly="readonly" style="width:200px;"/>
+	    </li>
+	    <li><label>&nbsp;</label><input name="" type="button" id="butt" class="btn" value="添加"/></li>
+	    
     </ul>
     
     </div> 
-    
     
   	<div id="tab2" class="tabson">
     
     
     <ul class="seachform">
     
-    <li><label>标题</label><input id="bytip" name="" type="text" class="scinput" /></li>
-    
-    <li><label>作者</label><input name="" id="byauthor" type="text" class="scinput" /></li>
-    
-    <li><label>发布时间</label><input name="date" type="text" id="date" onclick="new Calendar().show(this);" size="10" maxlength="10" class="scinput" /></li>
-      
+    <li><label>用户名称:</label><input id="userName" name="" type="text" class="scinput" /></li>
     <li><label>&nbsp;</label><input name="" type="button" class="scbtn" id="scbtn" value="查询"/></li>
     <li><label>&nbsp;</label><input name="" type="button" class="scbtn"  id ="reset" value="重置"/></li>
-    </ul>
     
+    </ul>
     
     <table class="tablelist">
     	<thead>
     	<tr>
-        <th>标题</th>
-        <th>作者</th>
-        <th>创建人</th>
+<!--         <th><input name="" type="checkbox" value="" checked="checked"/></th> -->
+<!--         <th>编号<i class="sort"><img src="../images/px.gif" /></i></th> -->
+        <th>用户名称</th>
+<!--         <th>密码</th> -->
+        <th>联系方式</th>
+        <th>用户角色</th>
+        <th>创建时间</th>
         <th>状态</th>
-        <th>发布时间</th>
         <th>改变状态</th>
         <th>操作</th>
         </tr>
         </thead>
         <tbody id="tbody">
-        
         </tbody>
-        <tfoot>
+         <tfoot>
         	<tr>
         		<td colspan="8"><div class="tcdPageCode" style="text-align: center;"></div></td>
         	</tr>
@@ -152,7 +132,7 @@
 	$('.tablelist tbody tr:odd').addClass('odd');
 	</script>
     </div>
-
+<input type="hidden" id="hiddenname"/>
 </body>
 <script type="text/javascript" src="../js/page/jquery-2.1.1.js"></script>
 <script type="text/javascript" src="../js/page/footable.all.min.js"></script>
@@ -166,15 +146,10 @@
  			
 		     	function load(current){
 	        		
-	        		var tip = $("#bytip").val();
-	        		var author = $("#byauthor").val();
-	        		var time = $("#date").val();
-	        		
-	        		$.post("/data/manager/findAllNewManager",
-	        				{
-	        					newName : tip,
-	        					newAuthor : author,
-	        					createTime : time,
+	        		var userName = $("#userName").val();
+	        		 
+	        		$.post("/data/manager/findAllUser", 
+	        				{	userName : userName,
 	        					page : (current-1)*pageSize,
 	        					size : pageSize
 	        				},
@@ -186,24 +161,24 @@
 	        	    	    backFn:function(p){
 	    					 }
 	        	    	    });
-// 	        	    	    loadNews(date);
 	        	    	    var tabhtml = ""
 							if(data[0].totalPages >= 0){
 								
 	         					var len = data.length;
 	         					for(var i = 0 ; i <  len; i++){
 	         						tabhtml += "<tr>";
-	         						tabhtml += "<td>"+data[i].newName+"</td>";
-	         						tabhtml += "<td>"+data[i].newAuthor+"</td>";
-	         						tabhtml += "<td>"+data[i].createName+"</td>";
+	         						tabhtml += "<td>"+data[i].userName+"</td>";
+// 	         						tabhtml += "<td>"+data[i].userPassword+"</td>";
+	         						tabhtml += "<td>"+data[i].userPhone+"</td>";
+	         						tabhtml += "<td>"+data[i].roleName+"</td>";
+	         						tabhtml += "<td>"+data[i].createTime+"</td>";
 	        						if(data[i].valid == 'Y'){
 	        							tabhtml += "<td>有效</td>";
 	        						}else{
 	        	 						tabhtml += "<td>已关闭</td>";
 	        						}
-	         						tabhtml += "<td>"+data[i].createTime+"</td>";
-	         						tabhtml += "<td><label onclick=status("+data[i].newId+",'N') class='tablelink'>关闭</label>&nbsp;&nbsp;<label onclick=status("+data[i].newId+",'Y')  class='tablelink'>恢复</label></td>";
-	         						tabhtml += "<td><a href='findandupdate.jsp?newId="+data[i].newId+"' class='tablelink'>查看/修改</label></td>";
+	         						tabhtml += "<td><label onclick=status("+data[i].userId+",'N') class='tablelink'>关闭</label>&nbsp;&nbsp;<label onclick=status("+data[i].userId+",'Y')  class='tablelink'>恢复</label></td>";
+	         						tabhtml += "<td><a href='selectandupdate.jsp?userId="+data[i].userId+"' class='tablelink'>查看/修改</a></label></td>";
 	         						tabhtml += "</tr>";
 	         					}
 							}
@@ -215,7 +190,7 @@
  				  load(current);
  		        }
  			  
- 			 $("#scbtn").click(function(){
+ 			  $("#scbtn").click(function(){
  				 load(1);
  			  })
  			  
@@ -225,11 +200,10 @@
  				 })
  			  })
  			
-     		$("#bt").click(function(){     //发布
-     			
+ 			  $("#butt").click(function(){     //发布
      			//
      			swal({
-					title: "确定发布?",
+					title: "添加?",
 		            type: "warning",
 		            showCancelButton: true,
 		            confirmButtonColor: "#FF0000",
@@ -239,40 +213,40 @@
 					},function(isConfirm){
 						if(isConfirm){
 							
-							var tip = $("#tip").val();
-			     			var author = $("#author").val();
-			     			var content = $("#content7").val();
-			     			
-			     			if(tip == null || tip == ''){
+			     			var inputName = $("#inputName").val();
+			     			var inputPassword = $("#inputPassword").val();
+			     			var inputRole = $("#inputRole").val();
+			     			var inputPhone = $("#inputPhone").val();
+			     			var realName = $("#realName").val();
+			     			if(inputName == null || inputName == ''){
 				     			swal({
 		    						confirmButtonColor: "#FF0000",
-		    						title: "标题输入不能为空",
+		    						title: "用户名不能为空",
+		    						confirmButtonText: "确认", 
+		    						type: "error"
+		    					});
+				     			return false;
+			     			}
+			     			
+			     			if(inputPassword == null || inputPassword == ''){
+				     			swal({
+		    						confirmButtonColor: "#FF0000",
+		    						title: "密码不能为空",
 		    						confirmButtonText: "确认",
 		    						type: "error"
 		    					});
 				     			return false;
 			     			}
 			     			
-			     			if(author == null || author == ''){
+			     			if(inputRole == null || inputRole == ''){
 				     			swal({
 		    						confirmButtonColor: "#FF0000",
-		    						title: "作者输入不能为空",
+		    						title: "用户角色不能为空", 
 		    						confirmButtonText: "确认",
 		    						type: "error"
 		    					});
 				     			return false;
 			     			}
-			     			
-			     			if(content == null || content == ''){
-				     			swal({
-		    						confirmButtonColor: "#FF0000",
-		    						title: "新闻内容输入不能为空",
-		    						confirmButtonText: "确认",
-		    						type: "error"
-		    					});
-				     			return false;
-			     			}
-			     			
 			     			
 							swal({
 								confirmButtonColor: "#FF0000",
@@ -282,59 +256,61 @@
 			                    showCancelButton: true
 			                });
 							
-			     			
 			     			var requests = {
-			     					newName : tip,
-			     					newAuthor : author,
-			     					newContent : content
+			     					userName : inputName,
+			     					userPassword : inputPassword,
+			     					userPhone : inputPhone,
+			     					roleName : inputRole,
+			     					userRealName : realName
 			     			}
      			
-     			$.post("/data/manager/insertNew",requests,function(date){
+     			$.post("/data/regist",requests,function(date){
      				
      				if(date.tipStatus != 1){
      					swal({
     						confirmButtonColor: "#FF0000",
-    						title: "发布失败",
+    						title: "添加失败",
     						confirmButtonText: "确认",
     						type: "error"
     					});
      				} else{
      					swal({
     						confirmButtonColor: "#FF0000",
-    						title: "发布成功",
+    						title: "添加成功",
     						confirmButtonText: "确认",
     						type: "success"
     					},function(inputValue){
     						
-    						$("#tip").val("");
-			     			$("#author").val("");
-			     			KindEditor.html("#content7","");
-    						
-    						load(1);
+    						$("#inputName").val("");
+    						$("#inputPassword").val("");
+    						$("#inputPhone").val("");
+    						$("#realName").val("");
+    						window.location.href='userManager.html?ids='+Math.random()*0.123;
         	            }, 2000);
      				}
      				
-     			})
-			}
-        });
-     		});
+     					})
+					}
+       			 });
+			});	
+ 			  
      	function status(id,obj){   //改变状态
      		
-     		var newId = id;
+     		var userId = id;
      		var valid = obj;
      	
      		
-     		$.post("/data/manager/change",{newId : newId,valid : valid},function(data){
+     		$.post("/data/manager/updateUser",{userId : userId,valid : valid},function(data){
      			if(data.tipStatus != 1){
      				swal({
-						confirmButtonColor: "#FF0000",
-						title: valid=='Y' ? '恢复' : '关闭' +data.tipStatusContent,
+						confirmButtonColor: "#1ab394",
+						title: valid=='Y' ? '恢复失败' : '关闭失败',
 						confirmButtonText: "确认",
 						type: "error"
 					});
      			} else{
      				swal({
-						confirmButtonColor: "#FF0000",
+						confirmButtonColor: "#1ab394",
 						title: valid=='Y' ? '恢复成功' : '关闭成功',
 						confirmButtonText: "确认",
 						type: "success"
@@ -346,18 +322,19 @@
    	   }
      	
      	$(document).ready(function(){
-     			load(1);
-     		  });		
+     		load(1);
+			})
      </script>
      <script type="text/javascript">
-				$(document).ready(function(){
-					$.post("/data/manager/getUser",{},function(data){
-			  		  if(data.userName != null){
-				    		  $("#showuser").html(data.roleName+":"+data.userName);
-			  		  } else{
-			  			  window.top.location = "/manager/login.html";
-			  		  }
-			  	  })
-				})
+	$(document).ready(function(){
+		$.post("/data/manager/getUser",{},function(data){
+  		  if(data.userName != null){
+// 	    		  $("#showuser").html(data.roleName+":"+data.userName);
+// 	    		  $("#hiddenname").html(data.userName);
+  		  } else{
+  			  window.top.location = "/manager/login.html";
+  		  }
+  	  })
+	})
 </script>
 </html>

@@ -81,20 +81,19 @@
     
       	<div id="tab1" class="tabson">
     
-    <div class="formtext">Hi，<b>admin</b>，欢迎您试用信息发布功能！</div>
     
     <ul class="forminfo">
     <li>
-    	<label>歌曲名称<b>*</b></label>
+    	<label><b>* &nbsp;</b>歌曲名称</label>
     	<input name="" id="singname" type="text" class="dfinput" value=""  style="width:518px;"/>
     </li>
     <li>
-    	<label>演唱人<b>*</b></label>
+    	<label><b>* &nbsp;</b>演唱人</label>
     	<input name="" id="singer" type="text" class="dfinput" value=""  style="width:518px;"/>
     </li>
     
     </li>
-    <li><label>选择音乐<b>*</b></label>
+    <li><label><b>* &nbsp;</b>选择音乐</label>
    <textarea id="content7" class="newc" name="content1" style="width:30%;height:20px;visibility:hidden;" readonly></textarea>
     </li>
     <li><label>&nbsp;</label><input name="" type="button" id="butt" class="btn" value="添加"/></li>
@@ -109,15 +108,13 @@
     
     <li><label>音乐名称:</label><input id="musicname" name="" type="text" class="scinput" /></li>
     <li><label>演唱人:</label><input id="musicsinger" name="" type="text" class="scinput" /></li>
-    <li><label>&nbsp;</label><input name="" type="button" class="scbtn" value="查询"/></li>
-    
+    <li><label>&nbsp;</label><input name="" type="button" class="scbtn" id="scbtn" value="查询"/></li>
+    <li><label>&nbsp;</label><input name="" type="button" class="scbtn"  id ="reset" value="重置"/></li>    
     </ul>
     
     <table class="tablelist">
     	<thead>
     	<tr>
-        <th><input name="" type="checkbox" value="" checked="checked"/></th>
-        <th>编号<i class="sort"><img src="../images/px.gif" /></i></th>
         <th>音乐名称</th>
         <th>演唱人</th>
         <th>创建人</th>
@@ -185,8 +182,6 @@
 	         					var len = data.length;
 	         					for(var i = 0 ; i <  len; i++){
 	         						tabhtml += "<tr>";
-	         						tabhtml += "<td><input name='' type='checkbox' value='' /></td>";
-	         						tabhtml += "<td>"+i+"</td>";
 	         						tabhtml += "<td>"+data[i].musicName+"</td>";
 	         						tabhtml += "<td>"+data[i].musicSinger+"</td>";
 	         						tabhtml += "<td>"+data[i].createName+"</td>";
@@ -207,8 +202,14 @@
  				  load(current);
  		        }
  			  
- 			  $(".scbtn").click(function(){
+ 			 $("#scbtn").click(function(){
  				 load(1);
+ 			  })
+ 			  
+ 			  $("#reset").click(function(){
+ 				 $("input[type='text']").each(function(){
+ 					 $(this).val('');
+ 				 })
  			  })
  			
      	function status(id,obj){   //改变状态

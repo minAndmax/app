@@ -86,21 +86,21 @@
     
     <ul class="forminfo">
     <li>
-    	<label>视频名称<b>*</b></label>
+    	<label><b>* &nbsp;</b>视频名称</label>
     	<input name="" id="inputName" type="text" class="dfinput" value=""  style="width:518px;"/>
     </li>
     <li>
-    	<label>主演<b>*</b></label>
+    	<label><b>* &nbsp;</b>主演</label>
     	<input name="" id="inputMainUser" type="text" class="dfinput" value="未知"  style="width:518px;"/>
     </li>
     <li>
-    	<label>导演<b>*</b></label>
+    	<label><b>* &nbsp;</b>导演</label>
     	<input name="" id="inputDirector" type="text" class="dfinput" value="未知"  style="width:518px;"/>
     </li>
    
     
     </li>
-    <li><label>选择视频<b>*</b></label>
+    <li><label><b>* &nbsp;</b>选择视频</label>
     	<textarea id="content7" class="newc" name="content1" style="width:30%;height:20px;visibility:hidden;"></textarea>
     </li>
     <li><label>&nbsp;</label><input name="" type="button" id="butt" class="btn" value="添加"/></li>
@@ -116,15 +116,14 @@
     <li><label>视频名称:</label><input id="vedioName" name="" type="text" class="scinput" /></li>
     <li><label>主演:</label><input id="vedioMainUser" name="" type="text" class="scinput" /></li>
     <li><label>导演:</label><input id="vedioDirector" name="" type="text" class="scinput" /></li>
-    <li><label>&nbsp;</label><input name="" type="button" class="scbtn" value="查询"/></li>
+    <li><label>&nbsp;</label><input name="" type="button" class="scbtn" id="scbtn" value="查询"/></li>
+    <li><label>&nbsp;</label><input name="" type="button" class="scbtn"  id ="reset" value="重置"/></li>
     
     </ul>
     
     <table class="tablelist">
     	<thead>
     	<tr>
-        <th><input name="" type="checkbox" value="" checked="checked"/></th>
-        <th>编号<i class="sort"><img src="../images/px.gif" /></i></th>
         <th>视频名称</th>
         <th>主演</th>
         <th>导演</th>
@@ -195,8 +194,6 @@
 	         					var len = data.length;
 	         					for(var i = 0 ; i <  len; i++){
 	         						tabhtml += "<tr>";
-	         						tabhtml += "<td><input name='' type='checkbox' value='' /></td>";
-	         						tabhtml += "<td>"+i+"</td>";
 	         						tabhtml += "<td>"+data[i].vedioName+"</td>";
 	         						tabhtml += "<td>"+data[i].vedioMainUser+"</td>";
 	         						tabhtml += "<td>"+data[i].vedioDirector+"</td>";
@@ -218,8 +215,14 @@
  				  load(current);
  		        }
  			  
- 			  $(".scbtn").click(function(){
+ 			 $("#scbtn").click(function(){
  				 load(1);
+ 			  })
+ 			  
+ 			  $("#reset").click(function(){
+ 				 $("input[type='text']").each(function(){
+ 					 $(this).val('');
+ 				 })
  			  })
  			
  			  $("#butt").click(function(){     //发布

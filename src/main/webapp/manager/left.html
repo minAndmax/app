@@ -43,10 +43,14 @@
     </dd>   
     
     <dd>
+      <ul class="menuson" id="userLogo1">
+        <li><a href="userManager/userManager.html" target="rightFrame">用户管理</a><i></i></li>
+      </ul>
+    </dd>
+    <dd>
     <ul class="menuson" id="appLogo1">
         <li><a href="default.html" target="rightFrame">控制台</a><i></i></li>
     </ul>
-    
     </dd>   
     
     </dl>
@@ -55,6 +59,9 @@
 	$(document).ready(function(){
 		$.post("/data/manager/getUser",{},function(data){
   		  if(data.userName != null){
+  			  	  if(data.userName != "admin"){
+  			  		  $("#userLogo1").css("display","none");
+  			  	  }
 	    		  $("#showuser").html(data.roleName+":"+data.userName);
   		  } else{
   			  window.top.location = "/manager/login.html";

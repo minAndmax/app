@@ -19,6 +19,7 @@
 	       user_password,
 	       user_real_name,
 	       user_phone,
+	       role_name,
 	       create_time
 	    )
 	    VALUES
@@ -27,17 +28,55 @@
 	        #{userPassword},
 	        #{userRealName},
 	        #{userPhone},
+	        #{roleName},
 	        GETDATE()
 	    )
 	</insert>
 	
-	<select id="findUserLoginByUserName" parameterType="java.lang.String" resultType="com.army.vo.UserInfo">
+	<select id="findUserLoginByUserName" parameterType="com.army.vo.UserInfo" resultType="com.army.vo.UserInfo">
 		
 		SELECT
 			user_name AS userName,
-			user_id AS userId
-		FROM tb_user_login WHERE user_name=#{userName}
+			user_id AS userId,
+			user_phone AS userPhone,
+			user_password AS userPassword
+		FROM tb_user_login WHERE user_id=#{userId}
 		
 	</select>
       
+	<select id="findAllUserInfo" parameterType="com.army.vo.UserInfo" resultType="com.army.vo.UserInfo">
+		SELECT 
+			user_id AS userId,
+			user_name AS userName,
+			user_password AS userPassword,
+			user_phone AS userPhone,
+			role_name AS roleName,
+			create_time AS createTime,
+			is_valid AS valid
+		FROM TB_USER_LOGIN
+		<where>
+		    <if test="userName != null and userName != ''">
+		    		user_name LIKE '%'+#{userName}+'%'
+		    </if>
+		    AND role_name= '管理员'
+	    </where> 
+	    ORDER BY user_id DESC
+    </select>  
+    
+    <update id="updateUser"  parameterType="com.army.vo.UserInfo">
+    	UPDATE TB_USER_LOGIN 
+    	SET
+			<if test="valid != null and valid != ''">
+				is_valid = #{valid},
+			</if>
+			<if test="userPhone != null and userPhone != ''">
+				user_phone = #{userPhone},
+			</if>
+			<if test="userPassword != null and userPassword != ''">
+				user_password = #{userPassword},
+			</if>
+    	    create_time = GETDATE() ,
+    	    update_time = GETDATE()   
+		WHERE user_id = #{userId}
+    </update>
 </mapper>

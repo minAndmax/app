@@ -5,6 +5,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<title>查看与修改</title>
+	
+	<link rel="stylesheet" href="../kindeditor/themes/default/default.css" />
+	<link rel="stylesheet" href="../kindeditor/plugins/code/prettify.css" />
+	<script charset="utf-8" src="../kindeditor/kindeditor.js"></script>
+	<script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
+	<script charset="utf-8" src="../kindeditor/plugins/code/prettify.js"></script>
+	
 <link href="../css/style.css" rel="stylesheet" type="text/css" />
 <link href="../css/select.css" rel="stylesheet" type="text/css" />
 <link href="../css/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
@@ -19,14 +26,15 @@
   	cursor: pointer;
   }
 </style>
+  
 </head>
 
 <body>
-<input type="hidden" id="id" value='<%= request.getParameter("newId") %>'/>
+<input type="hidden" id="id" value='<%= request.getParameter("userId") %>'/>
 	<div class="place">
     <span class="sp">位置：</span>
     <ul class="placeul">
-    <li><a href="tab.html">通知管理</a></li>
+    <li><a href="newstab.html">用户管理</a></li>
     </ul>
     </div>
     
@@ -37,31 +45,31 @@
     
     <div class="itab">
   	<ul> 
-    <li><a href="#tab2" class="selected">预览通知</a></li> 
-    <li><a href="#tab1">修改通知</a></li> 
+<!--     <li><a href="#tab2" class="selected">预览用户</a></li>  -->
+    <li><a href="#tab1">修改用户</a></li> 
   	</ul>
     </div> 
     
   	<div id="tab1" class="tabson">
     
     <ul class="forminfo">
-    
-    <ul class="forminfo">
     <li>
-    	<label><b>* &nbsp;</b>拟定人</label>
-    	<input name="" type="text" class="dfinput" id="author"  style="width:518px;"/>
+    	<label><b>* &nbsp;</b>密码</label>
+    	<input name="" type="password" class="dfinput" id="userPassword"  style="width:518px;"/>
     </li>
-   
     
+     <li>
+    	<label><b>* &nbsp;</b>确认密码</label>
+    	<input name="" type="password" class="dfinput" id="reuserPassword"  style="width:518px;"/>
     </li>
-    <li><label><b>* &nbsp;</b>通知内容</label>
     
-
-    <textarea id="content7" class="newc" name="content1" style="width:600%;height:400px;"></textarea>
+    <li>
+    	<label><b>&nbsp;&nbsp;</b>联系方式</label>
+    	<input name="" type="text" class="dfinput" id="userPhone"  style="width:518px;"/>
+    </li>
     
     </li>
     <li><label>&nbsp;</label><input type="button" id="bt" class="btn" value="修改"/></li>
-    </ul>
     </ul>
     
     </div> 
@@ -69,7 +77,7 @@
     
   	<div id="tab2" class="tabson">
     	<div id="newtitle" style="text-align: center;"></div>
-   		<div id="noticecontent"></div>
+   		<div id="newcontent"></div>
     	<div id="nauthor" style="float: right;"></div>
     </div>  
        
@@ -89,28 +97,15 @@
 
 	$(document).ready(function(){
 		loadUpdate();
-		loadFind();
 	})
-	
-	function loadFind(){
-		
-		var noticeID = $("#id").val();
-		$.post("${pageContent.request.contentPath}/data/manager/findNotice",
-				{noticeId:noticeID},
-				function(data){
-						$("#newtitle").html("<p>"+data.jsonobejct.noticeContent+"</p>");
-						$("#nauthor").html("拟定人:"+data.jsonobejct.noticeUser+"&nbsp;&nbsp;时间:"+data.jsonobejct.createTime);
-		})
-		
-	}
 	function loadUpdate(){
 		
-		var noticeID = $("#id").val();
-		$.post("${pageContent.request.contentPath}/data/manager/findNotice",
-				{noticeId:noticeID},
+		var userID = $("#id").val();
+// 		alert(userID)
+		$.post("${pageContent.request.contentPath}/data/manager/findUserById",
+				{userId : userID,page : 0,size : 10},
 				function(data){
-					$("#author").val(data.jsonobejct.noticeUser);
-					$("#content7").val(data.jsonobejct.noticeContent);
+					$("#userPhone").val(data.jsonobejct.userPhone);
 		})
 		
 	}
@@ -121,64 +116,53 @@
 			title: "确定修改?",
             type: "warning",
             showCancelButton: true,
-            confirmButtonColor: "#FF0000",
+            confirmButtonColor: "#1ab394",
             cancelButtonText: "取消",
             confirmButtonText: "确定 ",
             closeOnConfirm: false,
 		},function(isConfirm){
 			if(isConfirm){
 				
-				var author = $("#author").val();
-				var content = $("#content7").val();
-				var newID = $("#id").val();
-     			
-     			if(author == null || author == ''){
-	     			swal({
+				var userPassword = $("#userPassword").val();
+				var userPhone = $("#userPhone").val();
+				var userID = $("#id").val();
+				var reuserPassword = $("#reuserPassword").val();
+				
+				if(userPassword != reuserPassword){
+					swal({
 						confirmButtonColor: "#FF0000",
-						title: "拟定人输入不能为空",
+						title: "两次密码输入不一致", 
 						confirmButtonText: "确认",
 						type: "error"
 					});
 	     			return false;
-     			}
-     			
-     			if(content == null || content == ''){
-	     			swal({
-						confirmButtonColor: "#FF0000",
-						title: "通知内容输入不能为空",
-						confirmButtonText: "确认",
-						type: "error"
-					});
-	     			return false;
-     			}
+				}
 				
 				swal({
                     title: "请等待……",
                     type: "warning",
-                    confirmButtonColor: "#FF0000",
                     showConfirmButton: false,
-                    showCancelButton: true,
-                    cancelButtonText:"取消"
+                    showCancelButton: true
                 });
-				
+				var userID = $("#id").val();
 				var requests = {
-						noticeUser : author,
-						noticeContent : content,
-						noticeId : newID
+						userPassword : userPassword,
+						userPhone : userPhone,
+						userId : userID
 				}
-				$.post("/data/manager/updateNotice",requests,function(date){
+				$.post("/data/manager/updateUser",requests,function(date){
 					if(date.tipStatus == 1){
 						swal({
-        	                confirmButtonColor: "#FF0000",
+        	                confirmButtonColor: "#1ab394",
         	                title: "修改成功!",
         	                confirmButtonText: "确认",
         	                type: "success"
         	             },function(inputValue){
-        	            	 loadFind();
+        	            	 window.location.href="userManager.html?ids="+new Date();
         	            }, 2000);
 					} else{
 						swal({
-        	                confirmButtonColor: "#FF0000",
+        	                confirmButtonColor: "#1ab394",
         	                title: "数据异常!",
         	                confirmButtonText: "确认",
         	                type: "error"
@@ -189,7 +173,7 @@
         });
 	});
 </script>
-             <script type="text/javascript">
+       <script type="text/javascript">
 	$(document).ready(function(){
 		$.post("/data/manager/getUser",{},function(data){
   		  if(data.userName != null){
@@ -199,5 +183,5 @@
   		  }
   	  })
 	})
-</script>
+</script>      
 </html>
