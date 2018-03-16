@@ -153,18 +153,18 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							img = '';
 						}
 						html +='<div class="col-md-6 blog-top">';
-		    			html +='<h3><a href="newsDetail.jsp?newId='+date[i].newId+'">'+date[i].newName.substring(0,20)+'......</a></h3>';
+		    			html +='<h3><a title="'+d+'" href="newsDetail.jsp?newId='+date[i].newId+'">'+date[i].newName.substring(0,20)+'......</a></h3>';
 		    			html +='<h6>发布于:&nbsp;&nbsp;'+date[i].createTime+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作者：'+date[i].newAuthor+'</h6>';
 		    			if(img.length > 0){
-		    				html +='<a href="newsDetail.html">'+img+'/></a>';
+		    				html +='<a title="'+d+'" href="newsDetail.jsp?newId='+date[i].newId+'">'+img+'/></a>';
 		    			} else{
-		    				html +='<a href="newsDetail.html"><img src="../source/images/end.png"  width="400" height="240"/></a>';
+		    				html +='<a title="'+d+'" href="newsDetail.jsp?newId='+date[i].newId+'"><img src="../source/images/end.png"  width="400" height="240"/></a>';
 		    			}
 		    			
 // 		    			html +='<p>'+date[i].newContent.substring(0,20)+'......</p>';
 						html +='<p>'+d.substring(0,35)+'......</p>';
 		    			html +='<div style="height:50px;">';
-		    			html +='<a href="newsDetail.html" class="read">更多</a>'; 
+		    			html +='<a  href="newsDetail.jsp?newId='+date[i].newId+'" class="read">更多</a>'; 
 		    			html +='</div>';
 		    			html +='</div>';
 					}
