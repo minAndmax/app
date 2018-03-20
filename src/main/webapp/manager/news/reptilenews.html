@@ -259,7 +259,7 @@
      		var valid = obj;
      	
      		
-     		$.post("/data/manager/change",{newId : newId,valid : valid},function(data){
+     		$.post("/data/manager/updateReptileNews",{reptileId : newId,valid : valid},function(data){
      			if(data.tipStatus != 1){
      				swal({
 						confirmButtonColor: "#FF0000",
