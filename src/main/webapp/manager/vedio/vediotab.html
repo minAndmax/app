@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>通知管理</title>
+<title>电影管理</title>
 <link href="../css/style.css" rel="stylesheet" type="text/css" />
 <link href="../css/select.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="../js/jquery.js"></script>
@@ -66,7 +66,7 @@
 	<div class="place">
     <span>位置：</span>
     <ul class="placeul">
-    <li><a href="vediotab.html">视频管理</a></li>
+    <li><a href="vediotab.html">电影管理</a></li>
     </ul>
     </div>
     
@@ -77,8 +77,8 @@
     
     <div class="itab">
   	<ul> 
-    <li><a href="#tab2" class="selected">视频列表</a></li> 
-    <li><a href="#tab1">添加视频</a></li> 
+    <li><a href="#tab2" class="selected">电影列表</a></li> 
+    <li><a href="#tab1">添加电影</a></li> 
   	</ul>
     </div> 
     
@@ -86,7 +86,7 @@
     
     <ul class="forminfo">
     <li>
-    	<label><b>* &nbsp;</b>视频名称</label>
+    	<label><b>* &nbsp;</b>电影名称</label>
     	<input name="" id="inputName" type="text" class="dfinput" value=""  style="width:518px;"/>
     </li>
     <li>
@@ -100,7 +100,7 @@
    
     
     </li>
-    <li><label><b>* &nbsp;</b>选择视频</label>
+    <li><label><b>* &nbsp;</b>选择电影</label>
     	<textarea id="content7" class="newc" name="content1" style="width:30%;height:20px;visibility:hidden;"></textarea>
     </li>
     <li><label>&nbsp;</label><input name="" type="button" id="butt" class="btn" value="添加"/></li>
@@ -113,7 +113,7 @@
     
     <ul class="seachform">
     
-    <li><label>视频名称:</label><input id="vedioName" name="" type="text" class="scinput" /></li>
+    <li><label>电影名称:</label><input id="vedioName" name="" type="text" class="scinput" /></li>
     <li><label>主演:</label><input id="vedioMainUser" name="" type="text" class="scinput" /></li>
     <li><label>导演:</label><input id="vedioDirector" name="" type="text" class="scinput" /></li>
     <li><label>&nbsp;</label><input name="" type="button" class="scbtn" id="scbtn" value="查询"/></li>
@@ -124,7 +124,7 @@
     <table class="tablelist">
     	<thead>
     	<tr>
-        <th>视频名称</th>
+        <th>电影名称</th>
         <th>主演</th>
         <th>导演</th>
         <th>创建人</th>
@@ -246,7 +246,7 @@
 			     			if(inputName == null || inputName == ''){
 				     			swal({
 		    						confirmButtonColor: "#FF0000",
-		    						title: "视频名称输入不能为空",
+		    						title: "电影名称输入不能为空",
 		    						confirmButtonText: "确认",
 		    						type: "error"
 		    					});
@@ -276,7 +276,7 @@
 			     			if(content == null || content == ''){
 				     			swal({
 		    						confirmButtonColor: "#FF0000",
-		    						title: "没有选择视频",
+		    						title: "没有选择电影",
 		    						confirmButtonText: "确认",
 		    						type: "error"
 		    					});

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>系统新闻</title>
+
+	<link rel="stylesheet" href="../kindeditor/themes/default/default.css" />
+	<link rel="stylesheet" href="../kindeditor/plugins/code/prettify.css" />
+	<script charset="utf-8" src="../kindeditor/kindeditor.js"></script>
+	<script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
+	<script charset="utf-8" src="../kindeditor/plugins/code/prettify.js"></script>
+
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<link href="../css/select.css" rel="stylesheet" type="text/css" />
+<link href="../js/page/footable.core.css" rel="stylesheet" type="text/css" />
+<link href="../css/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jquery.idTabs.min.js"></script>
+<script type="text/javascript" src="../js/select-ui.min.js"></script>
+<!-- <script type="text/javascript" src="../editor/kindeditor.js"></script> -->
+<script type="text/javascript" src="../js/sweetalert/sweetalert.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="../js/date/WebCalendar.js"></script>
+<style type="text/css">
+  .tablelink{
+  	cursor: pointer;
+  }
+</style>
+<style>
+.tcdPageCode a{display: inline-block;color:inherit;display: inline-block;height: 25px;	line-height: 25px;	padding: 0 10px;border: 1px solid #ddd;	margin: 0 2px;border-radius: 4px;vertical-align: middle;}
+.tcdPageCode a:hover{text-decoration: none;border: 1px solid #ccc;}
+.tcdPageCode span.current{display: inline-block;height: 25px;line-height: 25px;padding: 0 10px;margin: 0 2px;color: black;background-color:#f4f4f4;border:	1px solid #DDDDDD;border-radius: 4px;vertical-align: middle;}
+.tcdPageCode span.disabled{	display: inline-block;height: 25px;line-height: 25px;padding: 0 10px;margin: 0 2px;	color:#ccc;background: #f2f2f2;border:	1px solid #DDDDDD;border-radius: 4px;vertical-align: middle;}
+</style>
+<script>
+		KindEditor.ready(function(K) {
+			var editor1 = K.create('textarea[name="content1"]', {
+				cssPath : '../kindeditor/plugins/code/prettify.css',
+				uploadJson : '/data/manager/uploadFile',
+// 				fileManagerJson : '../kindeditor/jsp/file_manager_json.jsp',
+				allowFileManager : true,
+				afterCreate : function() {
+					var self = this;
+					K.ctrl(document, 13, function() {
+						self.sync();
+						document.forms['example'].submit();
+					});
+					K.ctrl(self.edit.doc, 13, function() {
+						self.sync();
+						document.forms['example'].submit();
+					});
+				},
+			afterBlur:function(){this.sync();} 
+			});
+			prettyPrint();
+		});
+	</script>
+  
+</head>
+
+<body>
+	<div class="place">
+    <span class="sp">位置：</span>
+    <ul class="placeul">
+    <li><a href="newstab.html">系统管理</a></li>
+    </ul>
+    </div>
+    
+    <div class="formbody">
+    
+    
+    <div id="usual1" class="usual"> 
+    
+    <div class="itab">
+  	<ul> 
+    <li><a href="#tab2" class="selected">新闻列表</a></li> 
+    <li><a href="#tab1">拉取新闻</a></li> 
+  	</ul>
+    </div> 
+    
+  	<div id="tab1" class="tabson">
+    
+    <ul class="forminfo">
+	    <li class="rigthbut"><label>&nbsp;</label><input name="" type="button" id="bt" class="btn" value="拉取" /></li>
+    </ul>
+    
+    </div> 
+    
+    
+  	<div id="tab2" class="tabson">
+    
+    
+    <ul class="seachform">
+    
+    <li><label>发布时间</label><input name="date" type="text" id="date" onclick="new Calendar().show(this);" size="10" maxlength="10" class="scinput" /></li>
+      
+    <li><label>&nbsp;</label><input name="" type="button" class="scbtn" id="scbtn" value="查询"/></li>
+    <li><label>&nbsp;</label><input name="" type="button" class="scbtn"  id ="reset" value="重置"/></li>
+    </ul>
+    
+    
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        <th>标题</th>
+<!--         <th>新闻内容</th> -->
+        <th>新闻时间</th>
+        <th>状态</th>
+<!--         <th>创建时间</th> -->
+        <th>改变状态</th>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+        
+        </tbody>
+        <tfoot>
+        	<tr>
+        		<td colspan="8"><div class="tcdPageCode" style="text-align: center;"></div></td>
+        	</tr>
+        </tfoot>
+    </table>
+    
+    </div>  
+       
+	</div> 
+ 
+	<script type="text/javascript"> 
+      $("#usual1 ul").idTabs(); 
+    </script>
+    
+    <script type="text/javascript">
+	$('.tablelist tbody tr:odd').addClass('odd');
+	</script>
+    </div>
+
+</body>
+<script type="text/javascript" src="../js/page/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="../js/page/footable.all.min.js"></script>
+<script type="text/javascript" src="../js/page/jquery.page.js"></script>
+ <script type="text/javascript">
+             
+ 
+			 var totalPage;       //总页数
+			 var pageSize = 20;    //每页显示的数量
+			 var current;       //dangqia
+ 			
+		     	function load(current){
+	        		
+	        		var reptileTime = $("#date").val();
+	        		
+	        		$.post("/data/manager/findAllReptileNewsManager",
+	        				{
+	        					reptileTime : reptileTime,
+	        					page : (current-1)*pageSize,
+	        					size : pageSize
+	        				},
+	        				callback);
+	        	    function callback(data){
+	        	    	    $(".tcdPageCode").createPage({  
+		        	    	    pageCount : data[0].totalPages,
+		        	    	    current : current,
+	        	    	    backFn:function(p){
+	    					 }
+	        	    	    });
+// 	        	    	    loadNews(date);
+	        	    	    var tabhtml = ""
+							if(data[0].totalPages >= 0){
+								
+	         					var len = data.length;
+	         					for(var i = 0 ; i <  len; i++){
+	         						tabhtml += "<tr>";
+	         						tabhtml += "<td>"+data[i].reptileTitle+"</td>";
+// 	         						tabhtml += "<td>"+data[i].reptileContent+"</td>";
+	         						tabhtml += "<td>"+data[i].reptileTime+"</td>";
+	        						if(data[i].valid == 'Y'){
+	        							tabhtml += "<td>有效</td>";
+	        						}else{
+	        	 						tabhtml += "<td>已关闭</td>";
+	        						}
+// 	         						tabhtml += "<td>"+data[i].createTime+"</td>";
+	         						tabhtml += "<td><label onclick=status("+data[i].reptileId+",'N') class='tablelink'>关闭</label>&nbsp;&nbsp;<label onclick=status("+data[i].reptileId+",'Y')  class='tablelink'>恢复</label></td>";
+	         						tabhtml += "<td><a href='findandupdate.jsp?newId="+data[i].reptileId+"' class='tablelink'>查看</label></td>";
+	         						tabhtml += "</tr>";
+	         					}
+							}
+	         				$("#tbody").html(tabhtml);
+	                }
+	        	}
+ 			
+ 			  function pageHtml(current){
+ 				  load(current);
+ 		        }
+ 			  
+ 			 $("#scbtn").click(function(){
+ 				 load(1);
+ 			  })
+ 			  
+ 			  $("#reset").click(function(){
+ 				 $("input[type='text']").each(function(){
+ 					 $(this).val('');
+ 				 })
+ 			  })
+ 			
+     		$("#bt").click(function(){     //发布
+     			
+     			//
+     			swal({
+					title: "确定拉取?",
+		            type: "warning",
+		            showCancelButton: true,
+		            confirmButtonColor: "#FF0000",
+		            cancelButtonText: "取消",
+		            confirmButtonText: "确定 ",
+		            closeOnConfirm: false,
+					},function(isConfirm){
+						if(isConfirm){
+							swal({
+								confirmButtonColor: "#FF0000",
+			                    title: "请等待……",
+			                    type: "warning",
+			                    showConfirmButton: false,
+			                    showCancelButton: true
+			                });
+     			$.post("/data/manager/insertReptileNews",{},function(date){
+     				
+     				if(date.tipStatus != 1){
+     					swal({
+    						confirmButtonColor: "#FF0000",
+    						title: "拉取失败",
+    						confirmButtonText: "确认",
+    						type: "error"
+    					});
+     				} else{
+     					if(date.insertNum != 0){
+	     					swal({
+	    						confirmButtonColor: "#FF0000",
+	    						title: "成功拉取"+date.insertNum+"条数据",
+	    						confirmButtonText: "确认",
+	    						type: "success"
+	    					},function(inputValue){
+	    						load(1);
+	        	            }, 2000);
+     					} else{
+     						swal({
+	    						confirmButtonColor: "#FF0000",
+	    						title: "拉取太频繁，暂无新数据",
+	    						confirmButtonText: "确认",
+	    						type: "success"
+	    					});
+     					}
+     				}
+     				
+     			})
+			}
+        });
+     		});
+     	function status(id,obj){   //改变状态
+     		
+     		var newId = id;
+     		var valid = obj;
+     	
+     		
+     		$.post("/data/manager/change",{newId : newId,valid : valid},function(data){
+     			if(data.tipStatus != 1){
+     				swal({
+						confirmButtonColor: "#FF0000",
+						title: valid=='Y' ? '恢复' : '关闭' +data.tipStatusContent,
+						confirmButtonText: "确认",
+						type: "error"
+					});
+     			} else{
+     				swal({
+						confirmButtonColor: "#FF0000",
+						title: valid=='Y' ? '恢复成功' : '关闭成功',
+						confirmButtonText: "确认",
+						type: "success"
+					},function(inputValue){
+						load(1);
+		            }, 2000);
+     			}
+     		})
+   	   }
+     	
+     	$(document).ready(function(){
+     			load(1);
+     		  });		
+     </script>
+     <script type="text/javascript">
+				$(document).ready(function(){
+					$.post("/data/manager/getUser",{},function(data){
+			  		  if(data.userName != null){
+				    		  $("#showuser").html(data.roleName+":"+data.userName);
+			  		  } else{
+			  			  window.top.location = "/manager/login.html";
+			  		  }
+			  	  })
+				})
+</script>
+</html>

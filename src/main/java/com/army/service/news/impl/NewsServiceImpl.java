@@ -34,7 +34,7 @@ public class NewsServiceImpl implements NewsService {
 
 	@Transactional(rollbackFor=Exception.class)
 	@Override
-	public JSONObject insertNew(HttpServletRequest request, NewsInfo news) throws Exception {
+	public JSONObject insertNew(HttpServletRequest request, NewsInfo news)  {
 
 		JSONObject obj = new JSONObject();
 
@@ -76,7 +76,7 @@ public class NewsServiceImpl implements NewsService {
 	
 	@Transactional(rollbackFor=Exception.class)
 	@Override
-	public JSONObject updateNew(HttpServletRequest request, NewsInfo news) throws Exception {
+	public JSONObject updateNew(HttpServletRequest request, NewsInfo news) {
 
 		JSONObject obj = new JSONObject();
 
@@ -93,7 +93,7 @@ public class NewsServiceImpl implements NewsService {
 			StringBuilder sb = new StringBuilder();
 			
 			sb.append(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName"));
-			sb.append("修改新闻《"+find.getNewName()+"》");
+			sb.append("，修改新闻《"+find.getNewName()+"》");
 			if(news.getValid() == null) {
 				sb.append(news.getNewName() == null ? "": ",标题:"+news.getNewName());
 			}

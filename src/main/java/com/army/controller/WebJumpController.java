@@ -1,6 +1,7 @@
 package com.army.controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,8 @@ import com.army.service.music.MusicService;
 import com.army.service.news.NewsService;
 import com.army.service.notice.NoticeService;
 import com.army.service.opt.OperateService;
+import com.army.service.reptile.ReptileService;
+import com.army.service.tv.TVService;
 import com.army.service.user.UserLoginService;
 import com.army.vo.AppInfo;
 import com.army.vo.MusicInfo;
@@ -26,6 +29,8 @@ import com.army.util.StatusEnum;
 import com.army.util.UpLoadImageUtil;
 import com.army.vo.NewsInfo;
 import com.army.vo.NoticeInfo;
+import com.army.vo.PreFileInfo;
+import com.army.vo.ReptileNewsInfo;
 import com.army.vo.UserInfo;
 import com.army.vo.VedioInfo;
 
@@ -53,7 +58,75 @@ public class WebJumpController {
 
 	@Autowired
 	private OperateService operateService;
+	
+	@Autowired
+	private TVService tVService;
+	
+	@Autowired
+	private ReptileService reptileService;
 
+	@RequestMapping(value = "/manager/findAllTVManeger", method = RequestMethod.POST)
+	public JSONArray findAllTVManeger(HttpServletRequest request, PreFileInfo info) throws Exception {
+		
+		info.setCreateName(GetUserInfo.getUserName(request));
+		JSONArray arry = tVService.findAllTVManeger(info);
+
+		return arry;
+	}
+	
+	@RequestMapping(value = "/findAllReptileNews", method = RequestMethod.POST)
+	public JSONArray findAllReptileNews(HttpServletRequest request, ReptileNewsInfo info) throws Exception {
+		
+		info.setCreateName(GetUserInfo.getUserName(request));
+		JSONArray arry = reptileService.findAllReptileNews(info);
+
+		return arry;
+	}
+	
+	@RequestMapping(value = "/manager/findAllReptileNewsManager", method = RequestMethod.POST)
+	public JSONArray findAllReptileNewsManager(HttpServletRequest request, ReptileNewsInfo info) throws Exception {
+		
+		info.setCreateName(GetUserInfo.getUserName(request));
+		JSONArray arry = reptileService.findAllReptileNewsManager(info);
+
+		return arry;
+	}
+	
+	@RequestMapping(value = "/manager/insertReptileNews", method = RequestMethod.POST)
+	public JSONObject insertReptileNews(HttpServletRequest request) throws Exception {
+		
+		JSONObject arry = reptileService.insertReptileNews(request);
+
+		return arry;
+	}
+	
+	@RequestMapping(value = "/manager/updateReptileNews", method = RequestMethod.POST)
+	public JSONObject updateReptileNews(HttpServletRequest request, ReptileNewsInfo info) throws Exception {
+
+		JSONObject obj = reptileService.updateReptileNews(request,info);
+
+		return obj;
+
+	}
+	
+	@RequestMapping(value = "/findAllTv", method = RequestMethod.POST)
+	public JSONArray findAllTv( PreFileInfo info) throws Exception {
+		
+		JSONArray arry = tVService.findAllTv(info);
+
+		return arry;
+	}
+	
+	@RequestMapping(value = "/manager/insertPreFile", method = RequestMethod.POST)
+	public JSONObject insertPreFile(HttpServletRequest request, PreFileInfo info) throws Exception {
+
+		JSONObject obj = tVService.insertPreFile(request,info);
+
+		return obj;
+
+	}
+
+	
 	/**
 	 * 登录
 	 * 
@@ -78,9 +151,9 @@ public class WebJumpController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/manager/uploadFile", method = RequestMethod.POST)
-	public JSONObject uploadFile(HttpServletRequest request) throws Exception {
-
-		JSONObject obj = UpLoadImageUtil.uploadFile(request);
+	public JSONObject uploadFile(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		response.setContentType("text/html;charset=utf-8");
+		JSONObject obj = UpLoadImageUtil.uploadFile(request,response);
 
 		return obj;
 

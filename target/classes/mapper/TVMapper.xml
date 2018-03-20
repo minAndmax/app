@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.army.dao.TVMapper">
+
+	<resultMap type="com.army.vo.PreFileInfo" id="files">
+	
+		<id column="pre_file_id" property="preFileId"/>
+		<result column="pre_file_name" property="preFileName"/>
+		<result column="create_name" property="createName"/>
+		<result column="create_time" property="createTime"/>
+		<result column="is_valid" property="valid"/>
+		
+		<collection property="tvlist" ofType="com.army.vo.TVListInfo">
+			<id column="tv_id" property="tvId"/>
+			<result column="tv_name" property="tvName"/>
+		<result column="tv_level" property="tvLevel"/>
+			<result column="tv_src" property="tvSrc"/>
+			<result column="tv_create_name" property="createName"/>
+			<result column="tv_create_time" property="createTime"/>
+			<result column="tv_is_valid" property="valid"/>
+		</collection>
+	
+	</resultMap>
+
+	<select id="findAllTVManeger" resultMap="files" parameterType="com.army.vo.PreFileInfo">
+ 		 SELECT DISTINCT
+			  a.pre_file_id
+		      ,a.pre_file_name
+		      ,a.create_name
+		      ,a.create_time
+		      ,a.is_valid
+		      ,b.tv_level
+		      ,b.tv_id
+		      ,b.tv_name
+		      ,b.tv_src
+		      ,b.create_name AS tv_create_name
+		      ,b.create_time AS tv_create_time
+		      ,b.is_valid AS tv_is_valid
+	 	 FROM tb_pre_file a INNER JOIN tb_tv_list b ON a.pre_file_id = b.pre_file_id
+	    <where>
+		    <if test="preFileName != null and preFileName != ''">
+		    		a.pre_file_name LIKE '%'+#{preFileName}+'%'
+		    </if>
+		    <if test="createName != null and createName != ''">
+		    		AND a.create_name = #{createName}
+		    </if>
+	    </where> 
+	    ORDER BY b.tv_level
+    </select>
+    
+	 <select id="findTvCount" resultType="int" parameterType="com.army.vo.PreFileInfo">
+    	SELECT
+	    	DISTINCT
+				COUNT( DISTINCT a.pre_file_id) totalPages
+		FROM tb_pre_file a INNER JOIN tb_tv_list b ON a.pre_file_id = b.pre_file_id
+		   <where>
+		    <if test="preFileName != null and preFileName != ''">
+		    		a.pre_file_name LIKE '%'+#{preFileName}+'%'
+		    </if>
+		    <if test="valid != null and valid != ''">
+		    		AND a.is_valid = #{valid}
+		    </if>
+		    <if test="createName != null and createName != ''">
+		    		AND a.create_name = #{createName}
+		    </if>
+	    </where> 
+    </select>
+	
+	<!--select all app-->
+    <select id="findAllTv" resultMap="files" parameterType="com.army.vo.PreFileInfo">
+		SELECT DISTINCT
+			  a.pre_file_id
+		      ,a.pre_file_name
+		      ,a.create_name
+		      ,a.create_time
+		      ,a.is_valid
+		      ,b.tv_id
+		      ,b.tv_level
+		      ,b.tv_name
+		      ,b.tv_src
+		      ,b.create_name AS tv_create_name
+		      ,b.create_time AS tv_create_time
+		      ,b.is_valid AS tv_is_valid
+	 	 FROM tb_pre_file a INNER JOIN tb_tv_list b ON a.pre_file_id = b.pre_file_id
+		 WHERE a.is_valid = 'Y' AND b.is_valid = 'Y' 
+		<if test="preFileName != null and preFileName != ''">
+			AND a.pre_file_name LIKE '%'+#{preFileName}+'%'	
+		</if>
+		ORDER BY b.tv_level
+    </select>
+    <!-- add  -->
+    <insert id="insertPreFile" parameterType="com.army.vo.PreFileInfo">
+    	<selectKey keyProperty='preFileId' resultType='long' order='AFTER'  >
+    		select ident_current('tb_pre_file')
+    	</selectKey>
+	    	INSERT INTO tb_pre_file
+            (
+	            pre_file_name
+	           ,create_name
+	           ,create_time
+	           ,is_valid
+            )VALUES(
+           		#{preFileName},
+           		#{createName},
+           		GETDATE(),
+           		#{valid}
+            )
+    </insert>
+    
+    <insert id="insertTv" parameterType="com.army.vo.TVListInfo">
+	    	INSERT INTO tb_tv_list
+            (
+	            tv_name
+	           ,tv_src
+	           ,pre_file_id
+	           ,tv_level
+	           ,create_name
+	           ,create_time
+	           ,is_valid
+            )VALUES(
+           		#{tvName},
+           		#{tvSrc},
+           		#{preFileId},
+           		#{tvLevel},
+           		#{createName},
+           		GETDATE(),
+           		#{valid}
+            )
+    </insert>
+</mapper>

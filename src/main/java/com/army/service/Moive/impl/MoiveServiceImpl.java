@@ -34,7 +34,7 @@ public class MoiveServiceImpl implements MoiveService{
 	
 	@Transactional(rollbackFor=Exception.class)
 	@Override
-	public JSONObject updateMoive(HttpServletRequest request, VedioInfo vinfo) throws Exception {
+	public JSONObject updateMoive(HttpServletRequest request, VedioInfo vinfo)  {
 		JSONObject obj = new JSONObject();
 		try {
 			moiveMapper.updateMoive(vinfo);
@@ -119,7 +119,7 @@ public class MoiveServiceImpl implements MoiveService{
 
 	@Transactional(rollbackFor=Exception.class)
 	@Override
-	public JSONObject insertMoive(HttpServletRequest request,VedioInfo vedio) throws Exception {
+	public JSONObject insertMoive(HttpServletRequest request,VedioInfo vedio) {
 		JSONObject obj = new JSONObject();
 
 		try {

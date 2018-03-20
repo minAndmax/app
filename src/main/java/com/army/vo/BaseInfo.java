@@ -1,5 +1,7 @@
 package com.army.vo;
 
+import java.util.List;
+
 import com.alibaba.fastjson.JSONObject;
 
 public class BaseInfo {
@@ -20,6 +22,16 @@ public class BaseInfo {
 	
 	private int totalPages;//总页数
 	
+	private List<ReptileNewsInfo> pretiles;
+	
+	public List<ReptileNewsInfo> getPretiles() {
+		return pretiles;
+	}
+
+	public void setPretiles(List<ReptileNewsInfo> pretiles) {
+		this.pretiles = pretiles;
+	}
+
 	public int getTotalPages() {
 		return totalPages;
 	}

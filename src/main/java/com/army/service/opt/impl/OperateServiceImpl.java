@@ -77,7 +77,7 @@ public class OperateServiceImpl implements OperateService {
 		NoticeInfo b = new NoticeInfo();
 		MusicInfo c = new MusicInfo();
 		VedioInfo v = new VedioInfo();
-		if(!sessionObj.getString("roleName").equals("超级管理员")) {
+		if(!sessionObj.getString("userName").equals("admin")) {
 			n.setCreateName(sessionObj.getString("userName"));
 			b.setCreateName(sessionObj.getString("userName"));
 			c.setCreateName(sessionObj.getString("userName"));

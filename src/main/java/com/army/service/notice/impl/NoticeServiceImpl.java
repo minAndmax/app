@@ -34,7 +34,7 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Transactional(rollbackFor=Exception.class)
 	@Override
-	public JSONObject insertNotice(HttpServletRequest request, NoticeInfo notice) throws Exception{
+	public JSONObject insertNotice(HttpServletRequest request, NoticeInfo notice) {
 
 		JSONObject obj = new JSONObject();
 
@@ -76,7 +76,7 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	@Transactional(rollbackFor=Exception.class)
 	@Override
-	public JSONObject updateNotice(HttpServletRequest request, NoticeInfo notice) throws Exception {
+	public JSONObject updateNotice(HttpServletRequest request, NoticeInfo notice) {
 
 		JSONObject obj = new JSONObject();
 		

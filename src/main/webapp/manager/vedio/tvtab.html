@@ -1,0 +1,390 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>电视管理</title>
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<link href="../css/select.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jquery.idTabs.min.js"></script>
+<script type="text/javascript" src="../js/select-ui.min.js"></script>
+
+<link href="../js/page/footable.core.css" rel="stylesheet" type="text/css" />
+<link href="../css/sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/sweetalert/sweetalert.min.js"></script>
+<script language="JavaScript" type="text/javascript" src="../js/date/WebCalendar.js"></script>
+
+
+	<link rel="stylesheet" href="../kindeditor/themes/default/default.css" />
+	<link rel="stylesheet" href="../kindeditor/plugins/code/prettify.css" />
+	<script charset="utf-8" src="../kindeditor/kindeditor.js"></script>
+	<script charset="utf-8" src="../kindeditor/lang/zh_CN.js"></script>
+	<script charset="utf-8" src="../kindeditor/plugins/code/prettify.js"></script>
+
+<script>
+		KindEditor.ready(function(K) {
+			var editor1 = K.create('textarea[name="content1"]', {
+				cssPath : '../kindeditor/plugins/code/prettify.css',
+				uploadJson : '/data/manager/uploadFile',
+// 				fileManagerJson : '../kindeditor/jsp/file_manager_json.jsp',
+				allowFileManager : true,
+				items : ['flash'],
+				afterCreate : function() {
+					var self = this;
+					K.ctrl(document, 13, function() {
+						self.sync();
+						document.forms['example'].submit();
+					});
+					K.ctrl(self.edit.doc, 13, function() {
+						self.sync();
+						document.forms['example'].submit();
+					});
+				},
+			afterBlur:function(){this.sync();} 
+			});
+			prettyPrint();
+		});
+	</script>
+
+</script>
+<style type="text/css">
+  .tablelink{
+  	cursor: pointer;
+  }
+  .noww{
+  	display: none;
+  }
+</style>
+<style>
+.tcdPageCode a{display: inline-block;color:inherit;display: inline-block;height: 25px;	line-height: 25px;	padding: 0 10px;border: 1px solid #ddd;	margin: 0 2px;border-radius: 4px;vertical-align: middle;}
+.tcdPageCode a:hover{text-decoration: none;border: 1px solid #ccc;}
+.tcdPageCode span.current{display: inline-block;height: 25px;line-height: 25px;padding: 0 10px;margin: 0 2px;color: black;background-color:#f4f4f4;border:	1px solid #DDDDDD;border-radius: 4px;vertical-align: middle;}
+.tcdPageCode span.disabled{	display: inline-block;height: 25px;line-height: 25px;padding: 0 10px;margin: 0 2px;	color:#ccc;background: #f2f2f2;border:	1px solid #DDDDDD;border-radius: 4px;vertical-align: middle;}
+</style>
+</style>
+</head>
+
+<body>
+
+	<div class="place">
+    <span>位置：</span>
+    <ul class="placeul">
+    <li><a href="vediotab.html">电视管理</a></li>
+    </ul>
+    </div>
+    
+    <div class="formbody">
+    
+    
+    <div id="usual1" class="usual"> 
+    
+    <div class="itab">
+  	<ul> 
+    <li><a href="#tab2" class="selected">电视列表</a></li> 
+    <li><a href="#tab1">添加电视</a></li> 
+  	</ul>
+    </div> 
+    
+      	<div id="tab1" class="tabson">
+		    <ul class="forminfo">
+		    <li>
+		    	<label><b>* &nbsp;</b>电视名称</label>
+		    	<input name="" id="inputName" type="text" class="dfinput" value=""  style="width:518px;"/>
+		    </li>
+		    <li>
+		    	<label><b>* &nbsp;</b>集数</label>
+		    	<input name="" id="inputlevel" type="text" class="dfinput" value=""  style="width:518px;"/>
+		    </li>
+		    <li>
+		    	<label><b>* &nbsp;</b>选择电视</label>
+		    	<input name="" id="inputdirectory" type="text" class="dfinput noww" value=""  style="width:518px;"/>
+		    	<select id="selectv" style="width: 120px; height: 35px;" onchange="change(this)">
+		    	</select>
+		    </li>
+		    </li>
+		    <li><label><b>* &nbsp;</b>选择电视</label>
+		    	<textarea id="content7" class="newc" name="content1" style="width:30%;height:20px;visibility:hidden;"></textarea>
+		    </li>
+		    <li><label>&nbsp;</label><input name="" type="button" id="butt" class="btn" value="添加"/></li>
+		    </ul>
+		    </div>
+    </div> 
+    
+  	<div id="tab2" class="tabson">
+    
+    
+    <ul class="seachform">
+    
+    <li><label>电视名称:</label><input id="tvName" name="" type="text" class="scinput" /></li>
+    <li><label>&nbsp;</label><input name="" type="button" class="scbtn" id="scbtn" value="查询"/></li>
+    <li><label>&nbsp;</label><input name="" type="button" class="scbtn"  id ="reset" value="重置"/></li>
+    
+    </ul>
+    
+    <table class="tablelist">
+    	<thead>
+    	<tr>
+        <th>电视名称</th>
+        <th>创建时间</th>
+        <th>集数</th>
+        <th>状态</th>
+        <th>创建时间</th>
+        <th>改变状态</th>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+        </tbody>
+         <tfoot>
+        	<tr>
+        		<td colspan="8"><div class="tcdPageCode" style="text-align: center;"></div></td>
+        	</tr>
+        </tfoot>
+    </table>
+    
+    </div>  
+       
+	</div> 
+ 
+	<script type="text/javascript"> 
+      $("#usual1 ul").idTabs(); 
+    </script>
+    
+    <script type="text/javascript">
+	$('.tablelist tbody tr:odd').addClass('odd');
+	</script>
+    </div>
+<input type="hidden" id="hiddenname"/>
+</body>
+<script type="text/javascript" src="../js/page/jquery-2.1.1.js"></script>
+<script type="text/javascript" src="../js/page/footable.all.min.js"></script>
+<script type="text/javascript" src="../js/page/jquery.page.js"></script>
+ <script type="text/javascript">
+             
+ 				function change(obj){
+ 					
+ 					var val = $(obj).val();
+ 					
+ 					if(val == 'NULL'){
+ 						$("#inputdirectory").removeClass("noww");
+ 					} else{
+ 						$("#inputName").val($(obj).find("option:selected").text())
+ 						$("#inputdirectory").addClass("noww");
+ 					}
+ 					
+ 				}
+				 
+				 function show(obj){
+					 var id = $(obj).attr("id");
+			         $(obj).toggleClass('selected');
+			         $(obj).siblings('.c_'+id).toggle();
+			     }
+ 			
+		     	function load(){
+	        		
+	        		var tvName = $("#tvName").val();
+	        		
+	        		$.post("/data/manager/findAllTVManeger",
+	        				{	
+	        					preFileName : tvName
+	        				},
+	        				callback);
+	        	    function callback(data){
+	        	    	    var tabhtml = ""
+							var selecttv = "";
+	        	    	    	selecttv += "<option value=''>选择电视目录</option>";
+	        	    	    	selecttv += "<option value='NULL'>新建电视目录</option>";
+	         					var len = data.length;
+	         					for(var i = 0 ; i <  len; i++){
+	         						selecttv += "<option value='"+data[i].preFileId+"'>"+data[i].preFileName+"</option>";
+	         						var showa = 'a'+i;
+	         						tabhtml += "<tr onclick=show(this) id='p"+i+"' style='cursor: pointer;'>";
+	         						tabhtml += "<td>"+data[i].preFileName+"</td>";
+	         						tabhtml += "<td colspan='2'>"+data[i].createName+"</td>";
+	        						if(data[i].valid == 'Y'){
+	        							tabhtml += "<td>有效</td>";
+	        						}else{
+	        	 						tabhtml += "<td>已关闭</td>";
+	        						}
+	        						tabhtml += "<td colspan=''>"+data[i].createTime+"</td>";
+	         						tabhtml += "<td><label onclick=status("+data[i].preFileId+",'N') class='tablelink'>关闭</label>&nbsp;&nbsp;<label onclick=status("+data[i].preFileId+",'Y')  class='tablelink'>恢复</label></td>";
+	         						tabhtml += "</tr>";
+	         					var tv = data[i].tvlist;
+	         						for(var j = 0 ; j < tv.length ; j++){
+	         							tabhtml += "<tr class='c_p"+i+"'  style='display: none;background-color: #ffe7ba;'>";
+		         						tabhtml += "<td>"+tv[j].tvName+"-"+tv[j].tvLevel+"</td>";
+		         						tabhtml += "<td>"+tv[j].createName+"</td>";
+		         						tabhtml += "<td>"+tv[j].tvLevel+"</td>";
+		        						if(tv[j].valid == 'Y'){
+		        							tabhtml += "<td>有效</td>";
+		        						}else{
+		        	 						tabhtml += "<td>已关闭</td>";
+		        						}
+		         						tabhtml += "<td colspan='2'>"+tv[j].createTime+"</td>";
+		         						tabhtml += "</tr>";
+	         						}
+	         					}
+	         				$("#tbody").html(tabhtml);
+	         				$("#selectv").html(selecttv);
+	                }
+	        	}
+ 			
+ 			  
+ 			 $("#scbtn").click(function(){
+ 				 load();
+ 			  })
+ 			  
+ 			  $("#reset").click(function(){
+ 				 $("input[type='text']").each(function(){
+ 					 $(this).val('');
+ 				 })
+ 			  })
+ 				 
+ 			  $("#butt").click(function(){     //发布
+     			//
+     			swal({
+					title: "添加?",
+		            type: "warning",
+		            showCancelButton: true,
+		            confirmButtonColor: "#FF0000",
+		            cancelButtonText: "取消",
+		            confirmButtonText: "确定 ",
+		            closeOnConfirm: false,
+					},function(isConfirm){
+						if(isConfirm){
+							
+			     			var tvName = $("#inputName").val();
+			     			var tvLecel = $("#inputlevel").val();
+			     			var preFileName= $("#inputdirectory").val();
+			     			var inputdirectory = $("#selectv").val();  //为NULL时表示新建电视目录
+			     			var content = $("#content7").val();
+			     				
+			     			if(tvName == null || tvName == ''){
+				     			swal({
+		    						confirmButtonColor: "#FF0000",
+		    						title: "电视名称输入不能为空",
+		    						confirmButtonText: "确认",
+		    						type: "error"
+		    					});
+				     			return false;
+			     			}
+			     			
+			     			if(tvLecel == null || tvLecel == ''){
+				     			swal({
+		    						confirmButtonColor: "#FF0000",
+		    						title: "电视集数不能为空",
+		    						confirmButtonText: "确认",
+		    						type: "error"
+		    					});
+				     			return false;
+			     			}
+			     			
+			     			if(inputdirectory == null || inputdirectory == ''){
+				     			swal({
+		    						confirmButtonColor: "#FF0000",
+		    						title: "选择为空",
+		    						confirmButtonText: "确认",
+		    						type: "error"
+		    					});
+				     			return false;
+			     			}
+			     			
+			     			if(content == null || content == ''){
+				     			swal({
+		    						confirmButtonColor: "#FF0000",
+		    						title: "没有上传电视",
+		    						confirmButtonText: "确认",
+		    						type: "error"
+		    					});
+				     			return false;
+			     			}
+			     			
+			     			
+							swal({
+								confirmButtonColor: "#FF0000",
+			                    title: "请等待……",
+			                    type: "warning",
+			                    showConfirmButton: false,
+			                    showCancelButton: true
+			                });
+							if(inputdirectory == 'NULL'){
+								inputdirectory = 0;
+							}
+							var dd=content.replace(/<\/?.+?>/g,"");
+							var dds=dd.replace(/ /g,"");
+			     			var requests = {
+			     					preFileName : tvName + ',' + dds + ',' + tvLecel,
+			     					preFileId : inputdirectory
+			     			}
+			     			
+     			$.post("/data/manager/insertPreFile",requests,function(date){
+     				
+     				if(date.tipStatus != 1){
+     					swal({
+    						confirmButtonColor: "#FF0000",
+    						title: "添加失败"+date.tipStatusContent,
+    						confirmButtonText: "确认",
+    						type: "error"
+    					});
+     				} else{
+     					swal({
+    						confirmButtonColor: "#FF0000",
+    						title: "添加成功",
+    						confirmButtonText: "确认",
+    						type: "success"
+    					},function(inputValue){
+    						
+			     			KindEditor.html("#content7","");
+    						load(1);
+        	            }, 2000);
+     				}
+     				
+     					})
+					}
+       			 });
+			});	
+ 			  
+     	function status(id,obj){   //改变状态
+     		
+     		var vedioId = id;
+     		var valid = obj;
+     	
+     		
+     		$.post("/data/manager/updateMoive",{vedioId : vedioId,valid : valid},function(data){
+     			if(data.tipStatus != 1){
+     				swal({
+						confirmButtonColor: "#1ab394",
+						title: valid=='Y' ? '恢复失败' : '关闭失败',
+						confirmButtonText: "确认",
+						type: "error"
+					});
+     			} else{
+     				swal({
+						confirmButtonColor: "#1ab394",
+						title: valid=='Y' ? '恢复成功' : '关闭成功',
+						confirmButtonText: "确认",
+						type: "success"
+					},function(inputValue){
+						load(1);
+		            }, 2000);
+     			}
+     		})
+   	   }
+     	
+   		 
+     	$(document).ready(function(){
+     		load();
+		})
+     </script>
+     <script type="text/javascript">
+	$(document).ready(function(){
+		$.post("/data/manager/getUser",{},function(data){
+  		  if(data.userName != null){
+// 	    		  $("#showuser").html(data.roleName+":"+data.userName);
+// 	    		  $("#hiddenname").html(data.userName);
+  		  } else{
+  			  window.top.location = "/manager/login.html";
+  		  }
+  	  })
+	})
+</script>
+</html>

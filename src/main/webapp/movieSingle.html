@@ -21,11 +21,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	/* videobox */
 	.videobox{background:#ff6600;width:1208px;margin:0 auto 0 auto;}
 	.video-img{width:1000px;height:618px;overflow:hidden;float: left;}
-	.video-list{height:618px;padding:15px 0 0 0;width: 180px;float: left;border:solid 1px gray;background-image: url(../source/images/vedioImages/movebg.jpg) left center no-repeat;}
+	.video-list{height:618px;padding:0 0 0 0;width: 180px;float: left;background-image: url(../source/images/vedioImages/movebg.jpg) left center no-repeat;}
 	.vedioList{
 		float: left; width: 160px; height: 618px;
 	}
-	.video-list li{width:170px;height:30px;overflow:hidden;border-bottom:solid 1px gray;margin:0 10px;cursor:pointer; font-size: 15px;}
+	.bord{
+		border-bottom: 3px solid green;
+	}
+	.video-list li{width:170px;height:30px;overflow:hidden;margin:0 10px;cursor:pointer; font-size: 15px;}
 	.now{
 /* 		overflow: hidden;  */
 /* 		list-style-type:none; */
@@ -34,6 +37,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 /*  		background: url(../source/images/musicimages/volume.png) left center no-repeat;   */
 /*  		background-size: 15px 15px;  */
  		background-color: gray;
+	}
+	.showlist{
+		display : none;
 	}
 	.video-list li .icon-video{position:absolute;left:22px;top:12px;width:33px;height:33px;z-index:99;}
 	.video-list li.now .icon-video{display:none;}
@@ -79,22 +85,31 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 <!-- header -->	
 <div class="single-page-artical">
-	<h4>视频区&nbsp;<span id="tipCur"></span></h4>
+	<h4>视频区&nbsp;/&nbsp;当前播放:<span id="tipCur"></span></h4>
 	
-								<div class="artical-content">
-									<div class="videobox">
-										<div class="video-img" id="vedioPlayer">
-										</div>
-										
-										<div class="video-list" style="overflow-y:scroll;height: 618px;">
-											<ul id="vedioList">
-											</ul>
-										</div>
-									</div>
-								    </div>
-<!-- 			<embed  id="js_videoCon"src="CuPlayerMiniV3_Black_S.swf?CuPlayerFile='+playersrc+'&CuPlayerImage=../source/images/icon-video.png&CuPlayerWidth=1008&CuPlayerHeight=618&CuPlayerAutoPlay=true&CuPlayerAutoRepeat=true&CuPlayerShowControl=true&CuPlayerAutoHideControl=false&CuPlayerAutoHideTime=5&CuPlayerVolume=80&CuPlayerGetNext=false" class="js_videoCon" allowFullScreen="true" quality="high" width="1000" height="618" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"/> -->
+				<div class="artical-content">
+					<div class="videobox">
+						<div class="video-img" id="vedioPlayer">
+							
+						</div>
+						
+						<div class="video-list">
+							<div id="showbut" class="bord" style='cursor: pointer;background-color:gray; float: left;width: 50%;height: 20px;text-align: center;'>
+								电影
+							</div>
+							<div id="tvshow" style='cursor: pointer;float: left;background-color:gray;width: 50%;height: 20px;text-align: center;'>
+								电视
+							</div>
+							<div  style="width: 180px;overflow-y:scroll;height: 596px; border: 1px solid black;">
+								<ul id="vedioList" class="">
+								</ul>
+								<ul id="tvlist" class="tvlist showlist">
+								</ul>
+							</div>
+						</div>
+					</div>
+				    </div>
 		</div>
-		<span>下载</span>
 </div>
 <!-- </div>	 -->
 	<!-- footer -->
@@ -124,34 +139,78 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 	<!-- footer -->
 <script type="text/javascript">
-$(document).ready(function(){
-	loadVedio();
-});
+	$(document).ready(function(){
+		$("#vedioPlayer").html('请选择视频');
+		loadVedio();
+		loadTV();
+	});
+	
+	var datatv = '';
+	var datavedio = '';
 	
 	$("#submitsearch").click(function(){
 		loadVedio();
+		loadTV();
+		$("#tipCur").html('请选择视频');
+		$("#vedioPlayer").html('请选择视频');
+		window.setTimeout(function(){
+			if(datatv == '' && datavedio == ''){
+				$("#vedioPlayer").html("没有搜到与<font color='red'><strong>"+$("#vedioSearch").val()+"</strong></font>相关的内容");
+				$("#tipCur").html('');
+				$("#showbut").removeClass("bord");
+				$("#tvshow").removeClass("bord");
+			} else if(datatv == '' && datavedio != ''){
+				 $("#showbut").addClass("bord");
+  				 $("#tvshow").removeClass("bord");
+  				$("#vedioList").removeClass("showlist");
+			} else if(datatv != '' && datavedio == ''){
+				 $("#tvlist").removeClass("showlist");
+				 $("#showbut").removeClass("bord");
+  				 $("#tvshow").addClass("bord");
+			} 
+			
+		},200);
 	});
+	function show(obj){
+		var id = $(obj).attr("id");
+        $(obj).toggleClass('selected');
+        $(obj).siblings('.c_'+id).toggle();
+    }
+	function loadTV(){
+		
+		var vedioName = $("#vedioSearch").val();
+		$.post("/data/findAllTv",{preFileName : vedioName},function(data){
+				 datatv = data;
+			 var tabhtml = ""
+						
+  					var len = data.length;
+  					for(var i = 0 ; i <  len; i++){
+  						tabhtml += "<li onclick=show(this) id='p"+i+"' style='cursor: pointer;'>";
+  						tabhtml += data[i].preFileName;
+  					var tv = data[i].tvlist;
+  						for(var j = 0 ; j < tv.length ; j++){
+  							var playersrc = tv[j].tvSrc;
+      						tabhtml += "<li  onmouseover='over(this)' onmouseout='out(this)' onclick='change(this)' class='c_p"+i+"' sc='"+playersrc+"' style='display: none;background-color: #ffe7ba;'>&nbsp;&nbsp;&nbsp;"+tv[j].tvName+"-"+tv[j].tvLevel+"</li>";
+      						
+  						}
+      				tabhtml += "</li>";
+  					}
+			$("#tvlist").html(tabhtml);
+		});
+	}
 	
 	function loadVedio(){
 		var vedioName = $("#vedioSearch").val();
 		$.post("/data/findAllMoive",{vedioName:vedioName},function(data){
+				datavedio = data;
 			var n = 1;
 			var len = data.length;
 			var vedioList = "";
 			for(var i = 0 ; i < len ; i++){
 				var playersrc = data[i].vedioSrc;
-				var embedsrc = "CuPlayerMiniV3_Black_S.swf?CuPlayerFile="+playersrc+"&CuPlayerImage=../source/images/icon-video.png&CuPlayerWidth=1008&CuPlayerHeight=618&CuPlayerAutoPlay=true&CuPlayerAutoRepeat=true&CuPlayerShowControl=true&CuPlayerAutoHideControl=false&CuPlayerAutoHideTime=5&CuPlayerVolume=80&CuPlayerGetNext=false";
-				if(i == 0){
-				var htmll = '<embed palette="red|black"  id="js_videoCon" src="CuPlayerMiniV3_Black_S.swf?CuPlayerFile='+playersrc+'&CuPlayerImage=../source/images/icon-video.png&CuPlayerWidth=1008&CuPlayerHeight=618&CuPlayerAutoPlay=true&CuPlayerAutoRepeat=true&CuPlayerShowControl=true&CuPlayerAutoHideControl=false&CuPlayerAutoHideTime=5&CuPlayerVolume=80&CuPlayerGetNext=false" class="js_videoCon" allowFullScreen="true" quality="high" width="1000" height="618" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"/>';
-					$("#tipCur").html("当前播放:"+n+"."+data[i].vedioName);
-					$("#vedioPlayer").html(htmll);
-					vedioList += '<li onmouseover="over(this)" onmouseout="out(this)" onclick="change(this)" class="now" id="http://player.youku.com/player.php/sid/XNTMyNzE2ODk2/v.swf" sc="'+embedsrc+'" video="'+n+'" vid="'+n+'">'+n+"."+data[i].vedioName+'</li>';
-				} else{
-					vedioList += '<li onmouseover="over(this)" onmouseout="out(this)" onclick="change(this)" id="http://player.youku.com/player.php/sid/XNTMyNzE2ODk2/v.swf" video="'+n+'" sc="'+embedsrc+'"vid="'+n+'">'+n+"."+data[i].vedioName+'</li>';
-				}
+					vedioList += '<li onmouseover="over(this)" onmouseout="out(this)" onclick="change(this)" video="'+n+'" sc="'+playersrc+'"vid="'+n+'">'+n+"."+data[i].vedioName+'</li>';
 				n++;
 			}
-			
 			$("#vedioList").html(vedioList);
 		})
 		
@@ -160,10 +219,12 @@ $(document).ready(function(){
 	function change(object){
 			var obj = $(object);
 			var path = obj.attr("sc");
-			var html = '<embed  palette="red|black" id="js_videoCon" src="'+path+'" class="js_videoCon" allowFullScreen="true" quality="high" width="1000" height="618" align="middle" allowScriptAccess="always" type="application/x-shockwave-flash"></embed>';
-			$("#vedioPlayer").html(html);
+			var htmll = '';
+			htmll += '<video onclick = "playPause(this)"  width="950" height="620" src="'+path+'" type="video/mp4" id="vedios" controls >';
+			htmll += '</video>';
+			$("#vedioPlayer").html(htmll);
 			
-			$("#tipCur").html("当前播放:"+$(object).html());
+			$("#tipCur").html("<font color='red'><strong>"+$(object).html()+"</strong></font>");
 			obj.addClass("now").siblings().removeClass("now");
 	}
 	 function over(obj){
@@ -174,9 +235,38 @@ $(document).ready(function(){
 		 $(obj).css("background-color","") ;  
 	 }
 	 
-	 function statr(obj){
+	 function canplay(obj){
 		 alert(obj);
 	 }
+	 
+	 $("#showbut").click(function(){
+	
+		 $("#vedioList").removeClass("showlist");
+		 $("#tvlist").addClass("showlist");
+		 $("#showbut").addClass("bord");
+		 $("#tvshow").removeClass("bord");
+	 })
+	 $("#tvshow").click(function(){
+		  
+		 $("#showbut").removeClass("bord");
+		 $("#tvshow").addClass("bord");
+		 $("#tvlist").removeClass("showlist");
+		 $("#vedioList").addClass("showlist");
+		 
+	 })
+	 
+	 function playPause(obj) {
+		 
+		 	if ($(obj).hasClass('pause')) {
+				 $("video").trigger("play");
+				 $(obj).removeClass('pause');
+				 $(obj).addClass('play');
+			} else {
+				 $("video").trigger("pause");
+				 $(obj).removeClass('play');
+				 $(obj).addClass('pause');
+			 }
+	}
 
 </script>  
 </body>

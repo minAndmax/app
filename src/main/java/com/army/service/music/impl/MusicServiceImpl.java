@@ -34,7 +34,7 @@ public class MusicServiceImpl implements MusicService{
 
 	@Transactional(rollbackFor=Exception.class)
 	@Override
-	public JSONObject updateMusic(HttpServletRequest request, MusicInfo music) throws Exception {
+	public JSONObject updateMusic(HttpServletRequest request, MusicInfo music)  {
 		JSONObject obj = new JSONObject();
 		try {
 			musicMapper.updateMusic(music);
@@ -118,7 +118,7 @@ public class MusicServiceImpl implements MusicService{
 	}
 	@Transactional(rollbackFor=Exception.class)
 	@Override
-	public JSONObject insertMusics(HttpServletRequest request,MusicInfo info) throws Exception {
+	public JSONObject insertMusics(HttpServletRequest request,MusicInfo info) {
 		JSONObject obj = new JSONObject();
 		
 		try {

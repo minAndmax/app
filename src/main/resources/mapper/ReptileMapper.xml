@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.army.dao.ReptileMapper">
+    <select id="findAllReptileNews" parameterType="com.army.vo.ReptileNewsInfo" resultType="com.army.vo.ReptileNewsInfo">
+    
+		SELECT reptile_id AS reptileId
+		      ,reptile_title AS reptileTitle
+		      ,reptite_content AS reptileContent
+		      ,reptile_img_src AS pretileImgSrc
+		      ,reptile_time AS reptileTime
+		      ,create_time AS createTime
+  		FROM tb_reptile_news WHERE is_valid='Y' 
+		<if test="reptileTitle != null and reptileTitle != ''">
+			AND reptile_time LIKE '%'+#{reptileTitle}+'%'
+		</if>
+		ORDER BY reptile_time DESC
+		OFFSET #{page} ROW FETCH NEXT #{size} ROW ONLY
+    </select>
+    
+    <select id="findAllReptileNewsManager" parameterType="com.army.vo.ReptileNewsInfo" resultType="com.army.vo.ReptileNewsInfo">
+    
+		SELECT reptile_id AS reptileId
+		      ,reptile_title AS reptileTitle
+		      ,reptite_content AS reptileContent
+		      ,reptile_img_src AS pretileImgSrc
+		      ,reptile_time AS reptileTime
+		      ,create_time AS createTime
+		      ,is_valid AS valid
+  		FROM tb_reptile_news
+		<where>
+			<if test="reptileTitle != null and reptileTitle != ''">
+				AND reptile_title LIKE '%'+#{reptileTitle}+'%'
+			</if>
+			<if test="reptileTime != null and reptileTime != ''">
+				AND reptile_time LIKE '%'+#{reptileTime}+'%'
+			</if>
+		</where>
+		ORDER BY reptile_id DESC OFFSET #{page} ROW FETCH NEXT #{size} ROW ONLY
+    
+    </select>
+    
+    <select id="findCount" parameterType="com.army.vo.ReptileNewsInfo" resultType="int">
+    
+		SELECT
+	    	DISTINCT
+				COUNT( DISTINCT reptile_id) totalPages
+		FROM tb_reptile_news 
+		<where>
+			<if test="reptileTitle != null and reptileTitle != ''">
+				AND reptile_title LIKE '%'+#{reptileTitle}+'%'
+			</if>
+			<if test="reptileTime != null and reptileTime != ''">
+				AND reptile_time LIKE '%'+#{reptileTime}+'%'
+			</if>
+			 <if test="valid != null and valid != ''">
+		    		AND is_valid = #{valid}
+		    </if>
+		</where>
+
+    </select>
+    
+<!--     <select id="findByTitle" parameterType="com.army.vo.ReptileNewsInfo" resultType="String"> -->
+<!-- 		SELECT -->
+<!-- 		      MAX(reptile_time) AS reptileTime -->
+<!-- 		FROM tb_reptile_news   -->
+<!-- 		WHERE  -->
+<!-- 		<if test="reptileTime != null and reptileTime != ''"> -->
+<!-- 				reptile_time LIKE '%'+#{reptileTime}+'%' -->
+<!-- 		</if> -->
+<!--     </select> -->
+    
+    <select id="findByTitle" parameterType="com.army.vo.ReptileNewsInfo" resultType="com.army.vo.ReptileNewsInfo">
+		SELECT
+	    		reptile_id AS reptileId
+		      ,reptile_title AS reptileTitle
+		      ,reptite_content AS reptileContent
+		      ,reptile_img_src AS pretileImgSrc
+		      ,reptile_time AS reptileTime
+		      ,create_time AS createTime
+		FROM tb_reptile_news  
+		WHERE 
+		<if test="reptileTitle != null and reptileTitle != ''">
+			 reptile_title = #{reptileTitle}
+		</if>
+		<if test="reptileTime != null and reptileTime != ''">
+				AND reptile_time = #{reptileTime}
+		</if>
+    </select>
+    
+    <update id="updateReptileNews" parameterType="com.army.vo.ReptileNewsInfo">
+    
+    	UPDATE tb_reptile_news SET
+    		<if test="valid != null and valid != ''">
+    			is_valid = #{valid},
+    		</if>
+		 WHERE reptile_id = #{reptileId}
+    	
+    </update>
+    
+    <insert id="insertReptileNews" parameterType="com.army.vo.ReptileNewsInfo">
+    
+    	<selectKey keyProperty='reptileId' resultType='long' order='AFTER'  >
+    		select ident_current('tb_reptile_news')
+    	</selectKey>
+    
+	    	INSERT INTO tb_reptile_news
+	           (reptile_title
+	           ,reptite_content
+	           ,reptile_img_src
+	           ,reptile_time
+	           ,is_valid
+	           ,create_time
+	          )
+	     	VALUES
+	           (#{reptileTitle},
+	            #{reptileContent},
+	            #{pretileImgSrc},
+	            #{reptileTime},
+	            #{valid},
+	            GETDATE())
+    
+    </insert>
+    
+</mapper>

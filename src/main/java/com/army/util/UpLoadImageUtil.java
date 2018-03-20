@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +40,8 @@ public class UpLoadImageUtil {
 	// 音乐文件保存路径
 	private static final String UPLOAD_MUSIC_PATH = "/upload/music/";
 
-	public static JSONObject uploadFile(HttpServletRequest request) {
+	public static JSONObject uploadFile(HttpServletRequest request,HttpServletResponse response) {
+		response.setContentType("text/html;charset=utf-8");
 		// 定义允许上传的文件扩展名
 		HashMap<String, String> extMap = new HashMap<String, String>();
 		extMap.put("image", "gif,jpg,png");

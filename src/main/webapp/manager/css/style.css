@@ -347,7 +347,14 @@ h2{font-weight:normal;}
 	padding-left: 25px; 
 	height: 35px; 
 	background: url(../images/userlogo.jpg) left center no-repeat; 
-	background-size: 15px 15px; }userLogo1
+	background-size: 15px 15px; }
+#tvLogo1{ 
+	overflow: hidden; 
+	list-style-type:none;
+	padding-left: 25px; 
+	height: 35px; 
+	background: url(../images/logo/tvlogo.png) left center no-repeat; 
+	background-size: 15px 15px; }
 #newscount{ 
 	overflow: hidden; 
 	text-align:center;
