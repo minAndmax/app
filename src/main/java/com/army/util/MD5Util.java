@@ -1,7 +1,5 @@
 package com.army.util;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.security.MessageDigest;
 
 public class MD5Util {
@@ -27,25 +25,25 @@ public class MD5Util {
 		return ret.toString();
 	}
 	
-	public static void main(String[] args) {
-		String app_key = "army201802271017";
-		
-		String app_secret = "1061326670";
-		
-		String app_key1 = "EC48CB312367E042756C51E59262DE44";
-		String app_secret1 = "33AC34DCD6CBBC0499E7916856D6EB30";
-		
-		try {
-			System.out.println(URLDecoder.decode(app_key1,"UTF-8"));
-			System.out.println(URLDecoder.decode(app_secret1,"UTF-8"));
-
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		System.out.println(getMD5(app_key));
-		System.out.println(getMD5(app_secret));
-	}
+//	public static void main(String[] args) {
+//		String app_key = "army201802271017";
+//		
+//		String app_secret = "1061326670";
+//		
+//		String app_key1 = "EC48CB312367E042756C51E59262DE44";
+//		String app_secret1 = "33AC34DCD6CBBC0499E7916856D6EB30";
+//		
+//		try {
+//			System.out.println(URLDecoder.decode(app_key1,"UTF-8"));
+//			System.out.println(URLDecoder.decode(app_secret1,"UTF-8"));
+//
+//		} catch (UnsupportedEncodingException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
+//		System.out.println(getMD5(app_key));
+//		System.out.println(getMD5(app_secret));
+//	}
 
 }
