@@ -28,6 +28,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	.bord{
 		border-bottom: 3px solid green;
 	}
+	.changecolor1{
+		background-color: #F5F5F5;
+	}
+	.changecolor0{
+		background-color: 	#C0C0C0;
+	}
 	.video-list li{width:170px;height:30px;overflow:hidden;margin:0 10px;cursor:pointer; font-size: 15px;}
 	.now{
 /* 		overflow: hidden;  */
@@ -100,7 +106,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							<div id="tvshow" style='cursor: pointer;float: left;background-color:gray;width: 50%;height: 20px;text-align: center;'>
 								电视
 							</div>
-							<div  style="width: 180px;overflow-y:scroll;height: 596px; border: 1px solid black;">
+							<div  style="overflow: hidden; background: url() left center no-repeat; width: 180px;overflow-y:scroll;height: 596px;border: 1px solid gray;">
 								<ul id="vedioList" class="">
 								</ul>
 								<ul id="tvlist" class="tvlist showlist">
@@ -185,12 +191,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						
   					var len = data.length;
   					for(var i = 0 ; i <  len; i++){
-  						tabhtml += "<li onclick=show(this) id='p"+i+"' style='cursor: pointer;'>";
-  						tabhtml += data[i].preFileName;
   					var tv = data[i].tvlist;
+  						tabhtml += "<li onclick=show(this) id='p"+i+"' class='changecolor"+i%2+"' style='cursor: pointer;'>";
+  						tabhtml += data[i].preFileName+"&nbsp;&nbsp;"+tv.length+"集";
   						for(var j = 0 ; j < tv.length ; j++){
   							var playersrc = tv[j].tvSrc;
-      						tabhtml += "<li  onmouseover='over(this)' onmouseout='out(this)' onclick='change(this)' class='c_p"+i+"' sc='"+playersrc+"' style='display: none;background-color: #ffe7ba;'>&nbsp;&nbsp;&nbsp;"+tv[j].tvName+"-"+tv[j].tvLevel+"</li>";
+      						tabhtml += "<li  onmouseover='over(this)' onmouseout='out(this)' onclick='change(this)' class='c_p"+i+"' sc='"+playersrc+"' style='display: none;'>&nbsp;&nbsp;&nbsp;"+tv[j].tvName+"-"+tv[j].tvLevel+"</li>";
       						
   						}
       				tabhtml += "</li>";
@@ -208,7 +214,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			var vedioList = "";
 			for(var i = 0 ; i < len ; i++){
 				var playersrc = data[i].vedioSrc;
-					vedioList += '<li onmouseover="over(this)" onmouseout="out(this)" onclick="change(this)" video="'+n+'" sc="'+playersrc+'"vid="'+n+'">'+n+"."+data[i].vedioName+'</li>';
+					vedioList += '<li class="changecolor'+i%2+'" onmouseover="over(this)" onmouseout="out(this)" onclick="change(this)" video="'+n+'" sc="'+playersrc+'"vid="'+n+'">'+n+"."+data[i].vedioName+'</li>';
 				n++;
 			}
 			$("#vedioList").html(vedioList);
@@ -228,7 +234,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			obj.addClass("now").siblings().removeClass("now");
 	}
 	 function over(obj){
-		 $(obj).css("background-color","green") ;  
+		 $(obj).css("background-color","#ADD8E6") ;  
 	 }
 	 
 	 function out(obj){

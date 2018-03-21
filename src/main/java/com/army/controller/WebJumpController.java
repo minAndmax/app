@@ -100,6 +100,14 @@ public class WebJumpController {
 		return arry;
 	}
 	
+	@RequestMapping(value = "/manager/findById", method = RequestMethod.POST)
+	public JSONObject findById(ReptileNewsInfo info) throws Exception {
+		
+		JSONObject arry = reptileService.findById(info);
+
+		return arry;
+	}
+	
 	@RequestMapping(value = "/manager/updateReptileNews", method = RequestMethod.POST)
 	public JSONObject updateReptileNews(HttpServletRequest request, ReptileNewsInfo info) throws Exception {
 

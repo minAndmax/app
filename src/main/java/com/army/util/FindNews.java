@@ -44,7 +44,7 @@ public class FindNews {
 					"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31")
 					.get();
 			linkurls = newCl.getlinkurl(doc);// 获取网页链接
-			log.info("开始拉取数据......");
+			log.info("["+new Date().toLocaleString()+"]开始拉取数据......");
 			for (Object link : linkurls) {
 				Thread.sleep(100);
 				object = new ReptileNewsInfo();
@@ -104,7 +104,6 @@ public class FindNews {
 	@SuppressWarnings("unchecked")
 	public LinkedList getlinkurl(Document doc) throws IOException {
 		LinkedList linkurls = new LinkedList();// 用于存放url链接
-		// 获取网页中的所有url地址，并保存在linkurls链表中
 		Elements href = doc.select("a[href]");
 		for (Element hre : href) {
 			String linkUrl = hre.attr("abs:href");// 获取网页的绝对地址
@@ -117,7 +116,6 @@ public class FindNews {
 
 	public String getImgurl(Document doc) throws IOException {
 		StringBuffer sb = new StringBuffer();
-		// 获取图片地址，并保存在ImgUrls链表中
 		int count = 0;
 		Elements pngs = doc.select("img[src]");
 		for (Element img : pngs) {
@@ -135,14 +133,17 @@ public class FindNews {
 		if (ImgUrl.indexOf(".jpg") != -1) {
 //			System.out.println("ImgUrl：" + ImgUrl.substring(ImgUrl.lastIndexOf("/") + 1, ImgUrl.lastIndexOf(".")));
 			// 下载图片
-			String str = "D:" + File.separator + "/upload/image";// 保存下载图片文件夹
-			String ss = str + count + ".png";// 保存图片路径
+			String str = "D:" + File.separator + "/upload/image/";// 保存下载图片文件夹
+			String ss = str + ImgUrl.substring(ImgUrl.lastIndexOf("/") + 1, ImgUrl.lastIndexOf(".")) + ".jpg";// 保存图片路径
 			URL url = new URL(ImgUrl); // 构造URL
 			URLConnection uc = url.openConnection(); // 打开连接
 			uc.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
 			uc.setReadTimeout(50000);
 			InputStream is = uc.getInputStream(); // 输入流
 			File file = new File(ss); // 创建文件
+			if(file.exists()) {
+				file.delete();
+			}
 			FileOutputStream out = new FileOutputStream(file); // 输出的文件流
 			byte[] bs = new byte[1024];
 			// 读取到的数据长度

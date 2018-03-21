@@ -1,7 +1,5 @@
 package com.army.service.reptile.impl;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,18 +36,13 @@ public class ReptileServiceImpl implements ReptileService {
 	@Override
 	public JSONObject insertReptileNews(HttpServletRequest request) throws Exception {
 		
-//		SimpleDateFormat sm = new SimpleDateFormat("yyyy-MM-dd");
-//		String time = sm.format(new Date());
-//		ReptileNewsInfo in = new ReptileNewsInfo();
-//		in.setReptileTime(time);
-//		String maxTime = reptileMapper.findTodayMaxReptileTime(in);
 		JSONObject obj = new JSONObject();
 		int n = 0 ;
 		try {
 			FindNews fw = new FindNews();
 			
 			List<ReptileNewsInfo> arr = fw.getNews();
-			Thread.sleep(10000);
+			Thread.sleep(1000);
 			for(ReptileNewsInfo reptileNewsInfo : arr) {
 				
 				if(reptileNewsInfo.getReptileContent() == null) {
@@ -60,8 +53,18 @@ public class ReptileServiceImpl implements ReptileService {
 					continue;
 				}
 				reptileNewsInfo.setValid(ValidEnum.VALID.getValidStatus());
+				
+				String[] imgs = reptileNewsInfo.getPretileImgSrc().split(",");
+				
+				if(imgs != null) {
+					for(int i = 0 ; i < imgs.length ; i++) {
+						if(reptileNewsInfo.getReptileContent().indexOf(imgs[i]) != -1) {
+							reptileNewsInfo.setReptileContent(reptileNewsInfo.getReptileContent().replace(imgs[i], "/upload/image/"+imgs[i]));
+						}
+					}
+				}
+				
 				reptileMapper.insertReptileNews(reptileNewsInfo);
-	
 	
 				OperateInfo opt = new OperateInfo();
 				opt.setOptType("insert");
@@ -91,7 +94,7 @@ public class ReptileServiceImpl implements ReptileService {
 	public JSONObject updateReptileNews(HttpServletRequest request,ReptileNewsInfo news) throws Exception {
 		
 		JSONObject obj = new JSONObject();
-
+		ReptileNewsInfo in = reptileMapper.findById(news);
 		try {
 			reptileMapper.updateReptileNews(news);
 			JSONObject sessionObj = (JSONObject) request.getSession().getAttribute(KeyWord.USERSESSION);
@@ -102,7 +105,7 @@ public class ReptileServiceImpl implements ReptileService {
 			opt.setOptName("修改系统新闻");
 			StringBuilder sb = new StringBuilder();
 			sb.append(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName"));
-			sb.append("，修改系统新闻《"+news.getReptileTitle()+"》");
+			sb.append("，修改系统新闻《"+in.getReptileTitle()+"》");
 			if(news.getValid() != null) {
 				sb.append(news.getValid().equals("Y") ? ",状态为:有效" : ",状态为:无效"+"");
 			}
@@ -148,7 +151,6 @@ public class ReptileServiceImpl implements ReptileService {
 		for (ReptileNewsInfo info : nws) {
 			arr.add(info);
 		}
-//		log.info("线上所有新闻，[ {} ]" + arr);
 		return arr;
 	}
 
@@ -178,8 +180,15 @@ public class ReptileServiceImpl implements ReptileService {
 		for (ReptileNewsInfo info : nws) {
 			arr.add(info);
 		}
-//		log.info("后台管理员查看所有新闻，[ {} ]" + arr);
 		return arr;
+	}
+
+	@Override
+	public JSONObject findById(ReptileNewsInfo news) {
+		ReptileNewsInfo in = reptileMapper.findById(news);
+		JSONObject obj = new JSONObject();
+		obj.put("obj", in);
+		return obj;
 	}
 
 }
