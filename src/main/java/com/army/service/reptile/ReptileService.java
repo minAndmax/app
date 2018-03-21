@@ -17,4 +17,5 @@ public interface ReptileService {
 	
 	JSONArray findAllReptileNewsManager(ReptileNewsInfo news)throws Exception;
 	
+	JSONObject findpullNewsById(ReptileNewsInfo news) throws Exception;
 }

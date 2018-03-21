@@ -58,75 +58,141 @@ public class WebJumpController {
 
 	@Autowired
 	private OperateService operateService;
-	
+
 	@Autowired
 	private TVService tVService;
-	
+
 	@Autowired
 	private ReptileService reptileService;
 
+	/**
+	 * 后台获取TV信息
+	 * 
+	 * @param request
+	 * @param info
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/manager/findAllTVManeger", method = RequestMethod.POST)
 	public JSONArray findAllTVManeger(HttpServletRequest request, PreFileInfo info) throws Exception {
-		
+
 		info.setCreateName(GetUserInfo.getUserName(request));
 		JSONArray arry = tVService.findAllTVManeger(info);
 
 		return arry;
 	}
-	
+
+	/**
+	 * 获取外部新闻（爬取新华）
+	 * 
+	 * @param request
+	 * @param info
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/findAllReptileNews", method = RequestMethod.POST)
-	public JSONArray findAllReptileNews(HttpServletRequest request, ReptileNewsInfo info) throws Exception {
-		
-		info.setCreateName(GetUserInfo.getUserName(request));
+	public JSONArray findAllReptileNews(ReptileNewsInfo info) throws Exception {
+
 		JSONArray arry = reptileService.findAllReptileNews(info);
 
 		return arry;
 	}
-	
+	/**
+	 * 根据ID查找爬取的新闻
+	 * @param news
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/findpullNewsById", method = RequestMethod.POST)
+	public JSONObject findpullNewsById(ReptileNewsInfo news) throws Exception {
+
+		JSONObject obj = reptileService.findpullNewsById(news);
+
+		return obj;
+
+	}
+
+	/**
+	 * 后台获取外部新闻（爬取新华）
+	 * 
+	 * @param request
+	 * @param info
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/manager/findAllReptileNewsManager", method = RequestMethod.POST)
 	public JSONArray findAllReptileNewsManager(HttpServletRequest request, ReptileNewsInfo info) throws Exception {
-		
+
 		info.setCreateName(GetUserInfo.getUserName(request));
 		JSONArray arry = reptileService.findAllReptileNewsManager(info);
 
 		return arry;
 	}
-	
+
+	/**
+	 * 添加获取的外部新闻
+	 * 
+	 * @param request
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/manager/insertReptileNews", method = RequestMethod.POST)
 	public JSONObject insertReptileNews(HttpServletRequest request) throws Exception {
-		
+
 		JSONObject arry = reptileService.insertReptileNews(request);
 
 		return arry;
 	}
-	
+
+	/**
+	 * 更新获取新闻信息
+	 * 
+	 * @param request
+	 * @param info
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/manager/updateReptileNews", method = RequestMethod.POST)
 	public JSONObject updateReptileNews(HttpServletRequest request, ReptileNewsInfo info) throws Exception {
 
-		JSONObject obj = reptileService.updateReptileNews(request,info);
+		JSONObject obj = reptileService.updateReptileNews(request, info);
 
 		return obj;
 
 	}
-	
+
+	/**
+	 * 获取所有TV信息
+	 * 
+	 * @param info
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/findAllTv", method = RequestMethod.POST)
-	public JSONArray findAllTv( PreFileInfo info) throws Exception {
-		
+	public JSONArray findAllTv(PreFileInfo info) throws Exception {
+
 		JSONArray arry = tVService.findAllTv(info);
 
 		return arry;
 	}
-	
+
+	/**
+	 * 添加 TV 资源
+	 * 
+	 * @param request
+	 * @param info
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping(value = "/manager/insertPreFile", method = RequestMethod.POST)
 	public JSONObject insertPreFile(HttpServletRequest request, PreFileInfo info) throws Exception {
 
-		JSONObject obj = tVService.insertPreFile(request,info);
+		JSONObject obj = tVService.insertPreFile(request, info);
 
 		return obj;
 
 	}
 
-	
 	/**
 	 * 登录
 	 * 
@@ -151,9 +217,9 @@ public class WebJumpController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/manager/uploadFile", method = RequestMethod.POST)
-	public JSONObject uploadFile(HttpServletRequest request,HttpServletResponse response) throws Exception {
+	public JSONObject uploadFile(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html;charset=utf-8");
-		JSONObject obj = UpLoadImageUtil.uploadFile(request,response);
+		JSONObject obj = UpLoadImageUtil.uploadFile(request, response);
 
 		return obj;
 
@@ -192,6 +258,7 @@ public class WebJumpController {
 
 	/**
 	 * 根据ID 查找用户
+	 * 
 	 * @param uInfo
 	 * @return
 	 * @throws Exception
@@ -204,7 +271,7 @@ public class WebJumpController {
 		return obj;
 
 	}
-	
+
 	/**
 	 * 用户信息修改
 	 * 
@@ -381,7 +448,6 @@ public class WebJumpController {
 		return arr;
 
 	}
-
 
 	@RequestMapping(value = "/regist", method = RequestMethod.POST)
 	public JSONObject userRegist(UserInfo userLogin) throws Exception {

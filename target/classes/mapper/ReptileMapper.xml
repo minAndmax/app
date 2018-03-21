@@ -9,13 +9,35 @@
 		      ,reptile_img_src AS pretileImgSrc
 		      ,reptile_time AS reptileTime
 		      ,create_time AS createTime
-  		FROM tb_reptile_news WHERE is_valid='Y' 
+  		FROM tb_reptile_news 
+  		WHERE is_valid='Y' 
 		<if test="reptileTitle != null and reptileTitle != ''">
 			AND reptile_time LIKE '%'+#{reptileTitle}+'%'
 		</if>
 		ORDER BY reptile_time DESC
 		OFFSET #{page} ROW FETCH NEXT #{size} ROW ONLY
     </select>
+    
+    
+    <select id="findPullNewById" resultType="com.army.vo.ReptileNewsInfo" parameterType="com.army.vo.ReptileNewsInfo">
+		SELECT
+		       reptile_id AS reptileId
+		      ,reptile_title AS reptileTitle
+		      ,reptite_content AS reptileContent
+		      ,reptile_img_src AS pretileImgSrc
+		      ,reptile_time AS reptileTime
+		      ,create_time AS createTime
+  		FROM tb_reptile_news 
+  		WHERE is_valid='Y' 
+		<where>
+			<if test="reptileId != null and reptileId != 0">
+				reptile_id = #{reptileId}
+			</if>
+		</where>
+    
+    </select>
+    
+    
     
     <select id="findAllReptileNewsManager" parameterType="com.army.vo.ReptileNewsInfo" resultType="com.army.vo.ReptileNewsInfo">
     
@@ -35,8 +57,8 @@
 				AND reptile_time LIKE '%'+#{reptileTime}+'%'
 			</if>
 		</where>
-		ORDER BY reptile_id DESC OFFSET #{page} ROW FETCH NEXT #{size} ROW ONLY
-    
+		ORDER BY reptile_id DESC 
+		OFFSET #{page} ROW FETCH NEXT #{size} ROW ONLY
     </select>
     
     <select id="findCount" parameterType="com.army.vo.ReptileNewsInfo" resultType="int">
@@ -78,12 +100,15 @@
 		      ,reptile_time AS reptileTime
 		      ,create_time AS createTime
 		FROM tb_reptile_news  
-		WHERE 
+		WHERE 1=1
 		<if test="reptileTitle != null and reptileTitle != ''">
-			 reptile_title = #{reptileTitle}
-		</if>
+			   AND reptile_title = #{reptileTitle}
+		</if> 
 		<if test="reptileTime != null and reptileTime != ''">
 				AND reptile_time = #{reptileTime}
+		</if>
+		<if test="reptileId != null and reptileId != ''">
+			   AND reptile_id = #{reptileId}
 		</if>
     </select>
     
