@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>军营风采</title>
+<title>全球军事</title>
 <link href="../source/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
 <link href="../source/css/style.css" rel="stylesheet" type="text/css" media="all" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -42,7 +42,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<span class="menu"> </span>
 					<ul class="cl-effect-1">
 							<li class="active" align="right"><a href="index.html">首页</a></li>
-							<li><a href="blog.html">军营风采</a></li>
+                            <li><a href="blog.html">军营风采</a></li>
 						    <li><a href="pullNewsList.html">全球军事</a></li>
 							<div class="clearfix"></div>
 					</ul>
@@ -69,7 +69,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	
 <!-- header -->	
 <div class="blog">
-			<div class="top-blog" id="allNews">
+			<div class="top-blog" id="allpullNews">
 <!-- 				<div class="col-md-6 blog-top" id="allNews"> -->
 <!-- 					<h3><a href="newsDetail.html">Lorem Ipsum is simply dummy text</a></h3> -->
 <!-- 					<h6>Posted on, 12 July 2015 at 10.30am by <a href="#">admin</a></h6> -->
@@ -101,7 +101,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<li class="active"><a href="index.html">首页</a></li>
                         <li><a href="blog.html">军营风采</a></li>
 						<li><a href="pullNewsList.html">全球军事</a></li>
-							<div class="clearfix"></div>
+						<div class="clearfix"></div>
 					</ul>
 					</div>					
 				</div>
@@ -123,9 +123,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 	function load(current){
 		var newName = $("#newBy").val();
-		$.post("data/findAllNews",
+		$.post("data/findAllReptileNews",
 				{
-					newName : newName,
+			        reptileTitle : newName,
 					page : (current-1)*pageSize,
 					size : pageSize
 				},
@@ -142,35 +142,33 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					
 					var len = date.length;
 					for(var i = 0 ; i <  len; i++){
-						var str = date[i].newContent;
+						var str = date[i].reptileContent;
 						var dd=str.replace(/<\/?.+?>/g,"");
 						var dds=dd.replace(/ /g,"");//dds为得到后的内容
 						var d = dds.replace(/&nbsp;/g,"");
 						
 						var img = '';
-						if(date[i].newContent.indexOf("<img") > 0){
-							img = date[i].newContent.substring(date[i].newContent.indexOf("<img"),date[i].newContent.indexOf("/>"));
+						if(date[i].reptileContent.indexOf("<img") > 0){
+							img = date[i].reptileContent.substring(date[i].reptileContent.indexOf("<img"),date[i].reptileContent.indexOf("/>"));
 						} else{
 							img = '';
 						}
 						html +='<div class="col-md-6 blog-top">';
-		    			html +='<h3><a title="'+d+'" href="newsDetail.jsp?newId='+date[i].newId+'">'+date[i].newName.substring(0,20)+'......</a></h3>';
-		    			html +='<h6>发布于:&nbsp;&nbsp;'+date[i].createTime+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作者：'+date[i].newAuthor+'</h6>';
+		    			html +='<h3><a title="'+d+'" href="pullNewsDetail.jsp?reptileId='+date[i].reptileId+'">'+date[i].reptileTitle.substring(0,20)+'......</a></h3>';
+		    			html +='<h6>发布于:&nbsp;&nbsp;'+date[i].reptileTime+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作者：'+"来源于新华网"+'</h6>';
 		    			if(img.length > 0){
-		    				html +='<a title="'+d+'" href="newsDetail.jsp?newId='+date[i].newId+'">'+img+'/></a>';
+		    				html +='<a title="'+d+'" href="pullNewsDetail.jsp?reptileId='+date[i].reptileId+'">'+img+'/></a>';
 		    			} else{
-		    				html +='<a title="'+d+'" href="newsDetail.jsp?newId='+date[i].newId+'"><img src="../source/images/end.png"  width="400" height="240"/></a>';
+		    				html +='<a title="'+d+'" href="pullNewsDetail.jsp?reptileId='+date[i].reptileId+'"><img src="../source/images/end.png"  width="400" height="240"/></a>';
 		    			}
-		    			
-// 		    			html +='<p>'+date[i].newContent.substring(0,20)+'......</p>';
 						html +='<p>'+d.substring(0,35)+'......</p>';
 		    			html +='<div style="height:50px;">';
-		    			html +='<a  href="newsDetail.jsp?newId='+date[i].newId+'" class="read">更多</a>'; 
+		    			html +='<a  href="pullNewsDetail.jsp?reptileId='+date[i].reptileId+'" class="read">更多</a>'; 
 		    			html +='</div>';
 		    			html +='</div>';
 					}
 				}
-				$("#allNews").html(html);
+				$("#allpullNews").html(html);
        }
 	}
 

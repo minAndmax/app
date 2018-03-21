@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>新闻详情</title>
+<title>全球军事详情</title>
 <link href="../source/css/bootstrap.css" rel="stylesheet" type="text/css" media="all">
 <link href="../source/css/style.css" rel="stylesheet" type="text/css" media="all" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -54,8 +54,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</div>
 	
 <!-- header -->	
-            <input type="hidden" id="hiddenNewsId" value="<%= request.getParameter("newId")%>">
-            <div class="single-page-artical" id="newDetail">
+            <input type="hidden" id="hiddenNewsId" value="<%= request.getParameter("reptileId")%>">
+            <div class="single-page-artical" id="pullNewDetail">
 								
 	        </div>
 
@@ -87,30 +87,30 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
  
 
  $(document).ready(function(){
- 	loadCustomNews();
+	 loadpullNews();
  })
  
  
-  function loadCustomNews(){//加载自定义新闻 
+  function loadpullNews(){//加载自定义新闻 
 	 
 		var newId = $("#hiddenNewsId").val();
-    	$.post("${pageContent.request.contentPath}/data/findNewById",{newId : newId},
+    	$.post("${pageContent.request.contentPath}/data/findpullNewsById",{reptileId : newId},
     		function(date){
     		var html ="";
     		
 				html += "<div class='artical-content'>";
-				html += "<h3>"+date.jsonobejct.newName+"</h3>";
+				html += "<h3>"+date.jsonobejct.reptileTitle+"</h3>";
 // 				html += "<img class='img-responsive' src='"+date.jsonobejct+"' title='banner1'>";
-				html +="<p>"+date.jsonobejct.newContent+"</p>";
+				html +="<p>"+date.jsonobejct.reptileContent+"</p>";
 				html += "</div>";
 				html += "<div class='artical-links'>";
 				html += "<ul>";
-				html += "<li><small> </small><span>"+date.jsonobejct.createTime+"</span></li>";
-				html += "<li><small class='admin'> </small><span>"+date.jsonobejct.newAuthor+"</span></li>";
+				html += "<li><small> </small><span>"+date.jsonobejct.reptileTime+"</span></li>";
+				html += "<li><small class='admin'> </small><span>新华网</span></li>"; 
 // 				html += "<li><a href='#'><small class='link'> </small><span>链接</span></a></li>";
 				html += "</ul>";
 				html += " </div>";
-    		$("#newDetail").html(html);
+    		$("#pullNewDetail").html(html);
     	});
     }
     	    	  

@@ -24,32 +24,48 @@ import com.army.vo.ReptileNewsInfo;
 
 @Service("reptileService")
 public class ReptileServiceImpl implements ReptileService {
-	
+
 	private final static Logger log = LoggerFactory.getLogger(NewsServiceImpl.class);
-	
+
 	@Autowired
 	private ReptileMapper reptileMapper;
-	
+
 	@Autowired
 	private OperateMapper operateMapper;
-	
+
 	@Override
 	public JSONObject insertReptileNews(HttpServletRequest request) throws Exception {
+<<<<<<< HEAD
 		
+=======
+
+		// SimpleDateFormat sm = new SimpleDateFormat("yyyy-MM-dd");
+		// String time = sm.format(new Date());
+		// ReptileNewsInfo in = new ReptileNewsInfo();
+		// in.setReptileTime(time);
+		// String maxTime = reptileMapper.findTodayMaxReptileTime(in);
+>>>>>>> 4ffbb56b43cf3ec3da3052b91833fa77546caf16
 		JSONObject obj = new JSONObject();
-		int n = 0 ;
+		int n = 0;
 		try {
 			FindNews fw = new FindNews();
-			
+
 			List<ReptileNewsInfo> arr = fw.getNews();
+<<<<<<< HEAD
 			Thread.sleep(1000);
 			for(ReptileNewsInfo reptileNewsInfo : arr) {
 				
 				if(reptileNewsInfo.getReptileContent() == null) {
+=======
+			Thread.sleep(10000);
+			for (ReptileNewsInfo reptileNewsInfo : arr) {
+
+				if (reptileNewsInfo.getReptileContent() == null) {
+>>>>>>> 4ffbb56b43cf3ec3da3052b91833fa77546caf16
 					continue;
 				}
 				ReptileNewsInfo re = reptileMapper.findByTitle(reptileNewsInfo);
-				if(re != null) {
+				if (re != null) {
 					continue;
 				}
 				reptileNewsInfo.setValid(ValidEnum.VALID.getValidStatus());
@@ -65,14 +81,18 @@ public class ReptileServiceImpl implements ReptileService {
 				}
 				
 				reptileMapper.insertReptileNews(reptileNewsInfo);
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 4ffbb56b43cf3ec3da3052b91833fa77546caf16
 				OperateInfo opt = new OperateInfo();
 				opt.setOptType("insert");
 				opt.setOptName("添加新闻");
-				opt.setOptUserId((long)1);
-				opt.setOptRemark("系统获取新闻,自动添加,标题《"
-						+ reptileNewsInfo.getReptileTitle()+ "》新闻时间:" + reptileNewsInfo.getReptileTime());
-	
+				opt.setOptUserId((long) 1);
+				opt.setOptRemark("系统获取新闻,自动添加,标题《" + reptileNewsInfo.getReptileTitle() + "》新闻时间:"
+						+ reptileNewsInfo.getReptileTime());
+
 				operateMapper.inserObject(opt);
 				n++;
 			}
@@ -81,18 +101,18 @@ public class ReptileServiceImpl implements ReptileService {
 			obj.put(KeyWord.TIPSTATUSCONTEN, StatusEnum.SSUCCESS.getValue());
 			obj.put("insertNum", n);
 		} catch (Exception e) {
-            e.printStackTrace();
-            obj.put(KeyWord.TIPSTATUS, StatusEnum.FAIL.getNum());
+			e.printStackTrace();
+			obj.put(KeyWord.TIPSTATUS, StatusEnum.FAIL.getNum());
 			obj.put(KeyWord.TIPSTATUSCONTEN, StatusEnum.FAIL.getValue());
 			log.error("程序异常，系统获取新闻添加失败[ {} ]" + e.getMessage());
 		}
 		return obj;
-		
+
 	}
 
 	@Override
-	public JSONObject updateReptileNews(HttpServletRequest request,ReptileNewsInfo news) throws Exception {
-		
+	public JSONObject updateReptileNews(HttpServletRequest request, ReptileNewsInfo news) throws Exception {
+
 		JSONObject obj = new JSONObject();
 		ReptileNewsInfo in = reptileMapper.findById(news);
 		try {
@@ -105,17 +125,23 @@ public class ReptileServiceImpl implements ReptileService {
 			opt.setOptName("修改系统新闻");
 			StringBuilder sb = new StringBuilder();
 			sb.append(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName"));
+<<<<<<< HEAD
 			sb.append("，修改系统新闻《"+in.getReptileTitle()+"》");
 			if(news.getValid() != null) {
 				sb.append(news.getValid().equals("Y") ? ",状态为:有效" : ",状态为:无效"+"");
+=======
+			sb.append("，修改系统新闻《" + news.getReptileTitle() + "》");
+			if (news.getValid() != null) {
+				sb.append(news.getValid().equals("Y") ? ",状态为:有效" : ",状态为:无效" + "");
+>>>>>>> 4ffbb56b43cf3ec3da3052b91833fa77546caf16
 			}
 			opt.setOptRemark(sb.toString());
 
 			operateMapper.inserObject(opt);
-			
+
 			obj.put(KeyWord.TIPSTATUS, StatusEnum.SSUCCESS.getNum());
 			obj.put(KeyWord.TIPSTATUSCONTEN, StatusEnum.SSUCCESS.getValue());
-			
+
 			log.info("系统新闻修改成功[ {} ]" + obj);
 
 		} catch (Exception e) {
@@ -131,18 +157,18 @@ public class ReptileServiceImpl implements ReptileService {
 	@Override
 	public JSONArray findAllReptileNews(ReptileNewsInfo news) throws Exception {
 
-        int pages = reptileMapper.findCount(news);
-		
+		int pages = reptileMapper.findCount(news);
+
 		double db = Math.ceil((double) pages / (double) news.getSize());
-		
+
 		JSONArray arr = new JSONArray();
-		List<ReptileNewsInfo> nws = reptileMapper.findAllReptileNews (news);
-		
-		if(nws.size() != 0) {
+		List<ReptileNewsInfo> nws = reptileMapper.findAllReptileNews(news);
+
+		if (nws.size() != 0) {
 			nws.get(0).setTotalPages((int) db);
 			nws.get(0).setPage(news.getPage());
 		} else {
-			ReptileNewsInfo ws = new ReptileNewsInfo(); 
+			ReptileNewsInfo ws = new ReptileNewsInfo();
 			ws.setTotalPages(-1);
 			ws.setSize(0);
 			nws.add(ws);
@@ -151,43 +177,60 @@ public class ReptileServiceImpl implements ReptileService {
 		for (ReptileNewsInfo info : nws) {
 			arr.add(info);
 		}
+<<<<<<< HEAD
+=======
+		// log.info("线上所有新闻，[ {} ]" + arr);
+>>>>>>> 4ffbb56b43cf3ec3da3052b91833fa77546caf16
 		return arr;
 	}
 
 	@Override
 	public JSONArray findAllReptileNewsManager(ReptileNewsInfo news) throws Exception {
-		if(news.getCreateName().equals("admin")) {
+		if (news.getCreateName().equals("admin")) {
 			news.setCreateName(null);
 			news.setValid(null);
 		}
-		
+
 		int pages = reptileMapper.findCount(news);
-		
+
 		double db = Math.ceil((double) pages / (double) news.getSize());
-		
+
 		JSONArray arr = new JSONArray();
 		List<ReptileNewsInfo> nws = reptileMapper.findAllReptileNewsManager(news);
-		if(nws.size() != 0) {
+		if (nws.size() != 0) {
 			nws.get(0).setTotalPages((int) db);
 			nws.get(0).setPage(news.getPage());
 		} else {
-			ReptileNewsInfo ws = new ReptileNewsInfo(); 
+			ReptileNewsInfo ws = new ReptileNewsInfo();
 			ws.setTotalPages(-1);
 			ws.setSize(0);
 			nws.add(ws);
 		}
-		
+
 		for (ReptileNewsInfo info : nws) {
 			arr.add(info);
 		}
+<<<<<<< HEAD
+=======
+		// log.info("后台管理员查看所有新闻，[ {} ]" + arr);
+>>>>>>> 4ffbb56b43cf3ec3da3052b91833fa77546caf16
 		return arr;
 	}
 
 	@Override
+<<<<<<< HEAD
 	public JSONObject findById(ReptileNewsInfo news) {
 		ReptileNewsInfo in = reptileMapper.findById(news);
 		JSONObject obj = new JSONObject();
 		obj.put("obj", in);
+=======
+	public JSONObject findpullNewsById(ReptileNewsInfo news) throws Exception {
+
+		ReptileNewsInfo rnews = reptileMapper.findByTitle(news);
+
+		JSONObject obj = new JSONObject();
+		obj.put("jsonobejct", rnews);
+>>>>>>> 4ffbb56b43cf3ec3da3052b91833fa77546caf16
 		return obj;
 	}
 
