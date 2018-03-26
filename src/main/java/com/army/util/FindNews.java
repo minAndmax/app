@@ -19,15 +19,29 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import com.army.service.news.impl.NewsServiceImpl;
 import com.army.vo.ReptileNewsInfo;
 
 @SuppressWarnings("rawtypes")
+@Component
 public class FindNews {
-	
+	 
 	private final static Logger log = LoggerFactory.getLogger(NewsServiceImpl.class);
+	private static List<String> alreadReptile = new ArrayList<String>();
 	private static final String PATNER = "yyyy-MM/dd";
+	
+	@Scheduled(cron = "0 0 00 * * ?") // 每天00点执行执行一次
+    public void getToken() {
+    	try {
+    		alreadReptile.clear();
+			log.info("清空当前alreadReptile："+new Date()+",size"+alreadReptile.size());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
 	
 	public List<ReptileNewsInfo> getNews() {
 		SimpleDateFormat s = new SimpleDateFormat(PATNER);
@@ -40,7 +54,7 @@ public class FindNews {
 		List<ReptileNewsInfo> arr = new ArrayList<ReptileNewsInfo>();
 		try {
 			String url = "http://www.xinhuanet.com/mil/index.htm";
-			Document doc = Jsoup.connect(url).timeout(50000).userAgent(
+			Document doc = Jsoup.connect(url).timeout(100000).userAgent(
 					"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31")
 					.get();
 			linkurls = newCl.getlinkurl(doc);// 获取网页链接
@@ -52,12 +66,13 @@ public class FindNews {
 				if(url.indexOf(date) == -1) {
 					continue;
 				}
-				doc = Jsoup.connect(url).timeout(50000).userAgent(
+				doc = Jsoup.connect(url).timeout(100000).userAgent(
 						"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31")
 						.get();
 				if(newCl.getnewTitle(doc) == null || newCl.getnewTitle(doc) == "") {
 					continue;
 				}
+				 alreadReptile.add(url);
 				 object.setReptileTime(newCl.getTime(doc));// 获取新闻发布时间
 				 object.setReptileTitle(newCl.getnewTitle(doc));// 获取新闻标题
 				 object.setReptileContent(newCl.getNewtext(doc));// 获取新闻内容
@@ -92,13 +107,13 @@ public class FindNews {
 			}
 		}
 		
-		return time.replace("年", "-").replace("月", "-").replace("日", " ");
+		return time.replace("年", "-").replace("月", "-").replace("日", " ").trim();
 	}
 	
 	public String getnewTitle(Document doc) {
 		// 获取网页的标题
 		String title = doc.title();
-		return title;
+		return title.trim();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -107,6 +122,9 @@ public class FindNews {
 		Elements href = doc.select("a[href]");
 		for (Element hre : href) {
 			String linkUrl = hre.attr("abs:href");// 获取网页的绝对地址
+			if(alreadReptile.contains(linkUrl)) {   //过滤已经爬过的url
+				continue;
+			}
 			if (!linkurls.contains(linkUrl)) {
 				linkurls.add(linkUrl);
 			}
@@ -129,7 +147,7 @@ public class FindNews {
 		return sb.toString().substring(0, sb.lastIndexOf(","));
 	}
 
-	public void downloadImg(String ImgUrl, int count) throws IOException {
+	public void downloadImg(String ImgUrl,int count) throws IOException {
 		if (ImgUrl.indexOf(".jpg") != -1) {
 //			System.out.println("ImgUrl：" + ImgUrl.substring(ImgUrl.lastIndexOf("/") + 1, ImgUrl.lastIndexOf(".")));
 			// 下载图片
@@ -140,6 +158,9 @@ public class FindNews {
 			uc.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0; Windows NT; DigExt)");
 			uc.setReadTimeout(50000);
 			InputStream is = uc.getInputStream(); // 输入流
+			if(!new File(str).exists()) {
+				new File(str).mkdirs();
+			}
 			File file = new File(ss); // 创建文件
 			if(file.exists()) {
 				file.delete();

@@ -48,6 +48,10 @@
 	    ORDER BY b.tv_level
     </select>
     
+    <delete id="deleteTv" parameterType="com.army.vo.PreFileInfo">
+    	DELETE tb_tv_list where tv_id=#{tvId}
+    </delete>
+    
 	 <select id="findTvCount" resultType="int" parameterType="com.army.vo.PreFileInfo">
     	SELECT
 	    	DISTINCT
@@ -65,6 +69,16 @@
 		    </if>
 	    </where> 
     </select>
+	
+	<update id="updateTv" parameterType="com.army.vo.PreFileInfo">
+	
+	UPDATE tb_pre_file SET 
+		<if test="valid != null and valid != ''">
+			is_valid = #{valid}
+		</if>
+	WHERE pre_file_id = #{preFileId}
+	
+	</update>
 	
 	<!--select all app-->
     <select id="findAllTv" resultMap="files" parameterType="com.army.vo.PreFileInfo">

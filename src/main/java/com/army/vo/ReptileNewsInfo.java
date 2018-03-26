@@ -11,6 +11,17 @@ public class ReptileNewsInfo extends BaseInfo{
 	private String pretileImgSrc;
 	
 	private String reptileTime;
+	
+	private String reptileSource;
+	
+
+	public String getReptileSource() {
+		return reptileSource;
+	}
+
+	public void setReptileSource(String reptileSource) {
+		this.reptileSource = reptileSource;
+	}
 
 	public Long getReptileId() {
 		return reptileId;

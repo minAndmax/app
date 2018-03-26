@@ -7,6 +7,7 @@
 		      ,reptile_title AS reptileTitle
 		      ,reptite_content AS reptileContent
 		      ,reptile_img_src AS pretileImgSrc
+		      ,reptile_source AS reptileSource
 		      ,reptile_time AS reptileTime
 		      ,create_time AS createTime
   		FROM tb_reptile_news 
@@ -25,6 +26,7 @@
 		      ,reptile_title AS reptileTitle
 		      ,reptite_content AS reptileContent
 		      ,reptile_img_src AS pretileImgSrc
+		      ,reptile_source AS reptileSource
 		      ,reptile_time AS reptileTime
 		      ,create_time AS createTime
   		FROM tb_reptile_news 
@@ -45,6 +47,7 @@
 		      ,reptile_title AS reptileTitle
 		      ,reptite_content AS reptileContent
 		      ,reptile_img_src AS pretileImgSrc
+		      ,reptile_source AS reptileSource
 		      ,reptile_time AS reptileTime
 		      ,create_time AS createTime
 		      ,is_valid AS valid
@@ -86,6 +89,7 @@
 		      reptile_id AS reptileId
 		      ,reptile_title AS reptileTitle
 		      ,reptite_content AS reptileContent
+		      ,reptile_source AS reptileSource
 		      ,reptile_img_src AS pretileImgSrc
 		      ,reptile_time AS reptileTime
 		      ,create_time AS createTime
@@ -102,6 +106,7 @@
 	    		reptile_id AS reptileId
 		      ,reptile_title AS reptileTitle
 		      ,reptite_content AS reptileContent
+		      ,reptile_source AS reptileSource
 		      ,reptile_img_src AS pretileImgSrc
 		      ,reptile_time AS reptileTime
 		      ,create_time AS createTime
@@ -141,6 +146,7 @@
 	           ,reptile_time
 	           ,is_valid
 	           ,create_time
+	           ,reptile_source
 	          )
 	     	VALUES
 	           (#{reptileTitle},
@@ -148,7 +154,8 @@
 	            #{pretileImgSrc},
 	            #{reptileTime},
 	            #{valid},
-	            GETDATE())
+	            GETDATE(),
+	            #{reptileSource})
     
     </insert>
     

@@ -105,7 +105,7 @@ KindEditor.ready(function(K) {
 				{reptileId:newID},
 				function(data){
 						$("#newtitle").html("<h3>"+data.obj.reptileTitle+"</h3>");
-						$("#nauthor").html("来源:新华网&nbsp;&nbsp;时间:"+data.obj.reptileTime);
+						$("#nauthor").html("来源:"+data.obj.reptileSource+"&nbsp;&nbsp;时间:"+data.obj.reptileTime);
 						var str = data.obj.reptileContent;
 						$("#newcontent").html(str);
 		})

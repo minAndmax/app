@@ -17,4 +17,8 @@ public interface TVMapper {
 	
 	void insertTv(TVListInfo tv)throws Exception;
 
+	void deleteTv(TVListInfo tv);
+	
+	void updateTv(PreFileInfo file);
+
 }

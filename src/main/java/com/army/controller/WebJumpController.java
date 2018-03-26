@@ -31,6 +31,7 @@ import com.army.vo.NewsInfo;
 import com.army.vo.NoticeInfo;
 import com.army.vo.PreFileInfo;
 import com.army.vo.ReptileNewsInfo;
+import com.army.vo.TVListInfo;
 import com.army.vo.UserInfo;
 import com.army.vo.VedioInfo;
 
@@ -80,6 +81,27 @@ public class WebJumpController {
 		JSONArray arry = tVService.findAllTVManeger(info);
 
 		return arry;
+	}
+	/**
+	 * 删除指定的TV
+	 * @param tv
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/manager/deleteTv")
+	public JSONObject deleteTv(TVListInfo tv)throws Exception{
+		
+		JSONObject obj = tVService.deleteTv(tv);
+		
+		return obj;
+	}
+	
+	@RequestMapping("/manager/deletemusic")
+	public JSONObject deletemusic(MusicInfo music)throws Exception{
+		
+		JSONObject obj = musicService.deletemusic(music);
+		
+		return obj;
 	}
 
 	/**
@@ -137,13 +159,12 @@ public class WebJumpController {
 	 * @throws Exception
 	 */
 	@RequestMapping(value = "/manager/insertReptileNews", method = RequestMethod.POST)
-	public JSONObject insertReptileNews(HttpServletRequest request) throws Exception {
+	public JSONObject insertReptileNews() throws Exception {
 
-		JSONObject arry = reptileService.insertReptileNews(request);
+		JSONObject arry = reptileService.insertReptileNews();
 
 		return arry;
 	}
-<<<<<<< HEAD
 	
 	@RequestMapping(value = "/manager/findById", method = RequestMethod.POST)
 	public JSONObject findById(ReptileNewsInfo info) throws Exception {
@@ -153,7 +174,6 @@ public class WebJumpController {
 		return arry;
 	}
 	
-=======
 
 	/**
 	 * 更新获取新闻信息
@@ -163,7 +183,6 @@ public class WebJumpController {
 	 * @return
 	 * @throws Exception
 	 */
->>>>>>> 4ffbb56b43cf3ec3da3052b91833fa77546caf16
 	@RequestMapping(value = "/manager/updateReptileNews", method = RequestMethod.POST)
 	public JSONObject updateReptileNews(HttpServletRequest request, ReptileNewsInfo info) throws Exception {
 
@@ -237,6 +256,13 @@ public class WebJumpController {
 
 	}
 
+	@RequestMapping(value="/manager/updateTv",method = RequestMethod.POST)
+	public JSONObject updateTv(PreFileInfo file)throws Exception{
+		
+		JSONObject obj = tVService.updateTv(file);
+		
+		return obj;
+	}
 	/**
 	 * 查询所有操作记录
 	 * 

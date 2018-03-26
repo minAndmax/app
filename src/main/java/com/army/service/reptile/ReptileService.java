@@ -9,7 +9,7 @@ import com.army.vo.ReptileNewsInfo;
 
 public interface ReptileService {
 
-	JSONObject insertReptileNews(HttpServletRequest request)throws Exception;
+	JSONObject insertReptileNews()throws Exception;
 	
 	JSONObject updateReptileNews(HttpServletRequest request,ReptileNewsInfo news)throws Exception;
 	
@@ -17,9 +17,9 @@ public interface ReptileService {
 	
 	JSONArray findAllReptileNewsManager(ReptileNewsInfo news)throws Exception;
 	
-<<<<<<< HEAD
 	JSONObject findById(ReptileNewsInfo news);
-=======
+	
 	JSONObject findpullNewsById(ReptileNewsInfo news) throws Exception;
->>>>>>> 4ffbb56b43cf3ec3da3052b91833fa77546caf16
+	
+	void insertJiSuNew(ReptileNewsInfo news)throws Exception;
 }
