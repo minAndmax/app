@@ -43,6 +43,7 @@ public class FindNews {
 		}
     }
 	
+	@SuppressWarnings("deprecation")//抑制过期方法警告
 	public List<ReptileNewsInfo> getNews() {
 		SimpleDateFormat s = new SimpleDateFormat(PATNER);
 		String date = s.format(new Date());

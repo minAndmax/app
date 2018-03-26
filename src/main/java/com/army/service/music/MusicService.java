@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.army.vo.MusicInfo;
-import com.army.vo.TVListInfo;
 
 public interface MusicService {
 
@@ -20,5 +19,5 @@ public interface MusicService {
 	
 	JSONArray findAllMusicManeger(MusicInfo musicInfo)throws Exception;
 
-	JSONObject deletemusic(MusicInfo musicInfo);
+	JSONObject deletemusic(HttpServletRequest request,MusicInfo musicInfo);
 }
