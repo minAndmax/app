@@ -173,7 +173,10 @@ public class WebJumpController {
 
 		return arry;
 	}
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 4eee81994e89e0a76fd6116f8dcb567db8103e8f
 
 	/**
 	 * 更新获取新闻信息
