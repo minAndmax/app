@@ -48,6 +48,10 @@
 	    ORDER BY music_id DESC OFFSET #{page} ROW FETCH NEXT #{size} ROW ONLY
     </select>
     
+    <delete id="deleteMusic" parameterType="com.army.vo.MusicInfo">
+    	DELETE TB_MUSIC_PLAYER WHERE music_id = ${musicId}
+    </delete>
+    
     <select id="findMusicCount" resultType="int" parameterType="com.army.vo.MusicInfo">
     	SELECT
 	    	DISTINCT

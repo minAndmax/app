@@ -18,7 +18,7 @@ public interface ReptileMapper {
 	
 	ReptileNewsInfo findByTitle(ReptileNewsInfo news)throws Exception;
 	
-//	String findTodayMaxReptileTime(ReptileNewsInfo news);
+	ReptileNewsInfo findById(ReptileNewsInfo news);
 	
 	
 }

@@ -48,7 +48,7 @@ public class DruidConfiguration implements EnvironmentAware {
         datasource.setMaxWait(Long.valueOf(propertyResolver.getProperty("maxWait")));  
         datasource.setMaxActive(Integer.valueOf(propertyResolver.getProperty("maxActive")));  
         datasource.setMinEvictableIdleTimeMillis(  
-                Long.valueOf(propertyResolver.getProperty("minEvictableIdleTimeMillis")));  
+        Long.valueOf(propertyResolver.getProperty("minEvictableIdleTimeMillis")));  
         try {  
             datasource.setFilters("stat");  
         } catch (SQLException e) {  

@@ -14,5 +14,9 @@ public interface TVService {
 	JSONArray findAllTv(PreFileInfo file)throws Exception;
 	
 	JSONObject insertPreFile(HttpServletRequest request,PreFileInfo file)throws Exception;
+
+	JSONObject deleteTv(TVListInfo tv);
+
+	JSONObject updateTv(PreFileInfo file);
 	
 }

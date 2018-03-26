@@ -130,6 +130,7 @@
         <th>状态</th>
         <th>创建时间</th>
         <th>改变状态</th>
+        <th>操作</th>
         </tr>
         </thead>
         <tbody id="tbody">
@@ -220,6 +221,7 @@
 		        	 						tabhtml += "<td>已关闭</td>";
 		        						}
 		         						tabhtml += "<td colspan='2'>"+tv[j].createTime+"</td>";
+		         						tabhtml += "<td><label class='tablelink' onclick=deletetv("+tv[j].tvId+",'"+tv[j].tvSrc+"')>删除</label></td>";
 		         						tabhtml += "</tr>";
 	         						}
 	         					}
@@ -228,6 +230,52 @@
 	                }
 	        	}
  			
+		     function deletetv(obj,src){
+		    	 
+		    	 swal({
+						title: "删除?",
+			            type: "warning",
+			            showCancelButton: true,
+			            confirmButtonColor: "#FF0000",
+			            cancelButtonText: "取消",
+			            confirmButtonText: "确定 ",
+			            closeOnConfirm: false,
+						},function(isConfirm){
+							if(isConfirm){
+				     			
+								swal({
+									confirmButtonColor: "#FF0000",
+				                    title: "请等待……",
+				                    type: "warning",
+				                    showConfirmButton: false,
+				                    showCancelButton: true
+				                });
+				     			
+						$.post("/data/manager/deleteTv",{tvId : obj,tvSrc : src},function(date){
+	     				if(date.tipStatus != 1){
+	     					swal({
+	    						confirmButtonColor: "#FF0000",
+	    						title: "删除失败",
+	    						confirmButtonText: "确认",
+	    						type: "error"
+	    					});
+	     				} else{
+	     					swal({
+	    						confirmButtonColor: "#FF0000",
+	    						title: "删除成功",
+	    						confirmButtonText: "确认",
+	    						type: "success"
+	    					},function(inputValue){
+	    						
+				     			KindEditor.html("#content7","");
+	    						load(1);
+	        	            }, 2000);
+	     				}
+	     				
+	     					})
+						}
+	       			 });
+				}
  			  
  			 $("#scbtn").click(function(){
  				 load();
@@ -317,7 +365,6 @@
 			     			}
 			     			
      			$.post("/data/manager/insertPreFile",requests,function(date){
-     				
      				if(date.tipStatus != 1){
      					swal({
     						confirmButtonColor: "#FF0000",
@@ -349,7 +396,7 @@
      		var valid = obj;
      	
      		
-     		$.post("/data/manager/updateMoive",{vedioId : vedioId,valid : valid},function(data){
+     		$.post("/data/manager/updateTv",{preFileId : vedioId,valid : valid},function(data){
      			if(data.tipStatus != 1){
      				swal({
 						confirmButtonColor: "#1ab394",

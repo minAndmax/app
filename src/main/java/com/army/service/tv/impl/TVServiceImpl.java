@@ -1,12 +1,13 @@
 package com.army.service.tv.impl;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -118,6 +119,45 @@ public class TVServiceImpl implements TVService {
 			log.error("程序异常，电视目录添加失败[ {} ]" + e.getMessage());
 		}
 		
+		return obj;
+	}
+	
+	
+	
+	@Override
+	public JSONObject deleteTv(TVListInfo tv) {
+		
+		JSONObject obj = new JSONObject();
+		try {
+			
+			tVMapper.deleteTv(tv);
+			
+			if(new File("D:"+File.separator+tv.getTvSrc()).exists()) {
+				new File("D:"+File.separator+tv.getTvSrc()).delete();
+			}
+			obj.put(KeyWord.TIPSTATUS, StatusEnum.SSUCCESS.getNum());
+			obj.put(KeyWord.TIPSTATUSCONTEN, StatusEnum.SSUCCESS.getValue());
+		} catch (Exception e) {
+			e.printStackTrace();
+			obj.put(KeyWord.TIPSTATUS, StatusEnum.FAIL.getNum());
+			obj.put(KeyWord.TIPSTATUSCONTEN, StatusEnum.FAIL.getValue());
+		}
+		
+		return obj;
+	}
+
+	@Override
+	public JSONObject updateTv(PreFileInfo file) {
+		JSONObject obj = new JSONObject();
+		try {
+			tVMapper.updateTv(file);
+			obj.put(KeyWord.TIPSTATUS, StatusEnum.SSUCCESS.getNum());
+			obj.put(KeyWord.TIPSTATUSCONTEN, StatusEnum.SSUCCESS.getValue());
+		} catch (Exception e) {
+			e.printStackTrace();
+			obj.put(KeyWord.TIPSTATUS, StatusEnum.FAIL.getNum());
+			obj.put(KeyWord.TIPSTATUSCONTEN, StatusEnum.FAIL.getValue());
+		}
 		return obj;
 	}
 

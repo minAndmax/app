@@ -61,7 +61,7 @@
 	<div class="place">
     <span class="sp">位置：</span>
     <ul class="placeul">
-    <li><a href="newstab.html">系统管理</a></li>
+    <li><a href="reptilenews.html">系统管理</a></li>
     </ul>
     </div>
     
@@ -102,7 +102,7 @@
     	<thead>
     	<tr>
         <th>标题</th>
-<!--         <th>新闻内容</th> -->
+        <th>来源</th>
         <th>新闻时间</th>
         <th>状态</th>
 <!--         <th>创建时间</th> -->
@@ -169,7 +169,7 @@
 	         					for(var i = 0 ; i <  len; i++){
 	         						tabhtml += "<tr>";
 	         						tabhtml += "<td>"+data[i].reptileTitle+"</td>";
-// 	         						tabhtml += "<td>"+data[i].reptileContent+"</td>";
+	         						tabhtml += "<td>"+data[i].reptileSource+"</td>";
 	         						tabhtml += "<td>"+data[i].reptileTime+"</td>";
 	        						if(data[i].valid == 'Y'){
 	        							tabhtml += "<td>有效</td>";
@@ -178,7 +178,7 @@
 	        						}
 // 	         						tabhtml += "<td>"+data[i].createTime+"</td>";
 	         						tabhtml += "<td><label onclick=status("+data[i].reptileId+",'N') class='tablelink'>关闭</label>&nbsp;&nbsp;<label onclick=status("+data[i].reptileId+",'Y')  class='tablelink'>恢复</label></td>";
-	         						tabhtml += "<td><a href='findandupdate.jsp?newId="+data[i].reptileId+"' class='tablelink'>查看</label></td>";
+	         						tabhtml += "<td><a href='finreptile.jsp?reptileId="+data[i].reptileId+"' class='tablelink'>查看</label></td>";
 	         						tabhtml += "</tr>";
 	         					}
 							}
@@ -242,7 +242,7 @@
      					} else{
      						swal({
 	    						confirmButtonColor: "#FF0000",
-	    						title: "拉取太频繁，暂无新数据",
+	    						title: "暂无新数据",
 	    						confirmButtonText: "确认",
 	    						type: "success"
 	    					});

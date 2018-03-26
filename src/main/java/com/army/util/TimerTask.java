@@ -16,25 +16,11 @@ public class TimerTask implements CommandLineRunner{
 	
 	private static final int M5 = 90 * 1000;
 	
-	@Autowired
-	private NewsService newsService;
-	
-	public void start() {
-		
-//		CountThread ct = new CountThread();
-//		UncaughtExceptionHandler eh = new UncaughtExceptionHandler() {
-//			public void uncaughtException(Thread t, Throwable e) {
-//				start();
-//			}
-//		};
-//		ct.setUncaughtExceptionHandler(eh);
-//		ct.start();
-		
-	}
 	
 	@Override
 	public void run(String... arg0) throws Exception {
-		
+		log.info("start.............");
+//		start();
 	}
 
 }

@@ -3,6 +3,7 @@ package com.army.dao;
 import java.util.List;
 
 import com.army.vo.MusicInfo;
+import com.army.vo.TVListInfo;
 
 public interface MusicMapper {
 	
@@ -17,4 +18,7 @@ public interface MusicMapper {
 	int findMusicCount(MusicInfo musicInfo)throws Exception;
 	
 	List<MusicInfo> findAllMusicManeger(MusicInfo musicInfo)throws Exception;
+
+	void deleteMusic(MusicInfo tv);
+
 }

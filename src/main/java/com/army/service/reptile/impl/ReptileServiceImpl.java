@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -32,63 +34,75 @@ public class ReptileServiceImpl implements ReptileService {
 
 	@Autowired
 	private OperateMapper operateMapper;
-
+	
+	@Transactional(rollbackFor=Exception.class)
 	@Override
-	public JSONObject insertReptileNews(HttpServletRequest request) throws Exception {
-
-		// SimpleDateFormat sm = new SimpleDateFormat("yyyy-MM-dd");
-		// String time = sm.format(new Date());
-		// ReptileNewsInfo in = new ReptileNewsInfo();
-		// in.setReptileTime(time);
-		// String maxTime = reptileMapper.findTodayMaxReptileTime(in);
+	@Scheduled(cron = "0 0 8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23 * * ?") // 每天8点18点执行执行一次
+	public JSONObject insertReptileNews() {
+		
 		JSONObject obj = new JSONObject();
-		int n = 0;
+		int n = 0 ;
 		try {
 			FindNews fw = new FindNews();
-
+			
 			List<ReptileNewsInfo> arr = fw.getNews();
-			Thread.sleep(10000);
-			for (ReptileNewsInfo reptileNewsInfo : arr) {
-
-				if (reptileNewsInfo.getReptileContent() == null) {
+			Thread.sleep(1000);
+			for(ReptileNewsInfo reptileNewsInfo : arr) {
+				
+				if(reptileNewsInfo.getReptileContent() == null) {
 					continue;
 				}
 				ReptileNewsInfo re = reptileMapper.findByTitle(reptileNewsInfo);
-				if (re != null) {
+				if(re != null) {
 					continue;
 				}
 				reptileNewsInfo.setValid(ValidEnum.VALID.getValidStatus());
+				
+				String[] imgs = reptileNewsInfo.getPretileImgSrc().split(",");
+				
+				if(imgs != null) {
+					for(int i = 0 ; i < imgs.length ; i++) {
+						if(reptileNewsInfo.getReptileContent().indexOf(imgs[i]) != -1) {
+							reptileNewsInfo.setReptileContent(reptileNewsInfo.getReptileContent().replace(imgs[i], "/upload/image/"+imgs[i]));
+						}
+					}
+				}
+				reptileNewsInfo.setReptileSource("新华网");
 				reptileMapper.insertReptileNews(reptileNewsInfo);
-
+	
 				OperateInfo opt = new OperateInfo();
 				opt.setOptType("insert");
 				opt.setOptName("添加新闻");
-				opt.setOptUserId((long) 1);
-				opt.setOptRemark("系统获取新闻,自动添加,标题《" + reptileNewsInfo.getReptileTitle() + "》新闻时间:"
-						+ reptileNewsInfo.getReptileTime());
-
+				opt.setOptUserId((long)1);
+				opt.setOptRemark("系统获取新闻,自动添加,标题《"
+						+ reptileNewsInfo.getReptileTitle()+ "》新闻时间:" + reptileNewsInfo.getReptileTime());
+	
 				operateMapper.inserObject(opt);
 				n++;
 			}
-			log.info("系统获取新闻添加成功[ {} ]" + obj);
 			obj.put(KeyWord.TIPSTATUS, StatusEnum.SSUCCESS.getNum());
 			obj.put(KeyWord.TIPSTATUSCONTEN, StatusEnum.SSUCCESS.getValue());
 			obj.put("insertNum", n);
+			if(n == 0) {
+				log.info("暂无新数据[ {} ]" + obj);
+			} else {
+				log.info("系统获取新闻添加成功[ {} ]" + obj);
+			}
 		} catch (Exception e) {
-			e.printStackTrace();
-			obj.put(KeyWord.TIPSTATUS, StatusEnum.FAIL.getNum());
+            e.printStackTrace();
+            obj.put(KeyWord.TIPSTATUS, StatusEnum.FAIL.getNum());
 			obj.put(KeyWord.TIPSTATUSCONTEN, StatusEnum.FAIL.getValue());
 			log.error("程序异常，系统获取新闻添加失败[ {} ]" + e.getMessage());
 		}
 		return obj;
-
+		
 	}
-
+	@Transactional(rollbackFor=Exception.class)
 	@Override
-	public JSONObject updateReptileNews(HttpServletRequest request, ReptileNewsInfo news) throws Exception {
-
+	public JSONObject updateReptileNews(HttpServletRequest request,ReptileNewsInfo news) {
+		
 		JSONObject obj = new JSONObject();
-
+		ReptileNewsInfo in = reptileMapper.findById(news);
 		try {
 			reptileMapper.updateReptileNews(news);
 			JSONObject sessionObj = (JSONObject) request.getSession().getAttribute(KeyWord.USERSESSION);
@@ -99,17 +113,17 @@ public class ReptileServiceImpl implements ReptileService {
 			opt.setOptName("修改系统新闻");
 			StringBuilder sb = new StringBuilder();
 			sb.append(sessionObj.getString("roleName") + "-" + sessionObj.getString("userName"));
-			sb.append("，修改系统新闻《" + news.getReptileTitle() + "》");
-			if (news.getValid() != null) {
-				sb.append(news.getValid().equals("Y") ? ",状态为:有效" : ",状态为:无效" + "");
+			sb.append("，修改系统新闻《"+in.getReptileTitle()+"》");
+			if(news.getValid() != null) {
+				sb.append(news.getValid().equals("Y") ? ",状态为:有效" : ",状态为:无效"+"");
 			}
 			opt.setOptRemark(sb.toString());
 
 			operateMapper.inserObject(opt);
-
+			
 			obj.put(KeyWord.TIPSTATUS, StatusEnum.SSUCCESS.getNum());
 			obj.put(KeyWord.TIPSTATUSCONTEN, StatusEnum.SSUCCESS.getValue());
-
+			
 			log.info("系统新闻修改成功[ {} ]" + obj);
 
 		} catch (Exception e) {
@@ -180,6 +194,12 @@ public class ReptileServiceImpl implements ReptileService {
 	}
 
 	@Override
+	public JSONObject findById(ReptileNewsInfo news) {
+		ReptileNewsInfo in = reptileMapper.findById(news);
+		JSONObject obj = new JSONObject();
+		obj.put("obj", in);
+		return obj;
+	}
 	public JSONObject findpullNewsById(ReptileNewsInfo news) throws Exception {
 
 		ReptileNewsInfo rnews = reptileMapper.findByTitle(news);
@@ -187,6 +207,41 @@ public class ReptileServiceImpl implements ReptileService {
 		JSONObject obj = new JSONObject();
 		obj.put("jsonobejct", rnews);
 		return obj;
+	}
+	@Transactional(rollbackFor=Exception.class)
+	@Override
+	public void insertJiSuNew(ReptileNewsInfo reptileNewsInfo) {
+		try {
+			
+				
+				ReptileNewsInfo re = reptileMapper.findByTitle(reptileNewsInfo);
+				reptileNewsInfo.setValid(ValidEnum.VALID.getValidStatus());
+				
+				String[] imgs = reptileNewsInfo.getPretileImgSrc().split(",");
+				
+				if(imgs != null) {
+					for(int i = 0 ; i < imgs.length ; i++) {
+						if(reptileNewsInfo.getReptileContent().indexOf(imgs[i]) != -1) {
+							reptileNewsInfo.setReptileContent(reptileNewsInfo.getReptileContent().replace(imgs[i], "/upload/image/"+imgs[i]));
+						}
+					}
+				}
+				reptileMapper.insertReptileNews(reptileNewsInfo);
+	
+				OperateInfo opt = new OperateInfo();
+				opt.setOptType("insert");
+				opt.setOptName("添加极速新闻");
+				opt.setOptUserId((long)1);
+				opt.setOptRemark("系统获取极速新闻,自动添加,标题《"
+						+ reptileNewsInfo.getReptileTitle()+ "》新闻时间:" + reptileNewsInfo.getReptileTime());
+	
+				operateMapper.inserObject(opt);
+				log.info("系统获取极速新闻添加成功");
+		} catch (Exception e) {
+            e.printStackTrace();
+			log.error("程序异常，系统获取极速新闻添加失败[ {} ]" + e.getMessage());
+		}
+		
 	}
 
 }

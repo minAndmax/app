@@ -1,5 +1,6 @@
 package com.army.service.music.impl;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import com.army.util.StatusEnum;
 import com.army.util.ValidEnum;
 import com.army.vo.MusicInfo;
 import com.army.vo.OperateInfo;
+import com.army.vo.TVListInfo;
 
 @Service("/musicService")
 public class MusicServiceImpl implements MusicService{
@@ -152,6 +154,27 @@ public class MusicServiceImpl implements MusicService{
 		}
 
 		
+		return obj;
+	}
+
+	@Override
+	public JSONObject deletemusic(MusicInfo music) {
+		
+		JSONObject obj = new JSONObject();
+		try {
+			
+			musicMapper.deleteMusic(music);
+			
+			if(new File("D:"+File.separator+music.getMusicSrc()).exists()) {
+				new File("D:"+File.separator+music.getMusicSrc()).delete();
+			}
+			obj.put(KeyWord.TIPSTATUS, StatusEnum.SSUCCESS.getNum());
+			obj.put(KeyWord.TIPSTATUSCONTEN, StatusEnum.SSUCCESS.getValue());
+		} catch (Exception e) {
+			e.printStackTrace();
+			obj.put(KeyWord.TIPSTATUS, StatusEnum.FAIL.getNum());
+			obj.put(KeyWord.TIPSTATUSCONTEN, StatusEnum.FAIL.getValue());
+		}
 		return obj;
 	}
 
