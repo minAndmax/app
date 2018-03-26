@@ -143,7 +143,6 @@ public class WebJumpController {
 
 		return arry;
 	}
-<<<<<<< HEAD
 	
 	@RequestMapping(value = "/manager/findById", method = RequestMethod.POST)
 	public JSONObject findById(ReptileNewsInfo info) throws Exception {
@@ -152,8 +151,6 @@ public class WebJumpController {
 
 		return arry;
 	}
-	
-=======
 
 	/**
 	 * 更新获取新闻信息
@@ -163,7 +160,6 @@ public class WebJumpController {
 	 * @return
 	 * @throws Exception
 	 */
->>>>>>> 4ffbb56b43cf3ec3da3052b91833fa77546caf16
 	@RequestMapping(value = "/manager/updateReptileNews", method = RequestMethod.POST)
 	public JSONObject updateReptileNews(HttpServletRequest request, ReptileNewsInfo info) throws Exception {
 
