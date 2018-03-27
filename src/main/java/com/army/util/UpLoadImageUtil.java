@@ -10,13 +10,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -39,6 +39,8 @@ public class UpLoadImageUtil {
 
 	// 音乐文件保存路径
 	private static final String UPLOAD_MUSIC_PATH = "/upload/music/";
+	
+	private static int num = 1;
 
 	public static JSONObject uploadFile(HttpServletRequest request,HttpServletResponse response) {
 		response.setContentType("text/html;charset=utf-8");
@@ -98,10 +100,20 @@ public class UpLoadImageUtil {
 			obj.put("message", "不支持的扩展名");
 			log.info("不支持的扩展名");
 		}
-
+		num++;
 		return obj;
 	}
 
+	@Scheduled(cron = "0 0 00  * * ?") // 每天00点执行执行一次
+    public void getToken() {
+    	try {
+    		num = 1;
+			log.info("清空当前num："+new Date()+",num="+num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+	
 	private static void SaveFileFromInputStream(InputStream stream, String path, String filename) {
 		
 		FileOutputStream fs = null;
@@ -190,7 +202,6 @@ public class UpLoadImageUtil {
 
 		String name = "";
 		SimpleDateFormat sm = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-		int num = new Random().nextInt(1000) + new Random().nextInt(1000);
 		name = sm.format(new Date()) + "_" + num + "." + suffix;
 
 		return name;

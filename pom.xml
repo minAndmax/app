@@ -30,11 +30,6 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>springloaded</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>com.taobao</groupId>
-			<artifactId>tmallserver</artifactId>
-			<version>20170904</version>
-		</dependency>
 		
 		<dependency>
 		    <groupId>org.jsoup</groupId>
@@ -111,12 +106,6 @@
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
 			<version>4.3.5</version>
-		</dependency>
-		<!-- 工人接口所用的api(正式) -->
-		<dependency>
-			<groupId>com.taobao</groupId>
-			<artifactId>tmallserver</artifactId>
-			<version>20170904</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/net.sf.json-lib/json-lib -->
 		<dependency>

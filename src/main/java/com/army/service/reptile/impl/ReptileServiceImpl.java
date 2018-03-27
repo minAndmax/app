@@ -37,10 +37,7 @@ public class ReptileServiceImpl implements ReptileService {
 	
 	@Transactional(rollbackFor=Exception.class)
 	@Override
-<<<<<<< HEAD
 	@Scheduled(cron = "0 0 8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23 * * ?") // 每天8点18点执行执行一次
-=======
->>>>>>> 4eee81994e89e0a76fd6116f8dcb567db8103e8f
 	public JSONObject insertReptileNews() {
 		
 		JSONObject obj = new JSONObject();
