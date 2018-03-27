@@ -48,8 +48,23 @@
 	    ORDER BY b.tv_level
     </select>
     
+    <select id="findTVById"   parameterType="com.army.vo.TVListInfo" resultType="com.army.vo.TVListInfo">
+ 		 SELECT DISTINCT
+			   b.tv_level AS tvlevel
+		      ,b.tv_id AS tvId
+		      ,b.tv_name AS tvName
+		      ,b.tv_src 
+		      ,b.create_name AS tv_create_name
+		      ,b.create_time AS tv_create_time
+		      ,b.is_valid AS tv_is_valid
+	 	 FROM tb_tv_list b
+	     WHERE tv_id =#{tvId}
+    </select>
+    
     <delete id="deleteTv" parameterType="com.army.vo.PreFileInfo">
-    	DELETE tb_tv_list where tv_id=#{tvId}
+    	<if test="tvId != null and tvId != 0">
+	    	DELETE tb_tv_list where tv_id=#{tvId}
+    	</if>
     </delete>
     
 	 <select id="findTvCount" resultType="int" parameterType="com.army.vo.PreFileInfo">

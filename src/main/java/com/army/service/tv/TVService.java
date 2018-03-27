@@ -15,7 +15,7 @@ public interface TVService {
 	
 	JSONObject insertPreFile(HttpServletRequest request,PreFileInfo file)throws Exception;
 
-	JSONObject deleteTv(TVListInfo tv);
+	JSONObject deleteTv(HttpServletRequest request,TVListInfo tv);
 
 	JSONObject updateTv(PreFileInfo file);
 	

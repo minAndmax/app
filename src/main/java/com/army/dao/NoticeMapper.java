@@ -2,7 +2,6 @@ package com.army.dao;
 
 import java.util.List;
 
-import com.alibaba.fastjson.JSONObject;
 import com.army.vo.NoticeInfo;
 
 public interface NoticeMapper {

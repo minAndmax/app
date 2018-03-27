@@ -82,25 +82,27 @@ public class WebJumpController {
 
 		return arry;
 	}
+
 	/**
 	 * 删除指定的TV
+	 * 
 	 * @param tv
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/manager/deleteTv")
-	public JSONObject deleteTv(TVListInfo tv)throws Exception{
-		
-		JSONObject obj = tVService.deleteTv(tv);
-		
+	public JSONObject deleteTv(HttpServletRequest request, TVListInfo tv) throws Exception {
+		tv.setCreateName(GetUserInfo.getUserName(request));
+		JSONObject obj = tVService.deleteTv(request, tv);
+
 		return obj;
 	}
-	
+
 	@RequestMapping("/manager/deletemusic")
-	public JSONObject deletemusic(MusicInfo music)throws Exception{
-		
-		JSONObject obj = musicService.deletemusic(music);
-		
+	public JSONObject deletemusic(HttpServletRequest request, MusicInfo music) throws Exception {
+		music.setCreateName(GetUserInfo.getUserName(request));
+		JSONObject obj = musicService.deletemusic(request, music);
+
 		return obj;
 	}
 
@@ -119,8 +121,10 @@ public class WebJumpController {
 
 		return arry;
 	}
+
 	/**
 	 * 根据ID查找爬取的新闻
+	 * 
 	 * @param news
 	 * @return
 	 * @throws Exception
@@ -165,10 +169,10 @@ public class WebJumpController {
 
 		return arry;
 	}
-	
+
 	@RequestMapping(value = "/manager/findById", method = RequestMethod.POST)
 	public JSONObject findById(ReptileNewsInfo info) throws Exception {
-		
+
 		JSONObject arry = reptileService.findById(info);
 
 		return arry;
@@ -255,13 +259,14 @@ public class WebJumpController {
 
 	}
 
-	@RequestMapping(value="/manager/updateTv",method = RequestMethod.POST)
-	public JSONObject updateTv(PreFileInfo file)throws Exception{
-		
+	@RequestMapping(value = "/manager/updateTv", method = RequestMethod.POST)
+	public JSONObject updateTv(PreFileInfo file) throws Exception {
+
 		JSONObject obj = tVService.updateTv(file);
-		
+
 		return obj;
 	}
+
 	/**
 	 * 查询所有操作记录
 	 * 

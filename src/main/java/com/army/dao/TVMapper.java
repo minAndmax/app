@@ -21,4 +21,6 @@ public interface TVMapper {
 	
 	void updateTv(PreFileInfo file);
 
+	TVListInfo findTVById(TVListInfo tv) throws Exception;
+	
 }
